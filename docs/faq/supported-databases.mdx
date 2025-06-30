@@ -1,0 +1,42 @@
+---
+title: "What Databases Are Supported In Production?"
+description: MySQL 8 is the only supported database in production.
+---
+
+***
+
+As a small team developing open source software that is free to use, we provide a narrow set of environments that are officially supported to keep maintenance manageable. Ghost is built for use with Ubuntu, MySQL 8, nginx and Node.js LTS.
+
+MySQL 8 provides features that are optimal for Ghost installations, including the ability to store JSON, and features that help us deliver performance improvements.
+
+If database interoperability is something that you are passionate about, consider supporting the [knex](https://github.com/knex/knex) project.
+
+## How to check your current database in production
+
+* Use `ghost ls` to locate your install and navigate to its location.
+
+* Run `ghost config database.client` this should output `sqlite3` or `mysql`.
+
+* If it says mysql, run `mysql --version` to find the details of your mysql install.
+
+## How to update MySQL 5 to MySQL 8
+
+This will happen automatically if you update your Ubuntu install to [Ubuntu 20](https://www.digitalocean.com/community/tutorials/how-to-upgrade-to-ubuntu-20-04-focal-fossa). Alternatively you can update MySQL using your package manager of choice.
+
+Once your MySQL package is updated, change your Ghost table collations to the new default of`utf8mb4_0900_ai_ci`.
+
+Running the following command will generate a set of `ALTER TABLE` commands needed to correct your database:
+
+`mysql <database> -u <username> -p -B --disable-column-names -h localhost -e 'SELECT CONCAT("ALTER TABLE ",TABLE_SCHEMA,".",TABLE_NAME," CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci; ", "ALTER TABLE ",TABLE_SCHEMA,".",TABLE_NAME," CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;") AS alter_sql FROM information_schema.TABLES WHERE TABLE_SCHEMA = database();'`
+
+Once you have the alter table commands, run:
+
+`mysql <database> -u <username> -p 'set foreign_key_checks=0; <ALTER TABLE COMMANDS> set foreign_key_checks=1;'`
+
+## How to migrate from MariaDB to MySQL 8
+
+We strongly recommend migrating from MariaDB to MySQL 8 —[a helpful guide can be found here](https://forum.ghost.org/t/how-to-migrate-from-mariadb-10-to-mysql-8/29575).
+
+## How to migrate from SQLite3
+
+We strongly recommend switching to MySQL 8 by performing a full [reinstall of Ghost](/docs/reinstall).

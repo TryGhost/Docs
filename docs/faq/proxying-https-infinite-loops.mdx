@@ -1,0 +1,24 @@
+---
+title: "Reverse Proxying To Ghost"
+description: Ghost is designed to have a reverse proxy in front of it. If you use Ghost-CLI to install Ghost, this will be setup for you using nginx. If you configure your own proxy, you’ll need to make sure the proxy is configured correctly.
+---
+
+***
+
+The configuration used by [Ghost CLI](https://github.com/TryGhost/Ghost-CLI/tree/master/extensions/nginx/templates) looks like this:
+
+```php
+location / {
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header Host $http_host;
+    proxy_pass http://127.0.0.1:2368;
+}
+
+client_max_body_size 50m;
+```
+
+If you run into an infinite redirect loop when trying to configure your own proxy with nginx, apache, cloudfront or any other proxy and serving Ghost over HTTPS, this is due to the `x-forwarded-proto` header being set incorrectly. Your proxy will handle SSL termination and proxy to Ghost using http. To tell Ghost that the requests coming into the proxy are secure, set the `x-forwarded-proto` header to `https`. Without this, Ghost will think the requests are insecure, attempt to redirect to the https version of a URL and cause an infinite redirect loop.
+
+If you’re using nginx, don’t forget to also increase the max body size if you need to allow for large uploads of images, themes or imports.

@@ -1,0 +1,44 @@
+---
+title: "Translation In Ghost"
+description: Creators from all over the world use Ghost. Publications abound in German, French, Spanish, Sinhalese, and Arabic—and the list keeps going!
+---
+
+***
+
+Below, we have collected together essential concepts, strategies, and known limitations when working with languages other than English in Ghost.
+
+## Theme translation
+
+Ghost fully supports the ability to translate themes into different languages. This means that text in a theme is translated based on the language set in Ghost Admin.
+
+<Frame>
+  <img src="/images/a81f3efa-publication-language_hu12bd91634ea8eca345aacde59c0bf609_192891_1392x0_resize_q100_h2_box_3.webp" />
+</Frame>
+
+Theme developers can use the `translate` helper to make a theme translatable—see [our docs](https://ghost.org/docs/themes/helpers/translate/) for instructions on usage and examples.
+
+Some premium themes—like [Tripoli](https://ghost.org/themes/tripoli/), [Galerie](https://ghost.org/themes/galerie/), and [Basho](https://ghost.org/themes/basho/)—include translation support out of the box.
+
+## Best practices and strategies
+
+Some of the complexity involved in building Ghost sites in languages other than English can be lessened by implementing the following best practices and strategies:
+
+* Keep hardcoded text to a minimum. The less hardcoded text in a theme, the less there is to translate. For example, instead of having “by” and “por” in the byline, consider just listing the author’s name.
+* Use [custom theme settings](https://ghost.org/docs/themes/custom-settings/) to allow your users to translate text themselves.
+* Create multiple newsletters to target different languages.
+
+## UI translations
+
+Ghost has native support for translated system text in transactional emails, the Portal membership system, search, and comments.
+
+*Ghost Admin does not yet support internationalization.*
+
+## Multi-language content
+
+A multi-language content site supports multiple languages at the same time, like publishing in Spanish and English.
+
+If you plan on publishing different content in each language, we recommend one Ghost install per language. Our experience shows that this approach is not only the easiest to get off the ground, but it’s also the most sustainable long-term.
+
+If you’re publishing the same content in different languages, then we recommend using a service like [WeGlot](https://ghost.org/integrations/weglot/) or [Transifex](https://ghost.org/integrations/transifex/).
+
+Note that the `translate` helper mentioned above **doesn’t work** for multi-language content sites, as its purpose is entirely different.

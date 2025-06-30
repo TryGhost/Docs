@@ -1,0 +1,276 @@
+---
+title: "Working With Gatsby"
+description: Build a custom front-end for your Ghost site with the power of Gatsby.js
+---
+
+***
+
+<Frame>
+  <img src="/images/1f725078-admin-api-gatsby-diagram_hu088f0fec0d83414e79d90f8ae3457e19_21185_1000x0_resize_q100_h2_box_3.webp" />
+</Frame>
+
+## Gatsby Starter Ghost
+
+One of the best ways to start a new Gatsby site is with a Gatsby Starter, and in this case, it’s no different.
+
+#### Prerequisites
+
+To use Gatsby Starters, and indeed Gatsby itself, the [Gatsby CLI](https://www.gatsbyjs.org/docs/quick-start/) tool is required. Additionally, a [Ghost account](/pricing/) is needed to source content and get site related credentials.
+
+#### Getting started
+
+To begin, generate a new project using the [Gatsby Starter Ghost](https://github.com/TryGhost/gatsby-starter-ghost) template with the following CLI command:
+
+```bash
+gatsby new my-gatsby-site https://github.com/TryGhost/gatsby-starter-ghost.git
+```
+
+Navigate into the newly created project and use either npm install or yarn to install the dependencies. The Ghost team prefer to use [Yarn](https://yarnpkg.com/en/docs/install#mac-stable).
+
+Before customising and developing in this new Gatsby site, it’s wise to give it a test run to ensure everything is installed correctly. Use the following command to run the project:
+
+```bash
+gatsby develop
+```
+
+Then navigate to `http://localhost:8000/` in a browser and view the newly created Gatsby site.
+
+<Frame>
+  <img src="/images/218dae99-gatsby-demo-screenshot_huf503a446e74501027d0049b3b70cf420_364260_1280x0_resize_q100_h2_box_3.webp" />
+</Frame>
+
+## Making it your own
+
+So, you’ve set up a Gatsby site, but it’s not showing the right content. This is where content sourcing comes into play. Gatsby uses [GraphQL](https://graphql.org/) as a method of pulling content from a number of APIs, including Ghost. Sourcing content from Ghost in the Gatsby Starter Ghost template is made possible with the [Gatsby Source Ghost](https://github.com/TryGhost/gatsby-source-ghost) plugin.
+
+Configuring the plugin can be done within the template files. Within the project, navigate to and open the file named `.ghost.json`, which is found at root level:
+
+```json
+// .ghost.json
+{
+ "development": {
+  "apiUrl": "https://gatsby.ghost.io",
+  "contentApiKey": "9cc5c67c358edfdd81455149d0"
+ },
+ "production": {
+  "apiUrl": "https://gatsby.ghost.io",
+  "contentApiKey": "9cc5c67c358edfdd81455149d0"
+ }
+}
+```
+
+This json file is set up to make environment variables a bit easier to control and edit. Change the apiUrl value to the URL of the site. For Ghost(Pro) customers, this is the Ghost URL ending in .ghost.io, and for people using the self-hosted version of Ghost, it’s the same URL used to view the admin panel.
+
+In most cases, it’s best to change both the development and production to the same site details. Use the respective environment objects when using production and development content; this is ideal if you’re working with clients and test content. After saving these changes, restart the local server.
+
+Using [Netlify](https://www.netlify.com/) to host your site? If so, the `netlify.toml` file that comes with the starter template provides the deployment configuration straight out of the box.
+
+## Next steps
+
+[The official Gatsby docs](https://www.gatsbyjs.org/docs/gatsby-project-structure/) is a great place to learn more about how typical Gatsby projects are structured and how it can be extended.
+
+Gaining a greater understanding of how data and content can be sourced from the Ghost API with GraphQL will help with extending aforementioned starter project for more specific use cases.
+
+There’s also a guide for setting up a new static site, such as Gatsby, [with the hosting platform Netlify](/integrations/netlify/).
+
+For community led support about linking and building a Ghost site with Gatsby, [visit the forum](https://forum.ghost.org/c/themes/).
+
+As with all content sources for Gatsby, content is fed in by [GraphQL](https://www.gatsbyjs.org/tutorial/part-four/), and it’s no different with Ghost. The official [Gatsby Source Ghost](https://github.com/TryGhost/gatsby-source-ghost) plugin allows you to pull content from your existing Ghost site.
+
+## Getting started
+
+Installing the plugin is the same as any other Gatsby plugin. Use your CLI tool of choice to navigate to your Gatsby project and a package manager to install it:
+
+```bash
+# yarn users
+yarn add gatsby-source-ghost
+# npm users
+npm install --save gatsby-source-ghost
+```
+
+After that, the next step is to get the API URL and Content API Key of the Ghost site. The API URL is domain used to access the Ghost Admin. For Ghost(Pro) customers, this is the `.ghost.io`, for example: `mysite.ghost.io`. For self-hosted versions of Ghost, use the admin panel access URL and ensure that the self-hosted version is served over a https connection. The Content API Key can be found on the Integrations screen of the Ghost Admin.
+
+Open the `gatsby-config.js` file and add the following to the `plugins` section:
+
+```js
+// gatsby-config.js
+{
+  resolve: `gatsby-source-ghost`,
+  options: {
+    apiUrl: `https://<your-site-subdomain>.ghost.io`,
+    contentApiKey: `<your content api key>`
+  }
+}
+```
+
+Restart the local server to apply these configuration changes.
+
+## Querying Graph with GraphQL
+
+The Ghost API provides 5 types of nodes:
+
+* Post
+* Page
+* Author
+* Tag
+* Settings
+
+These nodes match with the endpoints shown in the [API endpoints documentation](/docs/content-api/#endpoints). Querying these node with GraphQL can be done like so:
+
+```gql
+{
+  allGhostPost(sort: { order: DESC, fields: [published_at] }) {
+    edges {
+      node {
+        id
+        slug
+        title
+        html
+        published_at
+      }
+    }
+  }
+}
+```
+
+The above example is retrieving all posts in descending order of the ‘published at’ field. The posts will each come back with an id, slug, title, the content (html) and the ‘published at’ date.
+
+## Next steps
+
+GraphQL is a very powerful tool to query the Ghost API with. This is why we’ve documented a few recipes that will get you started.
+
+To learn more about the plugin itself, check out the [documentation within the repo on GitHub](https://github.com/TryGhost/gatsby-source-ghost#how-to-query). There’s also plenty of documentation on what the Ghost API has to offer when making queries. To learn more about GraphQL as a language, head over to the [official GraphQL docs](https://graphql.org/learn/queries/).
+
+## Use-cases
+
+There are many additional aspects to switching from a typical Ghost front-end to a standalone API driven front-end like Gatsby. The following sections explain some slightly ‘grey area’ topics that have been commonly asked or may be of use when making this transition.
+
+## Switching over
+
+Switching to a new front-end means handling the old front-end in a different way.
+
+One option is to make the old pages canonical, meaning that these pages will remain online, but will reference the new counterparts on the API driven site. Check out the documentation on [using canonical URLs in Ghost](/help/publishing-options/#add-custom-canonical-urls).
+
+<Frame>
+  <img src="/images/bef9adef-admin-private-option_hub2336ad8c44cf39926a93b72f74de9cd_10436_800x0_resize_q100_h2_box_3.webp" />
+</Frame>
+
+Another way is to turn off the old site entirely and begin directing people to the new site. Ghosts’ front-end can be hidden using the ‘Private Mode’ found in the Ghost Admin under General Settings.
+
+## Generating a sitemap
+
+Providing a well made sitemap for search indexing bots is one of the most important aspects of good SEO. However, creating and maintaining a series of complex ‘for loops’ can be a costly exercise.
+
+<Frame>
+  <img src="/images/14a1eed4-xml-sitemap-before-and-after_huaa7504f9f8a1eda4d36a79fb085bcdc6_679990_2068x0_resize_q100_h2_box_3.webp" />
+</Frame>
+
+The Ghost team have provided an open source plugin for Gatsby to construct an ideal format for generated sitemap XML pages, called [Gatsby Advanced Sitemap plugin](https://github.com/TryGhost/gatsby-plugin-advanced-sitemap). By default, the plugin will generate a single sitemap, but it can be [configured with GraphQL](https://github.com/TryGhost/gatsby-plugin-advanced-sitemap#options) to hook into various data points. Further information can be found in the [sitemap plugin documentation](https://github.com/TryGhost/gatsby-plugin-advanced-sitemap#gatsby-plugin-advanced-sitemap).
+
+The plugin doesn’t just work with Ghost - it’s compatible with an assortment of APIs and content sources. To learn more about using GraphQL and the Ghost API for plugins, such as the Gatsby sitemap plugin, check out our GraphQL Recipes for Ghost.
+
+## Using Gatsby plugins with Ghost content
+
+With the ever expanding list of plugins available for Gatsby, it’s hard to understand which plugins are needed to make a high quality and well functioning site running on the Ghost API.
+
+[Gatsby Source Filesystem](https://www.gatsbyjs.org/packages/gatsby-source-filesystem/) is a plugin for creating additional directories inside a Gatsby site. This is ideal for storing static files (e.g. error pages), site-wide images, such as logos, and site configuration files like robots.txt.
+
+[Gatsby React Helmet plugin](https://www.gatsbyjs.org/packages/gatsby-plugin-react-helmet/) is very useful for constructing metadata in the head of any rendered page. The plugin requires minimum configuration, but can be modified to suit the need.
+
+## Further reading
+
+There is plenty of reference material and resources on the [official Gatsby site](https://www.gatsbyjs.org/tutorial/), along with a long list of [available plugins](https://www.gatsbyjs.org/plugins/). It may also be worth understanding the underlying concepts of [static sites](https://jamstack.org/) and how they work differently to other sites.
+
+To get an even more boarder view of performant site development check out web.dev from Google, which explores many topics on creating site for the modern web.
+
+## Examples
+
+Here are a few common examples of using GraphQL to query the Ghost API.
+
+Gatsby uses [GraphQL](https://www.gatsbyjs.org/docs/graphql/) to retrieve content, retrieving content from the Ghost API is no different thanks to the Gatsby Source Ghost plugin. Below are some recipes to retrieve chunks of data from the API that you can use and manipulate for your own needs. More extensive learning can be found in the official [GraphQL documentation](https://graphql.org/graphql-js/passing-arguments/).
+
+## Retrieving posts
+
+This example takes into account a limited amount of posts per page and a ‘skip’ to paginate through those pages of posts:
+
+```gql
+query GhostPostQuery($limit: Int!, $skip: Int!) {
+ allGhostPost(
+   sort: { order: DESC, fields: [published_at] },
+   limit: $limit,
+   skip: $skip
+ ) {
+  edges {
+   node {
+    ...GhostPostFields
+   }
+  }
+ }
+}
+```
+
+## Filtering Posts by tag
+
+Filtering posts by tag is a common pattern, but can be tricky with how the query filter is formulated:
+
+```gql
+{
+ allGhostPost(filter: {tags: {elemMatch: {slug: {eq: $slug}}}}) {
+  edges {
+   node {
+    slug
+    ...
+   }
+  }
+ }
+}
+```
+
+## Retrieving settings
+
+The Ghost settings node is different to other nodes as it’s a single object - this can be queried like so:
+
+```gql
+{
+ allGhostSettings {
+  edges {
+   node {
+    title
+    description
+    lang
+    ...
+    navigation {
+      label
+      url
+    }
+   }
+  }
+ }
+}
+```
+
+More information can be found in the [Ghost API documentation](/docs/content-api/#settings).
+
+## Retrieving all tags
+
+Getting all tags from a Ghost site could be used to produce a tag cloud or keyword list:
+
+```gql
+{
+ allGhostTag(sort: {order: ASC, fields: name}) {
+   edges {
+     node {
+       slug
+       url
+       postCount
+     }
+   }
+ }
+}
+```
+
+## Further reading
+
+Many of the GraphQL queries shown above are used within the [Gatsby Starter Ghost](https://github.com/tryghost/gatsby-starter-ghost) template. With a better understanding of how to use queries, customising the starter will become more straightforward.
+
+Additionally, the [Gatsby Source Ghost plugin](https://github.com/TryGhost/gatsby-source-ghost) allows the use of these queries in any existing Gatsby project you may be working on.

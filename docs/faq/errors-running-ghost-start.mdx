@@ -1,0 +1,8 @@
+---
+title: "How To Resolve Errors When Running Ghost Start"
+description: If an error occurs when trying to run `ghost start` or `ghost restart`, try using `ghost run` first to check that Ghost can start successfully. The `start` and `restart` commands are talking to your process manager (e.g. systemd) which can hide underlying errors from Ghost.
+---
+
+***
+
+Find your Ghost log files in `/content/logs/` to identify if the problem exists with Ghost itself, or the process manager.

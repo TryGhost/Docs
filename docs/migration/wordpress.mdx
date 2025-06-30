@@ -1,0 +1,56 @@
+---
+title: "Migrating from WordPress"
+description: "Migrate from WordPress and import your content to Ghost with this guide"
+---
+
+<Note>
+If you're a Ghost(Pro) customer, our team may be able to help you migrate your content and subscribers. Learn more about our [Concierge service](https://ghost.org/concierge/).
+</Note>
+
+## Self-service Migration
+
+Most publishers can do this right now using our [WordPress migrator](https://ghost.org/help/importing-from-wordpress/).
+
+<Frame>
+  <img src="/images/a50eb082-ghost-import_hu962a01aa25518bdd09da163d2805bfcd_160396_2164x0_resize_q100_h2_box_3.webp" />
+</Frame>
+
+### Supported Content
+
+What is supported:
+
+* XML files up to 100mb
+* Up to 2,500 posts
+* Some shortcodes, such as `[caption]`, `[audio]`, `[code]`, along with most `[vc_]` & `[et_]` based shortcodes from page builder plugins.
+
+What’s not supported:
+
+* Custom post types
+* Most uncommon shortcodes
+* Plugins that alter access to content
+
+## Complex Migrations
+
+For more complex migrations, those comfortable with the command line can use our CLI tools.
+
+First, install the CLI. Then build and run your command. All options for this tool can be found on [GitHub](https://github.com/TryGhost/migrate/tree/main/packages/mg-wp-xml).
+
+```bash
+# Install
+npm install --global @tryghost/migrate
+
+# Migrate posts only, add a 'News' tag, retain the existing /yyyy/mm/dd/slug permalink structure
+migrate wp-xml --pathToFile ./file.xml --pages false --addTag News --datedPermalinks '/yyyy/mm/dd/'
+```
+
+## Troubleshooting
+
+If you’re having trouble exporting an XML file, or have lot of content, try the [API-based tools](https://github.com/TryGhost/migrate/tree/main/packages/mg-wp-api) which can successfully handle migrations with tens of thousands of posts.
+
+Authors who were migrated will most likely need to reset their passwords, which can be done when logging into Ghost.
+
+***
+
+## Summary
+
+Congratulations on your migration to Ghost 🙌. All that’s left to do is check over your content to ensure the migration has worked as expected. We also have a guide on [how to implement redirects](https://ghost.org/tutorials/implementing-redirects/#common-redirects) to make your transition smoother.

@@ -1,0 +1,68 @@
+---
+title: "Migrating from Newspack"
+description: "Migrate from Newspack and import your content to Ghost with this guide. You can manage a migration from Newspack yourself or, if you prefer, our team can take care of the migration for you."
+---
+
+<Note>
+If you're a Ghost(Pro) customer, our team may be able to help you migrate your content and subscribers. Learn more about our [Concierge service](https://ghost.org/concierge/).
+</Note>
+
+If you’d rather do the migration yourself, that’s fine too, and you can follow the guide below.
+
+## Newspack migration steps
+
+In order to migrate fully from Newspack to Ghost, here are the different steps you’ll need to take.
+
+#### Migrating content
+
+Newspack sites run on WordPress, so the first thing you’ll want to do is follow our [WordPress migration guide](/docs/migration/wordpress/). This will allow you export all your published content, and bring it into Ghost.
+
+#### Migrating your theme
+
+Ghost comes with several free themes built with news publishers in mind. We suggest starting with [Headline](https://ghost.org/themes/headline/), which is lightning fast, SEO optimised, and can be further customised to match your brand.
+
+#### Migrating email subscribers
+
+Ghost can import email subscribers from any platform. Most newspack publishers use Mailchimp, and to migrate contacts you can follow our [Mailchimp migration guide](/docs/migration/mailchimp/). Email newsletters are built into Ghost natively, so you won’t need to keep paying for a 3rd party service anymore after migrating.
+
+#### Migrating paid subscribers
+
+Newspack and Ghost both use Stripe for subscription payments, and you can easily import paying subscribers into Ghost by connecting to your Stripe account. When [importing subscribers](https://ghost.org/help/import-members/#prepare-your-csv-file), make sure to include their Stripe Customer ID, and Ghost will link up the records automatically. If you need help with this, drop us an email on `concierge@ghost.org`.
+
+#### Migrating ads & analytics
+
+Ghost supports all of the same advertising and analytics services as Newspack, and all of these can be migrated easily. You can paste any needed tracking codes into **Settings → Code Injection**, or you can edit your theme directly to include the code snippets there, if you want more control.
+
+#### Migrating URLs
+
+For the most part, Ghost will easily match the URL structure of your old site, so any links to your site will keep working as normal. If you have any URLs that have changed, you can take care of these by [setting up redirects](https://ghost.org/tutorials/implementing-redirects/) in Ghost.
+
+***
+
+## Newspack migration limitations
+
+Ghost has an automatically built-in commenting system for your members and subscribers, but it’s not currently possible to migrate comments from other platforms into Ghost. If you’ve found your comments section is mostly full of spam, though, then you might actually welcome a fresh start.
+
+Ghost does not support marketplace listings / directories. If you use this feature of Newspack, this is not something that can be migrated. However, if it’s really important to you, you could always set up a directory on a subdomain of your site - like `listings.yoursite.com`.
+
+***
+
+## Newspack migration FAQ
+
+**Is migrating from Newspack to Ghost difficult?**\
+Not really! Newspack sites are just WordPress, and we’ve migrated tens of thousands of WordPress sites to Ghost over the years. Most people tend to favour Ghost because it’s a fully integrated platform specifically designed for publishers, rather than a disparate set of CMS plugins.
+
+**What about dynamic blocks and pages?**\
+Ghost has those, too. They work very similarly to Newspack, but for the most part they’re much easier to use. Ghost places more emphasis on publishing content with rich media, and less emphasis on dragging/dropping things into complex layouts. We’ve also got [a handy comparison guide](https://ghost.org/vs/newspack/) if you want to get a clearer idea of Newspack features compared to Ghost.
+
+**Why is Ghost so much cheaper than Newspack**\
+Good question! Newspack is a side-project by WordPress with a small number of customers, so they have to charge a high amount for each customer in order to be able to afford to maintain their product. Ghost is not a side-project, it’s our only project. We have tens of thousands of customers and millions of users, so we don’t need to charge as much per newsroom.
+
+**Newspack works with Google News Initiative, won’t I lose that advantage in migrating to Ghost?**\
+Not at all. Ghost has been working with Google News Initiative for years, and we’re proud to be an official technology partner for Google News Initiative bootcamps. We’re thrilled to work with Google on supporting as many local news publishers as we can.
+
+**I read that you offer additional support for small newsrooms, what’s that about?**\
+We do! If you run a small local news organisation and would like to chat about how we can support you, get in touch with us by email on `concierge@ghost.org`.
+
+**I’m not confident with tech. How can I do these migration steps?**\
+Let our team do them for you, for free. Drop us an email on `concierge@ghost.org` to find out more.

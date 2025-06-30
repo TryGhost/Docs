@@ -1,0 +1,14 @@
+---
+title: "Missing SSL Protocol"
+description: After installing Ghost a url for your site is set. This is the URL people will use to access your publication.
+---
+
+***
+
+### Error
+
+If you see an error of `ERROR: URL in config must be provided with protocol` this means the URL has been set with HTTPS but the SSL protocol is missing.
+
+### To fix
+
+Use ghost setup ssl in the ghost-cli to setup an SSL certificate for your publication.

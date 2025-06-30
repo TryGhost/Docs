@@ -1,0 +1,29 @@
+---
+title: "Filter Property Not Working In Routing"
+description: Working with more complex iterations of the filter property in the routes.yaml file can cause conflicts or unexpected behaviour. Here are the most common issues.
+---
+
+***
+
+### Specify inverse filters
+
+In the current beta version of Dynamic Routing it’s necessary to specify the inverse of filters using - to ensure pagination is correct. For example:
+
+```yaml
+collections:
+  /es/:
+    permalink: /es/{slug}/
+    filter: tag:es
+  /fr/:
+    permalink: /fr/{slug}/
+    filter: tag:fr
+  /:
+    permalink: /{slug}/
+    filter: tag:-[fr,es]
+```
+
+### Order filters
+
+In a collection, the post lives in the first collection where it matches the filter, so it’s important to consider the order of your filters and place more generic filters towards the end.
+
+If you are seeing unexpected behaviour and posts living inside the wrong collection, then you may need to revise the order of your filters.

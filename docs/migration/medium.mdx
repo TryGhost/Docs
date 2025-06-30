@@ -1,0 +1,34 @@
+---
+title: "Migrating from Medium"
+description: "Migrate from Medium and import your content to Ghost with this guide"
+---
+
+## Self-service Migration
+
+Most publishers can do this right now using our [Medium migrator](https://ghost.org/help/importing-from-medium/).
+
+<Frame>
+  <img src="/images/a50eb082-ghost-import_hu962a01aa25518bdd09da163d2805bfcd_160396_2164x0_resize_q100_h2_box_3.webp" />
+</Frame>
+
+### Using custom domains
+
+If you’re using a custom domain on Medium, you’ll need to implement redirects in Ghost to prevent broken links.
+
+Medium appends a small random ID to each post, which is removed in the migration step above. The regular expression below removes that random ID, but does not affect preview links.
+
+```yaml
+# redirects.yaml
+301:
+    ^\/(?!p\/?)(.*)(-[0-9a-f]{10,12}): /$1
+
+302:
+```
+
+This means that if a visitor or crawler goes to `https://mysite.com/awesome-post-a1b2c3d4e5f6`, they will automatically be redirected to `https://mysite.com/awesome-post`.
+
+***
+
+## Summary
+
+Congratulations on your migration to Ghost 🙌. All that’s left to do is check over your content to ensure the migration has worked as expected. We also have a guide on [how to implement redirects](https://ghost.org/tutorials/implementing-redirects/) to make your transition smoother.

@@ -1,0 +1,15 @@
+---
+title: "Image Upload Issues"
+description: Image uploads can be affected by the default max upload size of 50mb. If you need more, you’ll need to increase the limit by editing your nginx config file, and setting the limit manually.
+---
+
+***
+
+## Troubleshooting
+
+* Log into your server
+* Navigate to your Ghost installation folder with `cd /var/www/ghost`.
+* Type: `nano system/files/your-domain.conf` to open your NGINX config file.
+* Edit `client_max_body_size {VALUE}M;`
+* Finally, press `ctrl` + `x` to exit. Nano will ask you if you want to save, type y for yes, and press enter to save the file.
+* Restart NGINX by running `sudo service nginx restart`.

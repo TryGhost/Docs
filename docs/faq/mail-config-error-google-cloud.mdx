@@ -1,0 +1,10 @@
+---
+title: "Mail Config Error In Ghost With Google Cloud"
+description: There’s a known issue that Google Cloud Platform does NOT allow any traffic on port 25 on a [Compute Engine instance](https://cloud.google.com/compute/docs/tutorials/sending-mail/).
+---
+
+***
+
+To fix this, explicitly set the [transmission port](https://github.com/TryGhost/Ghost/issues/6969#issuecomment-314294719) to 2525 in order to send emails.
+
+Alternatively, we highly recommend using Mailgun which allows up to 10,000 emails per month for free.

@@ -1,0 +1,60 @@
+---
+title: "Root User Permissions Fix"
+description: A fix for root user permissions problems
+---
+
+***
+
+## Error
+
+`We discovered that you are using the DigitalOcean One-Click install. You need to create a user with regular account privileges and migrate your installation to this user.`
+
+## Solution
+
+When you installed Ghost with the [DigitalOcean One-Click install](https://www.digitalocean.com/products/one-click-apps/ghost/) you probably set up your Ghost installation as a `root` user. As of Ghost-CLI 1.5.0, running Ghost commands as `root` is disallowed. Therefore you will need to migrate your current installation to a new Linux user.
+
+Run the following steps as `root` user to fix it:
+
+Add a new user:
+
+```bash
+adduser <user>
+```
+
+Add user to sudo group:
+
+```bash
+usermod -aG sudo <user>
+```
+
+Now create a new instance file and move to new user location:
+
+```bash
+mkdir -p /home/<user>/.ghost/
+
+chown <user>:<user> /home/<user>/.ghost
+
+mv /root/.ghost/config /home/<user>/.ghost/config
+
+chown <user>:<user> /home/<user>/.ghost/config
+```
+
+Next, change into your ghost installation directory (`/var/www/ghost/` is default in the DigitOcean One-Click installs) to change the ownership of your installation files:
+
+```bash
+cd /var/www/ghost
+```
+
+And then execute this command (might take a while):
+
+```bash
+find . -group root -user root -exec chown <user>:<user> {} \;
+```
+
+Last step, Login as new user:
+
+```bash
+su - <user>
+```
+
+You can check `ghost ls` now to see if your installation is still up and running.

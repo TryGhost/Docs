@@ -1,0 +1,384 @@
+---
+title: "Working With VuePress"
+description: Learn how to spin up a site using Ghost as a headless CMS and build a completely custom front-end with the static site generator VuePress.
+---
+
+***
+
+<Frame>
+  <img src="/images/d5e8cf23-admin-api-vuepress-diagram_hu479ca4e1d45fe16dac7e97dee4f908aa_21038_1000x0_resize_q100_h2_box_3.webp" />
+</Frame>
+
+## Prerequisites
+
+You’ll need basic understanding of JavaScript and a running Ghost installation, which can either be self-hosted or using [Ghost(Pro)](/pricing/). In this documentation we’re going to start with a new project from scratch. Skip these initial setup steps if you have an existing VuePress project.
+
+Firstly, create a new project:
+
+```bash
+# create the new project folder
+mkdir vuepress-ghost
+
+# navigate to the newly created folder
+cd vuepress-ghost
+```
+
+Now that the project is created, you can add VuePress as a dependency:
+
+```bash
+yarn add vuepress
+```
+
+Finally, add the VuePress build and serve commands to the scripts in your `package.json`:
+
+```json
+// package.json
+
+{
+  "scripts": {
+    "dev": "vuepress dev",
+    "build": "vuepress build"
+  }
+}
+```
+
+## Getting started
+
+Since VuePress uses Markdown files, you’ll need to create a script that uses the Ghost Content API and creates Markdown files from your content.
+
+### Exposing and converting content
+
+The following script gives you a good starting point as well as an idea of what’s possible. This is a minimal working version and does not cover:
+
+* removing deleted/unpublished posts.
+* renaming or skipping frontmatter properties.
+
+Install the Ghost Content API package and additional dependencies that we’re going to use in this script:
+
+```bash
+yarn add @tryghost/content-api js-yaml fs-extra
+```
+
+`js-yaml` will create yaml frontmatter and `fs-extra` will place the Markdown files in the right directories.
+
+To start, create a new file in the root directory of your project:
+
+```js
+// createMdFilesFromGhost.js
+
+const GhostContentAPI = require('@tryghost/content-api');
+const yaml = require('js-yaml');
+const fs = require('fs-extra');
+const path = require('path');
+
+const api = new GhostContentAPI({
+    url: 'https://demo.ghost.io', // replace with your Ghost API URL
+    key: '22444f78447824223cefc48062', // replace with your API key
+    version: "v5.0" // minimum Ghost version
+});
+
+const createMdFilesFromGhost = async () => {
+
+    console.time('All posts converted to Markdown in');
+
+    try {
+        // fetch the posts from the Ghost Content API
+        const posts = await api.posts.browse({include: 'tags,authors'});
+
+        await Promise.all(posts.map(async (post) => {
+            // Save the content separate and delete it from our post object, as we'll create
+            // the frontmatter properties for every property that is left
+            const content = post.html;
+            delete post.html;
+
+            const frontmatter = post;
+
+            // Create frontmatter properties from all keys in our post object
+            const yamlPost = await yaml.dump(frontmatter);
+
+            // Super simple concatenating of the frontmatter and our content
+            const fileString = `---\n${yamlPost}\n---\n${content}\n`;
+
+            // Save the final string of our file as a Markdown file
+            await fs.writeFile(path.join('', `${post.slug}.md`), fileString);
+        }));
+
+    console.timeEnd('All posts converted to Markdown in');
+
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+module.exports = createMdFilesFromGhost();
+```
+
+Change the `url` value to the URL of your Ghost site. For Ghost(Pro) customers, this is the Ghost URL ending in `.ghost.io`, and for people using the self-hosted version of Ghost, it’s the same URL used to access your site.
+
+Next, update the `key` value to a key associated with the Ghost site. A key can be provided by creating an integration within the Ghost Admin. Navigate to Integrations and click “Add new integration”. Name the integration appropriately and click create.
+
+<Frame>
+  <img src="/images/d3673af2-apikey_huc23d3a1fbe859434094a9db94f574d9a_265920_2920x0_resize_q100_h2_box_3.webp" />
+</Frame>
+
+For more detailed steps on setting up Integrations check out [our documentation on the Content API](/docs/content-api/#authentication).
+
+Let’s execute the script to fetch the Ghost content:
+
+```bash
+node createMdFilesFromGhost.js
+```
+
+The project should now contain your posts as Markdown files! 🎉
+
+The Markdown files will automatically be saved according to their slug, which will not only determine the URL under which they are going to be rendered, but also the order.
+
+If you prefer to have the files sorted by their published date, you can add use `moment.js` to include a formatted date in the filename like so:
+
+```js
+// createMdFilesFromGhost.js
+
+const moment = require('moment');
+
+...
+
+    // Save the final string of our file as a Markdown file
+    await fs.writeFile(path.join(destinationPath, `${moment(post.published_at).format('YYYY-MM-DD')}-${post.slug}.md`), fileString);
+
+...
+```
+
+### Caveats
+
+In some rare cases posts containing code blocks can be parsed incorrectly. A workaround for that is to convert the HTML into Markdown by using a transformer, such as [Turndown](https://github.com/domchristie/turndown).
+
+Transforming the content will result in the loss of some formatting, especially when you’re using a lot of custom HTML in your content, but gives you plenty of customizing options to render the code blocks correctly.
+
+To use Turndown, add it as a dependency:
+
+```bash
+yarn add turndown
+```
+
+Then update the script like this:
+
+```js
+// createMdFilesFromGhost.js
+
+const TurndownService = require('turndown');
+
+...
+
+    await Promise.all(posts.map(async (post) => {
+        const turndownService = new TurndownService({codeBlockStyle: 'fenced', headingStyle: 'atx', hr: '---'});
+
+        const content = turndownService.turndown(post.html);
+
+        ...
+
+    }));
+
+...
+```
+
+This helps with the code blocks, but when you have inline code in your content that contains mustache expressions or Vue-specific syntax, the renderer will still break. One workaround for that is to properly escape those inline code snippets and code blocks with the [recommended VuePress escaping](https://v1.vuepress.vuejs.org/guide/using-vue.html#escaping):
+
+```vue
+::: v-pre
+    `{{content}}`
+::::
+```
+
+To achieve this with Turndown, add a custom rule:
+
+```js
+turndownService.addRule('inlineCode', {
+    filter: ['code'],
+    replacement: function (content) {
+        if (content.indexOf(`{{`) >= 0) {
+            // Escape mustache expressions properly
+            return '\n' + '::: v-pre' + '\n`' + content + '`\n' + '::::' + '\n'
+        }
+        return '`' + content + '`'
+    }
+});
+```
+
+The plugin is very flexible and can be customized to suit your requirements.
+
+***
+
+### Programmatically create a sidebar
+
+VuePress comes with a powerful default theme that supports a lot of things “out of the box"™️, such as integrated search and sidebars. In this section we’re going to add a sidebar to the home page by reading the filenames of the saved Markdown files.
+
+As a first step, we need to create an index page in the root of the project:
+
+```md
+<!-- index.md -->
+
+---
+sidebarDepth: 2
+---
+
+# Howdie 🤠
+
+Ghost ❤️ VuePress
+```
+
+The `sidebarDepth` property tells VuePress that we want to render subheadings from `h1` and `h2` headings from our Ghost content. You can find more information about the default theme config [here](https://vuepress.vuejs.org/theme/default-theme-config.html).
+
+The next step is to create a VuePress `config.js` file in a directory called `.vuepress/`:
+
+```js
+// .vuepress/config.js
+
+module.exports = {
+    title: 'VuePress + Ghost',
+    description: 'Power your VuePress site with Ghost',
+    themeConfig: {
+        sidebar: []
+    }
+}
+```
+
+In order to generate the sidebar items we’ll need to read all the Markdown files in the project and pass an array with the title (=slug) to our config.
+
+In your config file, require the `fs` and `path` modules from VuePress’ shared utils and add a new `getSidebar()` function as shown below:
+
+```js
+// .vuepress/config.js
+
+const { fs, path } = require('@vuepress/shared-utils')
+
+module.exports = {
+    title: 'VuePress + Ghost',
+    description: 'Power your VuePress site with Ghost',
+    themeConfig: {
+        sidebar: getSidebar()
+    }
+}
+
+function getSidebar() {
+    return fs
+        .readdirSync(path.resolve(__dirname, '../'))
+        // make sure we only include Markdown files
+        .filter(filename => filename.indexOf('.md') >= 0)
+        .map(filename => {
+            // remove the file extension
+            filename = filename.slice(0, -3)
+
+            if (filename.indexOf('index') >= 0) {
+                // Files called 'index' will be rendered
+                // as the root page of the folder
+                filename = '/'
+            }
+            return filename
+        })
+        .sort()
+}
+```
+
+Run the development server with:
+
+```bash
+yarn dev
+```
+
+Then head to http\://localhost:8080/ to see the result which looks like this:
+
+<Frame>
+  <img src="/images/b23cae89-vuepress-demo-screenshot-sidebar_huc534a9cca703dd3b576c73fcfb85e726_85205_1280x0_resize_q100_h2_box_3.webp" />
+</Frame>
+
+***
+
+## Next steps
+
+Discover how to create a component to list all posts on the index page of your VuePress site, or how to create files for tags and authors in our recipes on the next page. For further information, check out the [Ghost Content API documentation](/docs/content-api/) and the [official VuePress documentation](https://vuepress.vuejs.org/).
+
+## Examples
+
+The flexibility of the Ghost Content API allows you to feed posts, pages and any other pieces of content from your Ghost site into a VuePress front-end. Below are a few popular examples of how to customise your site.
+
+If you just landed here, check out [Working With VuePress](/docs/jamstack/vuepress/) for more context!
+
+### Post list component
+
+Components live in a `.vuepress/components/` folder. Create this folder structure and make a new file in `components` called `PostList.vue`. In that file add a `<template>` element add the following to list all of the posts:
+
+```vue
+// PostList.vue
+
+<template>
+<div>
+    <div v-for="post in posts">
+        <h2>
+            <router-link :to="post.path">
+                <div v-if="typeof post.frontmatter.feature_image !== 'undefined'" style="max-width: 250px;">
+                    <img :src="post.frontmatter.feature_image" alt="" />
+                </div>
+                {{ post.frontmatter.title }}
+            </router-link>
+        </h2>
+
+        <p>{{ post.frontmatter.excerpt }}</p>
+        <p>Published: {{ formateDate(post.frontmatter.published_at) }}</p>
+
+        <p><router-link :to="post.path">Read more</router-link></p>
+    </div>
+</div>
+</template>
+```
+
+In the same file, just below the `<template>` element, add a `<script>` element, which will contain queries that will in turn pass data to the `<template>` above:
+
+```vue
+// PostList.vue
+
+<script>
+import moment from "moment"
+
+export default {
+    methods: {
+        formateDate(date, format = 'D MMM, YY') {
+            return moment(date).format(format)
+        }
+    },
+    computed: {
+        posts() {
+            return this.$site.pages
+                .filter(x => x.path.startsWith('/') && !x.frontmatter.index)
+                .sort((a, b) => new Date(b.frontmatter.published_at) - new Date(a.frontmatter.published_at));
+        },
+    }
+}
+</script>
+```
+
+The last step is to reference the component in the `index.md` file like this:
+
+```md
+<!-- index.md -->
+
+---
+index: true
+sidebarDepth: 2
+---
+
+# Howdie 🤠
+
+Ghost ❤️ VuePress
+
+<PostList />
+```
+
+Restart your server and head to http\://localhost:8080/ to see the posts being rendered:
+
+<Frame>
+  <img src="/images/a499941d-vuepress-demo-screenshot-index_hu8addf519bf1190ff43ed7c1e8f8b8fe3_81003_1280x0_resize_q100_h2_box_3.webp" />
+</Frame>
+
+### Further reading
+
+Learn more about the Ghost API and specific endpoints in our [API documentation](/docs/content-api/) or check out the VuePress docs to find out [how to customize the default theme](https://vuepress.vuejs.org/theme/default-theme-config.html).

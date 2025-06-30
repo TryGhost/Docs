@@ -1,0 +1,115 @@
+---
+title: "Salt Incident Report: May 3rd, 2020"
+description: Analysis and retrospective of the critical Salt vulnerability on Ghost(Pro)
+---
+
+***
+
+Last Sunday, Ghost(Pro) - along with several thousand other services around the world - experienced an [incident](https://status.ghost.org/incidents/tpn078sqk973) where a virus used to mine cryptocurrency was able to successfully infect servers within our private network.
+
+No customer data was accessed; however as a precaution we revoked all keys, sessions, passwords and certificates - and introduced additional firewalls throughout our network. We subsequently began work to rebuild every server in our network.
+
+Sites on Ghost(Pro) experienced 5 hours of intermittent downtime on Sunday evening, as a result of additional security configurations being deployed across our network.
+
+We sincerely apologise to everyone who was impacted by this issue. We understand that customers explicitly place their trust in Ghost to maintain resilient, secure systems with high availability - and with this incident we failed you. We’re deeply sorry.
+
+We want to share the details of the events that took place with you transparently; as well as the steps we are taking to prevent this from happening in future.
+
+***
+
+## Background
+
+SaltStack is a server configuration management framework used by Ghost(Pro) to manage its cloud servers. On March 16th a critical vulnerability was reported to SaltStack, affecting all versions of Salt that had ever been released. On April 23rd a community warning was published that a critical patch would be released shortly, which very few people saw. 6 days later the patch was released along with a public disclosure of the vulnerability.
+
+Within 24 hours, malware was created by the Kinsing botnet to mass-scan the internet for available targets to infect with a cryptomining virus. This was an iteration on [previous techniques](https://www.zdnet.com/article/docker-servers-targeted-by-new-kinsing-malware-campaign/) used to spread malware via Docker clusters. We were among the first to be infected, along with LineageOS, DigiCert, Algolia, and many more which are not yet public.
+
+The virus was designed to infect all possible machines in a network via a vulnerability in Salt Master, reduce their CPU usage to zero by killing active processes, then use 100% of available resources for mining cryptocurrency remotely.
+
+As the virus spread it went through multiple iterations, [tracked on a public BitBucket account](https://github.com/saltstack/salt/issues/57057), including persistence and the ability to remotely self-update. Our findings verifiably indicate Ghost(Pro) servers were only infected with v1, the most naive instance of the malware, before we isolated our services and eliminated the vulnerability entirely.
+
+Based on the nature of the malware there was no data breach and no data was collected, altered, destroyed or damaged. Our investigation concluded that the vulnerability was not used to access any data on our network.
+
+## Timeline
+
+Below is a complete timeline of events for the incident, and actions taken.
+
+**\[01:30 UTC]** Various servers across our network begin to spike in CPU usage, with some becoming unavailable. VictorOps immediately triggers alerts to our on-call team, who are woken up and begin investigating. Initially it appears to be a difficult to identify networking issue with our upstream cloud provider.
+
+**\[03:15 UTC]** Additional engineers are paged to help investigate and deal with the persistent issues.
+
+**\[04:00 UTC]** Restarting some services helps temporarily. A separate attempted DDoS attack on a customer website is investigated, but ultimately found not to be related. Eventually we determine Salt Minions are responsible for ongoing issues, investigation continues into why they are suddenly using all available resources. At this stage it’s clear what is happening but not why.
+
+**\[07:52 UTC]** Our engineers identify backdoor correlating with SaltStack [CVE-2020-11651](https://nvd.nist.gov/vuln/detail/CVE-2020-11651) and [CVE-2020-11652](https://nvd.nist.gov/vuln/detail/CVE-2020-11652), the “Salt Minion” processes are in fact mining coins, which is the reason for the high CPU usage. Work begins immediately to mitigate and emergency response is initiated, paging additional engineers and team members. Most key members of the team are online within the hour to help.
+
+**\[09:15 UTC]** All outside connections are terminated, all files installed by the virus are successfully scrubbed, and our Salt Master is taken offline. Customer site load as normal again as services are restarted with normal CPU usage and active database connections. All open sessions to all services are terminated.
+
+From here it was clear that we had experienced a broad, untargeted malware infection from a naive public internet scan which was [affecting thousands of infrastructures simultaneously](https://github.com/saltstack/salt/issues/57057).
+
+We update our [public status page](https://status.ghost.org/incidents/tpn078sqk973) with a disclosure that the CVE has been exploited on our network.
+
+**\[11:44 UTC]** We deploy new firewall configuration throughout our network to isolate and protect against any further threats. It is untested and being deployed under significant pressure. Multiple services break as they are no longer able to communicate with one another, and we update our status page again to reflect a full outage. Fortunately/unfortunately, the downtime is completely self inflicted.
+
+**\[12:46 UTC]** The new firewall config issues are resolved and connections to customer sites are restored.
+
+Our servers were only infected with version 1 of the malware, which verifiably had no persistence or ability to update. Despite this, we cancel all other plans and immediately prioritise rebuilding every machine in our network, cycling every single key, session, password and certificate. We begin to plan detailed customer communication about the incident, and start building new UI + tooling to make it as easy as possible for users to reset credentials.
+
+***
+
+## Key questions
+
+### How bad was this really?
+
+The potential for what could have happened was very bad. The reality of what actually happened to us was, relatively speaking, extraordinarily minor. Because we were one of the very first to go public with our disclosure of the incident, many of the headlines have been about us, so far. Unfortunately the real story will be much larger.
+
+By luck, the early version of the malware we dealt with was unsophisticated, caused no damage, and was easily eradicated.
+
+### Why was our network vulnerable?
+
+We use SaltStack to configure many VMs in our network across multiple infrastructure roles and data centres. An advertised feature of SaltStack is the ability to do this easily using its documented secure communication protocol, which relies on keys, explicitly calling for open ports.
+
+We were wrong to naively trust the convenience of SaltStack’s included security protocols rather than hardening our network around it. However, the extreme prevalence of this vulnerability indicates thousands of other infrastructure administrators have underestimated the same risk for a reason. More needs to be done to support SaltStack users in configuring secure environments.
+
+Following feedback from us, SaltStack have added some [new documentation](https://github.com/saltstack/salt/pull/57073) for firewalling the ports they require to be open.
+
+### Why did we not receive/respond to the SaltStack CVE disclosure?
+
+We actively monitor for security advisories affecting components in our infrastructure, but we lacked a sufficient process to deal with this circumstance.
+
+* We are members of the SaltStack Slack community, where the CVE disclosure was shared, but no notification was used (eg. @channel - which would have alerted us by email). Based on how it was shared, the Slack message received only 6 responses out of \~6,000 community members.
+* SaltStack notified a mailing list whose existence was not documented. The email received fewer than 200 views. Following feedback from us, SaltStack have [added documentation](https://github.com/saltstack/salt/pull/57073) advertising their mailing list.
+* There were no announcements by Blog, Twitter, Reddit, GitHub, or HackerNews - patches were delayed, and backports for older versions were hidden behind a signup wall. There was no clear messaging or urgency around the releases.
+* The security researchers who discovered this vulnerability provided 6,000 known vulnerable IPs to SaltStack and [recommended](https://labs.f-secure.com/advisories/saltstack-authorization-bypass) a phased communication approach to users. This was not followed.
+
+Regardless of it not being made easy, we take responsibility for failing to respond to the CVE disclosure with adequate speed or severity. We lacked our own formal process for independently monitoring and reviewing CVE disclosures without relying on communication from 3rd party vendors.
+
+## Next steps
+
+Based on this incident, below is an outline of the steps we are taking to improve our service in future.
+
+### Increased security of our private network
+
+We immediately deployed additional firewalls throughout our infrastructure and patched our Salt Master. All rebuilt machines in our network have subsequently been freshly created from Salt 2019.2.4 (latest). Further to this, we’re conducting a full audit of our network and all components within it to ensure there are no further areas lacking adequate hardening.
+
+We have revoked keys, sessions, credentials and certificates both internally as well as those of our users. Ghost(Pro) customers will be asked to create new passwords the next time they sign in, as a precaution. Despite there having been no damage from the malware, the vulnerability that existed within SaltStack has been around for a long time and was very severe.
+
+We are also [actively hiring additional infrastructure engineers](https://careers.ghost.org/infrastructure-engineer/en) to our team, and expanding our resources and capacity to operate a high availability private cloud serving over half a billion requests each month. Ghost is growing quickly, and we are scaling up our operations to match.
+
+### Technical initiatives
+
+In addition to the immediate remediation of cycling all keys, credentials and environments - we’ve worked on a number of technical initiatives to improve our preparedness for incidents such as these:
+
+1. New configuration and UI inside Ghost itself to support the wiping of staff user credentials, triggering an automatic front-end user flow requiring people to create a new password, via email, at the next login attempt.
+2. New UI within Ghost Admin allowing staff users to easily revoke and regenerate Admin API keys which may be used in third party integrations.
+3. Additional automation within our Ghost(Pro) network, allowing machines to be more quickly destroyed and rebuilt - so that we can redeploy our entire network more efficiently if required.
+
+### Organisational initiatives
+
+We have contacted all of our customers by email to disclose this incident to them directly, and provide further details on how it has been handled (this incident report).
+
+This incident has led to an overhaul of how we monitor, review, and act on security advisories for key components within our infrastructure. To gain immediate coverage we have audited all software on our network, ensured we are subscribed to the correct announcement channel for each one and subscribed to a general CVE list. We now have a process for auditing each item within 2 working days. Meanwhile we are testing new software tools to help us automate and streamline this process.
+
+***
+
+## Conclusion
+
+We understand how important the reliability and security of Ghost(Pro) is to our customers, and we are committed to improving to better serve you. We stopped all other work to give this incident our full attention, and we will continue to analyse and implement improvements to our systems and processes. Thank you for your understanding and your patience. We will do better.

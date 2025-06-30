@@ -1,0 +1,33 @@
+---
+title: "Social_url"
+description: 'Usage: `{{social_url type="platform"}}` (e.g., `{{social_url type="facebook"}}`, `{{social_url type="bluesky"}}`)'
+---
+
+***
+
+### Description
+
+The `{{social_url}}` helper generates a URL for a specified social media platform based on the provided platform type. It takes a single argument, `type`, which specifies the social media platform (e.g., `facebook`, `mastodon`, etc.). The helper looks for the specified platform in the given context (usually author) and constructs the appropriate URL.
+
+For facebook and twitter, the helper will fall back to the sitewide values if they’re not set on the local context.
+
+For the remaining platforms the fallback behaviour is to output nothing.
+
+Supported platforms include: `facebook`, `twitter`, `linkedin`, `threads`, `bluesky`, `mastodon`, `tiktok`, `youtube`, `instagram`.
+
+### Examples
+
+Output the author’s Threads URL, using an `author` block:
+
+```handlebars
+{{#author}}
+  {{#if threads}}<a href="{{social_url type="threads"}}">Follow me on Threads</a>{{/if}}
+{{/author}}
+```
+
+Globally, Twitter and Facebook are available and can be accessed from anywhere in the theme.
+
+```handlebars
+{{#if @site.twitter}}<a href="{{social_url type="twitter"}}">Follow us on Twitter</a>{{/if}}
+{{#if @site.facebook}}<a href="{{social_url type="facebook"}}">Follow us on Facebook</a>{{/if}}
+```

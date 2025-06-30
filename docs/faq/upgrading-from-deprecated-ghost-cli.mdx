@@ -1,0 +1,30 @@
+---
+title: "Updating From Deprecated Ghost CLI"
+description: When managing your self-hosted Ghost publication using the recommended `ghost-cli` tooling, you should update your CLI version. If you are using a deprecated version and need to update in order to update or manage your Ghost site, some extra steps may be required.
+---
+
+***
+
+Use the following troubleshooting guide if you run into issues because you are using a deprecated version of the Ghost-CLI.
+
+### Upgrading from \<=1.1.3
+
+Ghost-CLI 1.2.0 added a fix, and Ghost-CLI 1.3.0 added a migration to solve some ssl renewal problems with letsencrypt and nginx. After upgrading `ghost-cli` run `ghost migrate` manually.
+
+### Upgrading Ghost installs that used Ghost-CLI \<1.0.0
+
+If you installed Ghost using a pre-1.0.0 version of Ghost-CLI (any version less than 1.0.0, including alphas, betas and release candidates), you’ll need to run some commands manually to update your Ghost installation to one compatible with version 1.0.0 of the CLI.
+
+From 1.0.0 onwards, installs are be automatically migrated. Once you’ve run the steps below, edit the `.ghost-cli` file in your ghost instance folder and replace the version noted by “cli-version” with “1.0.0”.
+
+### You installed your Ghost instance with CLI versions between v1.0.0-beta.6 and 1.0.0
+
+To update your instance to one that is 1.0.0 compatible, backup your data, then run these commands from within your ghost instance folder:
+
+1. `crontab -e`, then in the editor remove the line that has `ghost ssl-renew` on it
+2. Then run: `rm -f ./system/files/*.conf`
+3. If you previously `setup ssl` then run: `ghost setup nginx ssl`. If you setup Ghost without ssl run: `ghost setup nginx`
+
+### You installed your Ghost instance with CLI versions older than v1.0.0-beta.6
+
+You’ll need to reinstall your Ghost instance from scratch following the update guide for [Ghost 0.x versions](/docs/faq/update-0x/).

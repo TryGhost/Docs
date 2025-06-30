@@ -1,0 +1,301 @@
+---
+title: "Working With Nuxt.Js"
+description: Learn how to spin up a JavaScript app using Ghost as a headless CMS and build a completely custom front-end with [Vue](https://vuejs.org/) and [Nuxt.js](https://nuxtjs.org/).
+---
+
+***
+
+<Frame>
+  <img src="/images/42d1fa48-admin-api-nuxtjs-diagram_hu375cbbfa1a94894673da10397be553a4_21624_1000x0_resize_q100_h2_box_3.webp" />
+</Frame>
+
+## Prerequisites
+
+This configuration of a Ghost publication requires existing moderate knowledge of JavaScript as well as Vue.js. You’ll need an active Ghost account to get started, which can either be self-hosted or using [Ghost(Pro)](/pricing/).
+
+Additionally, you’ll need to setup a Nuxt.js application via the command line:
+
+```bash
+yarn create nuxt-app my-nuxt-app
+cd my-nuxt-app
+yarn dev
+```
+
+To install Nuxt.js manually refer to the [official documentation](https://nuxtjs.org/guide/installation) for more information.
+
+## Getting started
+
+Thanks to the [JavaScript Content API Client Library](/docs/content-api/javascript/), content from a Ghost site can be directly accessed within a Nuxt.js application.
+
+Create a new file called `posts.js` within an `api/` directory. This file will contain all the functions needed to request Ghost post content, as well as an instance of the Ghost Content API.
+
+Install the official JavaScript Ghost Content API helper using:
+
+```bash
+yarn add @tryghost/content-api
+```
+
+Once the helper is installed it can be added to the `posts.js` file using a static `import` statement:
+
+```js
+import GhostContentAPI from "@tryghost/content-api";
+```
+
+Now an instance of the Ghost Content API can be created using Ghost site credentials:
+
+```js
+import GhostContentAPI from "@tryghost/content-api";
+
+// Create API instance with site credentials
+const api = new GhostContentAPI({
+  url: 'https://demo.ghost.io',
+  key: '22444f78447824223cefc48062',
+  version: "v5.0"
+});
+```
+
+Change the `url` value to the URL of the Ghost site. For Ghost(Pro) customers, this is the Ghost URL ending in .ghost.io, and for people using the self-hosted version of Ghost, it’s the same URL used to view the admin panel.
+
+Create a custom integration within Ghost Admin to generate a key and change the `key` value.
+
+<Frame>
+  <img src="/images/d3673af2-apikey_huc23d3a1fbe859434094a9db94f574d9a_265920_2920x0_resize_q100_h2_box_3.webp" />
+</Frame>
+
+For more detailed steps on setting up Integrations check out [our documentation on the Content API](/docs/content-api/#authentication).
+
+### Exposing content
+
+The [`posts.browse()`](/docs/content-api/javascript/#endpoints) endpoint can be used to get all the posts from a Ghost site. This can be done with the following code as an asynchronous function:
+
+```js
+export async function getPosts() {
+  return await api.posts
+    .browse({
+      limit: "all"
+    })
+    .catch(err => {
+      console.error(err);
+    });
+}
+```
+
+Using an `async` function means the Nuxt.js application will wait until all the content has been retrieved before loading the page. Since this function is being exported using the `export` notation, it will be available throughout the application.
+
+### Rendering posts
+
+Since Nuxt.js is based on `.vue`, files can contain HTML, CSS and JavaScript to create a neatly packaged up component. For more information check out the [official Vue.js documentation](https://vuejs.org/v2/guide/single-file-components.html).
+
+To render out a list of posts from a Ghost site, create a new `index.vue` file within a `pages/` directory of your Nuxt.js project. Use the following code to expose the `getPosts` function within the `index.vue` file:
+
+```vue
+<script>
+  import { getPosts } from '../api/posts';
+
+  ...
+</script>
+```
+
+The posts are provided as data to the rest of the `.vue` file using a [`asyncData` function](https://nuxtjs.org/api/) within the Nuxt.js framework:
+
+```vue
+<script>
+  import { getPosts } from '../api/posts';
+
+  export default {
+    async asyncData () {
+      const posts = await getPosts();
+      return { posts: posts }
+    }
+  }
+</script>
+```
+
+Posts will now be available to use within that file and can be generated as a list using [Vue.js list rendering](https://vuejs.org/v2/guide/list.html):
+
+```vue
+<template>
+  <ul>
+    <li v-for="post in posts">{{ post.title }}</li>
+  </ul>
+</template>
+
+<script>
+  import { getPosts } from '../api/posts';
+
+  export default {
+    async asyncData () {
+      const posts = await getPosts();
+      return { posts: posts }
+    }
+  }
+</script>
+```
+
+For more information about how pages work, check out the [Nuxt.js pages documentation](https://nuxtjs.org/guide/views/#pages).
+
+### Rendering a single post
+
+Retrieving Ghost content from a single post can be done in a similar fashion to retrieving all posts. By using [`posts.read()`](/docs/content-api/javascript/#endpoints) it’s possible to query the Ghost Content API for a particular post using a post id or slug.
+
+Reopen the `api/posts.js` file and add the following async function:
+
+```js
+export async function getSinglePost(postSlug) {
+  return await api.posts
+    .read({
+      slug: postSlug
+    })
+    .catch(err => {
+      console.error(err);
+    });
+}
+```
+
+This function accepts a single `postSlug` parameter, which will be passed down by the template file using it. The page slug can then be used to query the Ghost Content API and get the associated post data back.
+
+Nuxt.js provides [dynamic routes](https://nuxtjs.org/guide/routing/#dynamic-routes) for pages that don’t have a fixed URL/slug. The name of the js file will be the variable, in this case the post slug, prefixed with an underscore – `_slug.vue`.
+
+The `getSinglePost()` function can be used within the `_slug.vue` file like so:
+
+```vue
+<template>
+  <div>
+    <h1>{{ post.title }}</h1>
+    <div v-html="post.html"/>
+  </div>
+</template>
+
+<script>
+  import { getSinglePost } from '../api/posts';
+
+  export default {
+    async asyncData ({ params }) {
+      const post = await getSinglePost(params.slug);
+      return { post: post }
+    }
+  }
+</script>
+```
+
+The `<nuxt-link/>` component can be used with the `post.slug` to link to posts from the listed posts in `pages/index.vue`:
+
+```vue
+<template>
+  <ul>
+    <li v-for="post in posts">
+      <nuxt-link :to="{ path: post.slug }">{{ post.title }}</nuxt-link>
+    </li>
+  </ul>
+</template>
+```
+
+Pages are linked in this fashion to make full use of client-side rendering as well as server-side rendering. To read more about how the `<nuxt-link/>` component works, [check out the official documentation](https://nuxtjs.org/api/components-nuxt-link/).
+
+## Next steps
+
+Well done! You should have now retrieved posts from the Ghost Content API and sent them to your Nuxt.js site. For examples of how to extend this further by generating content pages, author pages or exposing post attributes, read our useful recipes.
+
+Don’t forget to refer to the [official Nuxt.js guides](https://nuxtjs.org/guide) and [API documentation](https://nuxtjs.org/api) to get a greater understanding of the framework.
+
+## Examples
+
+The flexibility of the [Ghost Content API](/docs/content-api/javascript/) allows you to feed posts, pages and any other pieces of content from any Ghost site into a Nuxt.js JavaScript app.
+
+Below are a few examples of how content from Ghost can be passed into a Nuxt.js project. If you just landed here, see the [Nuxt.js](/docs/jamstack/nuxt/) page for more context!
+
+## Getting pages
+
+Pages can be generated in the [same fashion as posts](/docs/jamstack/nuxt/#exposing-content), and can even use the same dynamic route file.
+
+```js
+export async function getPages() {
+  return await api.pages
+    .browse({
+      limit: "all"
+    })
+    .catch(err => {
+      console.error(err);
+    });
+}
+```
+
+## Adding post attribute data
+
+Using the `include` option within the Ghost Content API means that attribute data, such as tags and authors, will be included in the post object data:
+
+```js
+export async function getPosts() {
+  return await api.posts
+    .browse({
+      include: "tags,authors",
+      limit: "all"
+    })
+    .catch(err => {
+      console.error(err);
+    });
+}
+```
+
+### Rendering author pages
+
+An author can be requested using the [`authors.read()`](/docs/content-api/javascript/#endpoints) endpoint.
+
+```js
+export async function getAuthor(authorSlug) {
+  return await api.authors
+    .read({
+      slug: authorSlug
+    })
+    .catch(err => {
+      console.error(err);
+    });
+}
+```
+
+A custom author template file can be created at `pages/authors/_slug.vue`, which will also prevent author URLs colliding with post and page URLs:
+
+```vue
+<template>
+  <div>
+    <h1>{{ author.title }}</h1>
+    <p>{{ author.bio }}</p>
+  </div>
+</template>
+
+<script>
+  import { getAuthor } from '../api/authors';
+
+  export default {
+    async asyncData ({ params }) {
+      const author = await getAuthor(params.query.slug);
+      return { author: author }
+    }
+  }
+</script>
+```
+
+### Formatting post dates
+
+The published date of a post, `post.published_at`, is returned as a date timestamp. Modern JavaScript methods can convert this date into a selection of humanly readable formats. To output the published date as “Aug 28, 1963”:
+
+```js
+const posts = await getPosts();
+
+posts.map(post => {
+  const options = {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  };
+
+  post.dateFormatted = new Intl.DateTimeFormat('en-US', options)
+    .format(new Date(post.published_at));
+});
+```
+
+The date can then be added to the Vue template using `{{post.dateFormatted}}`.
+
+## Further reading
+
+Check out the extensive [Nuxt.js API documentation](https://nuxtjs.org/api) and [guide](https://nuxtjs.org/guide). Additionally the Nuxt.js site [lists a few examples](https://nuxtjs.org/examples) that can provide a great starting point.

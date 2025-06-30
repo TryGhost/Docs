@@ -1,0 +1,22 @@
+---
+title: "Using Cloudflare With Ghost"
+description: "If you’ve added Cloudflare to your self-hosted Ghost publication and find that Ghost Admin doesn’t load after updates you may run into some errors in the JavaScript console:"
+---
+
+***
+
+### Error
+
+Open developer tools to check for errors in the JavaScript code:
+
+`TypeError: n.item is not a function or Uncaught SyntaxError: Unexpected string`
+
+### To fix
+
+It is recommended that you add a page rule which turns off some RocketLoader, mirage2 and autominify for the path `/ghost*`, so these features don’t affect the Ghost admin panel.
+
+<Frame>
+  <img src="/images/c4549abf-cloudflare-ghost_hu3292e1ab34393a3f83860fc03720b502_39786_791x0_resize_q100_h2_box_3.webp" />
+</Frame>
+
+This solution is for developers who are maintaining a self-hosted instance of Ghost. If you’re on Ghost(Pro) both nginx and CloudFlare are configured as standard and you don’t need to do anything.

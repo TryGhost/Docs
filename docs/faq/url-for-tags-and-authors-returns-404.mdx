@@ -1,0 +1,14 @@
+---
+title: "URL For Tags And Authors Returns 404 Errors"
+description: "The tag and author taxonomies must be present in routes.yaml otherwise the URLs will not exist. By default, Ghost installs with the following:"
+---
+
+***
+
+```yaml
+taxonomies:
+  tag: /tag/{slug}/
+  author: /author/{slug}/
+```
+
+The permalink for tag and author can be amended, but taxonomies for tag and author must always be present for the URL for individual tags and authors to function correctly.

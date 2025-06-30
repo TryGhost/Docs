@@ -1,0 +1,26 @@
+---
+title: "Migrating from Memberful"
+description: "Migrate from Memberful and import your members to Ghost with this guide"
+---
+
+<Note>
+If you're a Ghost(Pro) customer, our team may be able to help you migrate your content and subscribers. Learn more about our [Concierge service](https://ghost.org/concierge/).
+</Note>
+
+## Export your subscribers
+
+To get started, export your current subscribers in CSV format.
+
+## Import subscribers to Ghost
+
+Under the Ghost Admin members settings, select the import option from the settings menu.
+
+<Frame>
+  <img src="/images/2f96f746-import-members-1_huc3d26abd3bec140dac4d1e5fd61f2b53_17353_1000x0_resize_q100_h2_box_3.webp" />
+</Frame>
+
+Upload your CSV file to Ghost, and map each of the fields contained in your export file to the corresponding fields in Ghost. The **email** field is required in order to create members in Ghost, while the other fields are optional.
+
+If you’d like to give these members access to content with an access level of `paid-members only` but retain their subscriptions in Memberful, you can give them unlimited access by setting their `complimentary_plan` status to `true` — read more about [Member imports](https://ghost.org/help/import-members/).
+
+Once the import has completed, all your subscribers will be migrated to Ghost. There’s nothing else you need to do, members can now log into your site and receive email newsletters.

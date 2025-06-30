@@ -1,0 +1,107 @@
+---
+title: "Ghost Developer FAQs"
+sidebarTitle: "FAQ"
+description: "Frequently asked questions and answers about running Ghost"
+---
+
+<CardGroup cols={2}>
+<Card title="API versioning" href="/docs/faq/api-versioning/">
+Ghost ships with a mature set of APIs. Each API endpoint has a status, which indicates suitability for production use. Read more about Ghost’s [architecture](/docs/architecture/).
+</Card>
+
+<Card title="Clustering, sharding, HA and other multi-server setups" href="/docs/faq/clustering-sharding-multi-server/">
+Ghost doesn’t support load-balanced clustering or multi-server setups of any description, there should only be *one* Ghost instance per site.
+</Card>
+
+<Card title="Filter property not working in routing" href="/docs/faq/filter-property-routes-yaml/">
+Working with more complex iterations of the filter property in the routes.yaml file can cause conflicts or unexpected behaviour. Here are the most common issues.
+</Card>
+
+<Card title="How can I backup my site data?" href="/docs/faq/manual-backup/">
+Learn how to backup your self-hosted Ghost install
+</Card>
+
+<Card title="How to resolve errors when running ghost start" href="/docs/faq/errors-running-ghost-start/">
+If an error occurs when trying to run `ghost start` or `ghost restart`, try using `ghost run` first to check that Ghost can start successfully. The `start` and `restart` commands are talking to your process manager (e.g. systemd) which can hide underlying errors from Ghost.
+</Card>
+
+<Card title="Image upload issues" href="/docs/faq/image-upload-issues/">
+Image uploads can be affected by the default max upload size of 50mb. If you need more, you’ll need to increase the limit by editing your nginx config file, and setting the limit manually.
+</Card>
+
+<Card title="Mail config error in Ghost with Google Cloud" href="/docs/faq/mail-config-error-google-cloud/">
+There’s a known issue that Google Cloud Platform does NOT allow any traffic on port 25 on a [Compute Engine instance](https://cloud.google.com/compute/docs/tutorials/sending-mail/).
+</Card>
+
+<Card title="Major Versions & Long Term Support" href="/docs/faq/major-versions-lts/">
+Major version release dates and end of life support for Ghost.
+</Card>
+
+<Card title="Missing newsletter analytics" href="/docs/faq/missing-newsletter-analytics/">
+Open rates that are 0% may indicate that the connection between Ghost and Mailgun has stalled, which prevents Ghost from fetching your newsletter analytics.
+</Card>
+
+<Card title="Missing SSL protocol" href="/docs/faq/missing-ssl-protocol/">
+After installing Ghost a url for your site is set. This is the URL people will use to access your publication.
+</Card>
+
+<Card title="Reverse proxying to Ghost" href="/docs/faq/proxying-https-infinite-loops/">
+Ghost is designed to have a reverse proxy in front of it. If you use Ghost-CLI to install Ghost, this will be setup for you using nginx. If you configure your own proxy, you’ll need to make sure the proxy is configured correctly.
+</Card>
+
+<Card title="Root user permissions fix" href="/docs/faq/root-user-fix/">
+A fix for root user permissions problems
+</Card>
+
+<Card title="Salt Incident Report: May 3rd, 2020" href="/docs/faq/salt-incident/">
+Analysis and retrospective of the critical Salt vulnerability on Ghost(Pro)
+</Card>
+
+<Card title="Supported Node versions" href="/docs/faq/node-versions/">
+Ghost’s current recommended Node version is Node v20 LTS.
+</Card>
+
+<Card title="Supported providers for self-hosting" href="/docs/faq/supported-hosting-providers/">
+We recommend using Digital Ocean who provide a stable option on which Ghost can be installed and have a very active community and an official [**Ghost One-Click Application**](https://marketplace.digitalocean.com/apps/ghost).
+</Card>
+
+<Card title="Translation in Ghost" href="/docs/faq/translation/">
+Creators from all over the world use Ghost. Publications abound in German, French, Spanish, Sinhalese, and Arabic—and the list keeps going!
+</Card>
+
+<Card title="Troubleshooting MySQL databases" href="/docs/faq/troubleshooting-mysql-database/">
+If your MySQL database is not correctly configured for Ghost, then you may run into some issues.
+</Card>
+
+<Card title="Unable to open sqlite3 database file" href="/docs/faq/unable-to-open-sqlite3-database-file/">
+If the sqlite3 database file is not readable or writable by the user running Ghost, then you’ll run into some errors.
+</Card>
+
+<Card title="Update from Ghost 0.x versions" href="/docs/faq/update-0x/">
+If you’re running Ghost 0.x versions, your site must be updated to Ghost 1.0 before it can be successfully updated to Ghost 2.0 and beyond.
+</Card>
+
+<Card title="Updating from deprecated Ghost-CLI" href="/docs/faq/upgrading-from-deprecated-ghost-cli/">
+When managing your self-hosted Ghost publication using the recommended `ghost-cli` tooling, you should update your CLI version. If you are using a deprecated version and need to update in order to update or manage your Ghost site, some extra steps may be required.
+</Card>
+
+<Card title="URL for tags and authors returns 404 errors" href="/docs/faq/url-for-tags-and-authors-returns-404/">
+The tag and author taxonomies must be present in routes.yaml otherwise the URLs will not exist. By default, Ghost installs with the following:
+</Card>
+
+<Card title="Using Cloudflare with Ghost" href="/docs/faq/using-cloudflare-with-ghost/">
+If you’ve added Cloudflare to your self-hosted Ghost publication and find that Ghost Admin doesn’t load after updates you may run into some errors in the JavaScript console:
+</Card>
+
+<Card title="Using nvm with local and production installs" href="/docs/faq/using-nvm/">
+This guide explains how to use `nvm` with local and production Ghost installs.
+</Card>
+
+<Card title="What databases are supported in production?" href="/docs/faq/supported-databases/">
+MySQL 8 is the only supported database in production.
+</Card>
+
+<Card title="Why do I have to set up Mailgun?" href="/docs/faq/mailgun-newsletters/">
+Ghost has the ability to deliver posts as email newsletters natively. A bulk-mail provider is required to use this feature and SMTP cannot be used — read more about [mail config](/docs/config/#mail).
+</Card>
+</CardGroup>
