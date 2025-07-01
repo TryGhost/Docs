@@ -1,0 +1,13 @@
+---
+title: Uploading a theme
+---
+
+To upload a theme ZIP archive, send a multipart formdata request by providing the `'Content-Type': 'multipart/form-data;'` header, along with the following field encoded as [FormData](https://developer.mozilla.org/en-US/docs/Web/API/FormData/FormData):
+
+`file`: *[Blob](https://developer.mozilla.org/en-US/docs/Web/API/Blob) or [File](https://developer.mozilla.org/en-US/docs/Web/API/File)* The theme archive that you want to upload.
+
+<RequestExample>
+```bash
+curl -X POST -F 'file=@/path/to/themes/my-theme.zip' -H "Authorization: Ghost $token" -H "Accept-Version: $version" https://{admin_domain}/ghost/api/admin/themes/upload
+```
+</RequestExample>

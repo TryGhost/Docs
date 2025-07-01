@@ -1,0 +1,20 @@
+---
+title: Updating an Offer
+---
+
+For existing offers, only `name` , `code`, `display_title` and `display_description` are editable.
+
+The example updates `display title` and `code`.
+<RequestExample>
+```json
+// PUT /admin/offers/{id}/
+{
+    "offers": [
+        {
+            "display_title": "Black Friday 2022",
+            "code": "black-friday-2022"
+        }
+    ]
+}
+```
+</RequestExample>

@@ -1,0 +1,37 @@
+---
+title: Site
+---
+
+Site is a special unauthenticated, read-only endpoint for retrieving basic information about a site. This information is useful for integrations and clients that need to show some details of a site before providing authentication.
+
+```js
+GET /admin/site/
+```
+
+### The site object
+
+The site endpoint returns a single object, rather than an array.
+
+`title`: *String* The title of the site, same as the title returned from the `settings` endpoint.
+
+`description`: *String* The description of the site, same as the description returned from the `settings` endpoint.
+
+`logo`: *String* The logo of the site, provided as a relative path. Same as the logo returned from the `settings` endpoint.
+
+`url`: *URI* The frontend URL for the site, which can be different to the Ghost Admin / API URL. This comes from the configuration JSON file.
+
+`version`: *Semver String (major.minor)* The current version of the Ghost site. Use this to check the minimum version is high enough for compatibility with integrations.
+<RequestExample>
+```json
+// GET admin/site/
+{
+    "site": {
+        "title": "Ghost",
+        "description": "The professional publishing platform",
+        "logo": "/content/images/2014/09/logo.png",
+        "url": "https://demo.ghost.io/",
+        "version": "3.14"
+    }
+}
+```
+</RequestExample>

@@ -1,0 +1,39 @@
+---
+title: Overview
+---
+
+Themes can be uploaded from a local ZIP archive and activated.
+
+```js
+POST /admin/themes/upload;
+PUT /admin/themes/{ name }/activate;
+```
+
+### The theme object
+
+When a theme is uploaded or activated, the response is a `themes` array containing one theme object with metadata about the theme, as well as its status (active or not).
+
+`name`: *String* The name of the theme. This is the value that is used to activate the theme.
+
+`package`: *Object* The contents of the `package.json` file is exposed in the API as it contains useful theme metadata.
+
+`active`: *Boolean* The status of the theme showing if the theme is currently used or not.
+
+`templates`: *Array* The list of templates defined by the theme.
+
+```json
+// POST /admin/images/upload/
+{
+    themes: [{
+      name: "Alto-master",
+      package: {...},
+      active: false,
+      templates: [{
+        filename: "custom-full-feature-image",
+        name: "Full Feature Image",
+        for: ["page", "post"],
+        slug: null
+      }, ...]
+    }]
+}
+```

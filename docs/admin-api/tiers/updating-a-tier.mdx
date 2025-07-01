@@ -1,0 +1,26 @@
+---
+title: Updating a Tier
+---
+
+```js
+PUT /admin/tiers/{id}/
+```
+
+Required fields: `name`
+
+Update all writable fields of a tier by using the edit endpoint. For example, rename a tier or set it as archived with this endpoint.
+
+
+<RequestExample>
+```json
+// PUT /admin/tiers/{id}/
+{
+    "tiers": [
+        {
+            "name": "Silver",
+            "description": "silver"
+        }
+    ]
+}
+```
+</RequestExample>

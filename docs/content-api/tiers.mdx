@@ -1,0 +1,110 @@
+---
+title: Tiers
+description: Tiers allow publishers to create multiple options for an audience to become paid subscribers. Each tier can have its own price points, benefits, and content access levels. Ghost connects tiers directly to the publication’s Stripe account.
+---
+
+#### Usage
+
+The tiers endpoint returns a list of tiers for the site, filtered by their visibility criteria.
+
+```js
+GET /content/tiers/
+```
+
+Tiers are returned in order of increasing monthly price.
+
+```json
+{
+    "tiers": [
+        {
+            "id": "62307cc71b4376a976734037",
+            "name": "Free",
+            "description": null,
+            "slug": "free",
+            "active": true,
+            "type": "free",
+            "welcome_page_url": null,
+            "created_at": "2022-03-15T11:47:19.000Z",
+            "updated_at": "2022-03-15T11:47:19.000Z",
+            "stripe_prices": null,
+            "benefits": null,
+            "visibility": "public"
+        },
+        {
+            "id": "6230d7c8c62265c44f24a594",
+            "name": "Gold",
+            "description": null,
+            "slug": "gold",
+            "active": true,
+            "type": "paid",
+            "welcome_page_url": "/welcome-to-gold",
+            "created_at": "2022-03-15T18:15:36.000Z",
+            "updated_at": "2022-03-15T18:16:00.000Z",
+            "stripe_prices": null,
+            "benefits": null,
+            "visibility": "public"
+        }
+    ]
+}
+```
+
+<RequestExample>
+```bash
+# cURL
+# Real endpoint - copy and paste to see!
+curl "https://demo.ghost.io/ghost/api/content/tiers/?key=22444f78447824223cefc48062&include=benefits,monthly_price,yearly_price"
+```
+</RequestExample>
+
+<ResponseExample>
+
+```json
+{
+    "tiers": [
+        {
+            "id": "61ee7f5c5a6309002e738c41",
+            "name": "Free",
+            "description": null,
+            "slug": "61ee7f5c5a6309002e738c41",
+            "active": true,
+            "type": "free",
+            "welcome_page_url": "/",
+            "created_at": "2022-01-24T10:28:44.000Z",
+            "updated_at": null,
+            "stripe_prices": null,
+            "monthly_price": null,
+            "yearly_price": null,
+            "benefits": [],
+            "visibility": "public"
+        },
+        {
+            "id": "60815dbe9af732002f9e02fa",
+            "name": "Ghost Subscription",
+            "description": null,
+            "slug": "ghost-subscription",
+            "active": true,
+            "type": "paid",
+            "welcome_page_url": "/",
+            "created_at": "2021-04-22T12:27:58.000Z",
+            "updated_at": "2022-01-12T17:22:29.000Z",
+            "stripe_prices": null,
+            "monthly_price": 500,
+            "yearly_price": 5000,
+            "currency": "usd",
+            "benefits": [],
+            "visibility": "public"
+        }
+    ],
+    "meta": {
+        "pagination": {
+            "page": 1,
+            "limit": 15,
+            "pages": 1,
+            "total": 2,
+            "next": null,
+            "prev": null
+        }
+    }
+}
+```
+</ResponseExample>

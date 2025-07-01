@@ -1,0 +1,85 @@
+---
+title: Overview
+---
+
+Tiers allow publishers to create multiple options for an audience to become paid subscribers. Each tier can have its own price points, benefits, and content access levels. Ghost connects tiers directly to the publication’s Stripe account.
+
+### The tier object
+
+Whenever you fetch, create, or edit a tier, the API responds with an array of one or more tier objects.
+
+By default, the API doesn’t return monthly/yearly prices or benefits. To include them in the response, use the `include` parameter with any or all of the following values: `monthly_price`, `yearly_price`, `benefits`.
+
+```json
+// GET admin/tiers/?include=monthly_price,yearly_price,benefits
+{
+    "tiers": [
+        {
+            "id": "622727ad96a190e914ab6664",
+            "name": "Free",
+            "description": null,
+            "slug": "free",
+            "active": true,
+            "type": "free",
+            "welcome_page_url": null,
+            "created_at": "2022-03-08T09:53:49.000Z",
+            "updated_at": "2022-03-08T10:43:15.000Z",
+            "stripe_prices": null,
+            "monthly_price": null,
+            "yearly_price": null,
+            "benefits": [],
+            "visibility": "public"
+        },
+        {
+            "id": "622727ad96a190e914ab6665",
+            "name": "Bronze",
+            "description": "Access to basic features",
+            "slug": "default-product",
+            "active": true,
+            "type": "paid",
+            "welcome_page_url": null,
+            "created_at": "2022-03-08T09:53:49.000Z",
+            "updated_at": "2022-03-14T19:22:46.000Z",
+            "stripe_prices": null,
+            "monthly_price": 500,
+            "yearly_price": 5000,
+            "currency": "usd",
+            "benefits": [
+                "Free daily newsletter",
+                "3 posts a week"
+            ],
+            "visibility": "public"
+        }
+    ],
+    "meta": {
+        "pagination": {
+            "page": 1,
+            "limit": 15,
+            "pages": 1,
+            "total": 2,
+            "next": null,
+            "prev": null
+        }
+    }
+}
+```
+
+### Parameters
+
+When retrieving tiers from the Admin API, it’s possible to use the `include` and `filter` parameters.
+
+Available **include** values:
+
+* `monthly_price` - include monthly price data
+* `yearly_price` - include yearly price data
+* `benefits` - include benefits data
+
+Available **filter** values:
+
+* `type:free|paid` - for filtering paid or free tiers
+* `visibility:public|none` - for filtering tiers based on their visibility
+* `active:true|false` - for filtering active or archived tiers
+
+For browse requests, it’s also possible to use `limit`, `page`, and `order` parameters as documented in the [Content API](https://ghost.org/docs/content-api/#parameters).
+
+By default, tiers are ordered by ascending monthly price amounts.
