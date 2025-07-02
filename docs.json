@@ -60,7 +60,14 @@
               "docs/themes/structure",
               "docs/themes/contexts",
               "docs/themes/assets",
-              "docs/themes/helpers",
+              {
+                "group": "Helpers",
+                "pages": [
+                  "/docs/themes/helpers/functional-helpers",
+                  "/docs/themes/helpers/data-helpers",
+                  "/docs/themes/helpers/utility-helpers"
+                ]
+              },
               "docs/themes/content",
               "docs/themes/search",
               "docs/themes/members",
