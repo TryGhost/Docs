@@ -1,9 +1,9 @@
 ---
 title: "How To Install Ghost On Ubuntu"
-description: A full guide for installing, configuring and running Ghost on your Ubuntu **20.04** or **22.04** server, for use in production
+description: "A full guide for installing, configuring and running Ghost on your Ubuntu **20.04** or **22.04** server, for use in production"
 ---
 
-***
+---
 
 ## Overview
 
@@ -15,17 +15,17 @@ This install is **not** suitable for [local use](/docs/install/local/) or [contr
 
 The officially recommended production installation requires the following stack:
 
-* Ubuntu 20.04 or Ubuntu 22.04
-* NGINX (minimum of 1.9.5 for SSL)
-* A [supported version](/docs/faq/node-versions/) of [Node.js](https://nodejs.org)
-* MySQL 8
-* Systemd
-* A server with at least 1GB memory
-* A registered domain name
+- Ubuntu 20.04 or Ubuntu 22.04
+- NGINX (minimum of 1.9.5 for SSL)
+- A [supported version](/docs/faq/node-versions/) of [Node.js](https://nodejs.org)
+- MySQL 8
+- Systemd
+- A server with at least 1GB memory
+- A registered domain name
 
 Before getting started you should set up a working DNS **A-Record** from you domain, pointing to the server’s IP address. This must be done in advance so that SSL can be configured during setup.
 
-***
+---
 
 ## Server Setup
 
@@ -44,8 +44,7 @@ adduser <user>
 ```
 
 <Note>
-Note: Using the user name `ghost` causes conflicts with the Ghost-CLI, so it’s important to use an alternative name.
-
+  Note: Using the user name `ghost` causes conflicts with the Ghost-CLI, so it’s important to use an alternative name.
 </Note>
 
 ```bash
@@ -119,7 +118,7 @@ sudo mkdir -p /etc/apt/keyrings
 curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
 
 # Create deb repository
-NODE_MAJOR=18 # Use a supported version
+NODE_MAJOR=22 # Use a supported version
 echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
 
 # Run update and install
@@ -127,7 +126,7 @@ sudo apt-get update
 sudo apt-get install nodejs -y
 ```
 
-***
+---
 
 ## Install Ghost-CLI
 
@@ -139,7 +138,7 @@ sudo npm install ghost-cli@latest -g
 
 Once installed, you can always run `ghost help` to see a list of available commands.
 
-***
+---
 
 ## Install Ghost
 
@@ -215,15 +214,15 @@ Choosing `yes` runs Ghost, and makes your site work.
 
 #### Access and secure your site
 
-Your Ghost site is now live! To set up your admin account, go to `https://example.com/ghost`. When you get there, you’ll be prompted to create your account as the site owner.
+Your Ghost site is now live\! To set up your admin account, go to `https://example.com/ghost`. When you get there, you’ll be prompted to create your account as the site owner.
 
-***
+---
 
 ## Future maintenance
 
 Once Ghost is properly set up it’s important to keep it properly maintained and up to date. Fortunately, this is relatively easy to do using Ghost-CLI. Run `ghost help` for a list of available commands, or explore the full [Ghost-CLI documentation](/docs/ghost-cli/).
 
-***
+---
 
 ## What to do if the install fails
 
@@ -233,8 +232,8 @@ If an install is interrupted or the connection lost, use `ghost setup` to restar
 
 For troubleshooting and errors, use the site search and [FAQ section](/docs/faq/) to find information about common error messages.
 
-***
+---
 
 ## What’s next?
 
-You’re all set! Now you can start customising your site. Check out our range of [tutorials](/tutorials/) or the Ghost [API documentation](/docs/content-api/) depending on which page of this choose-your-own-adventure experience you’d like to subject yourself to next.
+You’re all set\! Now you can start customising your site. Check out our range of [tutorials](/tutorials/) or the Ghost [API documentation](/docs/content-api/) depending on which page of this choose-your-own-adventure experience you’d like to subject yourself to next.
