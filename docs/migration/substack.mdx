@@ -3,136 +3,6 @@ title: "Migrating from Substack"
 description: "Migrate from Substack and import your content to Ghost with this guide"
 ---
 
-<Note>
-  If you're a Ghost(Pro) customer, our team may be able to help you migrate your content and subscribers. Learn more about our [Concierge service](https://ghost.org/concierge/).
-</Note>
-
-## Exporting your subscribers
-
-To get started, export **All Subscribers** in CSV format. This exports your entire Subscriber list from Substack:
-
-<Frame>
-  ![](/images/4dbb61d9-export-subscribers_hu9b5a04e10eb52f416de1a1f6ddfeb3d7_16147_1942x0_resize_q100_h2_box_3.webp)
-</Frame>
-
-If you’re also migrating paid subscribers, you’ll need to export the Stripe ID’s of your customers by exporting the **Paid Subscribers** list, which downloads a separate CSV with this information included.
-
-Now you’ll have all of the the email subscriber and customer data required to migrate from Substack to Ghost.
-
-## Import subscribers to Ghost
-
-We recommend preparing the data in your CSV using our guide on [importing members in Ghost](https://ghost.org/help/import-members/). Alternatively, [we can do this work for you](https://ghost.org/concierge/) with an annual payment on the Ghost(Pro) Creator, Team, or Business plans.
-
-Once you’re happy that you subscriber data is complete, under the Ghost Admin members settings, select the import option from the settings menu.
-
-<Frame>
-  ![](/images/2f96f746-import-members-1_huc3d26abd3bec140dac4d1e5fd61f2b53_17353_1000x0_resize_q100_h2_box_3.webp)
-</Frame>
-
-Upload your CSV file to Ghost, and map each of the fields contained in your CSV to the corresponding fields in Ghost. The **email** field is required in order to create members in Ghost, while the other fields are optional.
-
-### Importing paid members
-
-To import paid members with an existing Stripe subscription, you must import their **Stripe customer ID**.
-
-<Frame>
-  ![](/images/19216f0e-import-members-2_hu4666f031efd860d74fa4f40b2a587fd0_130604_1000x0_resize_q100_h2_box_3.webp)
-</Frame>
-
-Once the import has completed, all your subscribers will be migrated to Ghost.
-
-### Importing subscribers with a `comp` or `gift` plan
-
-If you’ve provided any of your subscribers with a free or gifted paid access to premium content in Substack, you can also give them free access to paid content in Ghost by importing their email address with the Complimentary Plan column flagged as `true` in your [CSV import](https://ghost.org/help/import-members/).
-
-This provides these members with unlimited free access to premium content on your Ghost publication with an [access level](https://ghost.org/help/protected-content/) of `paid-members only`. If you’d like your members complimentary access to expire after a specific date, the easiest way to do this is to edit the complimentary subscription directly in Stripe and schedule the date the subscription should be cancelled.
-
-<Frame>
-  ![](/images/e2506910-update-comp-plan.gif)
-</Frame>
-
-## Removing Substack fees
-
-Because of how Stripe works, disconnecting will **not** prevent Substack from continuing to take a 10% commission on all existing subscriptions. Substack have an official policy that you can contact them before leaving to have these fees removed. Ask their support team to remove fees, unlink your Stripe account, and leave subscriptions as-is in Stripe.
-
-Once fees have been removed, and you have completed your migration, you should ensure Substack is disconnected from Stripe to prevent subscriptions from getting out-of-sync in future. You can do this by going to https://dashboard.stripe.com/account/applications — and clicking on **Revoke Access**.
-
-<Frame>
-  ![](/images/69680467-disconnect-application_hu5415c58dc1ab28674219d7e93aa41f5c_57584_1817x0_resize_q100_h2_box_3.webp)
-</Frame>
-
-## Migrating Content
-
-Developers can migrate content from Substack to Ghost using our [migration CLI tools](https://github.com/TryGhost/migrate/tree/main/packages/mg-substack).
-
-You will first need to [export your content](https://support.substack.com/hc/en-us/articles/360037466012-How-do-I-export-my-posts-) from Substack. This will include a file called `posts.csv` which includes meta data for each post, and a directory full of HTML files which contains the post content.
-
-First, make sure the CLI is installed.
-
-```sh
-# Install CLI
-npm install --global @tryghost/migrate
-
-# Verify it's installed
-migrate
-```
-
-To run a basic migration with the default commands:
-
-```sh
-# Basic migration
-migrate substack --pathToZip export.zip --url https://mysite.substack.com
-```
-
-In the above example:
-
-- Changes subscribe links to open [Portal](/docs/themes/members/)
-- Changes comments links to link to `#ghost-comments-root`
-- Excludes thread posts
-- Uses the `og:image` value as the feature image
-- Uses the `ld+json` data to set the post authors
-
-By setting some options,
-
-```sh
-# Migration with options
-migrate substack --pathToZip export.zip --url https://mysite.substack.com --email 'person@example.com' --drafts false --commentLink \#comments
-```
-
-In addition to the basic example above, this more complex example:
-
-- Excludes draft posts
-- Sets the post author to be `person@example.com`
-- Changes comment links to `#comments`
-
-There are [more options](https://github.com/TryGhost/migrate/tree/main/packages/mg-substack#usage), such as the ability to only migrate content to and from specific dates, handling of draft posts, and more.
-
-Once the CLI task has finished, it creates a new ZIP file which you can [import into Ghost](https://ghost.org/help/imports/).
-
-### Using custom domains
-
-If you’re using a custom domain on Substack, you’ll need to implement redirects in Ghost to prevent broken links.
-
-Substack uses `/p/` as part of the public post URL, where as Ghost uses it in the URL for post previews. This means the redirect regular expression is quite complex, but necessary so that post previews in Ghost function correctly.
-
-```yaml
-# redirects.yaml
-301:
-    \/p\/(?![0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})(.*): /$1
-
-302:
-```
-
-This means that if a visitor or crawler goes to `https://mysite.com/p/awesome-post`, they will automatically be redirected to `https://mysite.com/awesome-post`.
-
----
-
-## Summary
-
-Congratulations on your migration to Ghost 🙌. All that’s left to do is check over your content to ensure the migration has worked as expected. We also have a guide on [how to implement redirects](https://ghost.org/tutorials/implementing-redirects/) to make your transition smoother.
-
----
-
 <Tip>
   💡 **Migrating paid memberships from Substack?** You will need to set up Stripe first — [**find out more**](https://ghost.org/help/stripe/). Make sure to use the same Stripe account that is connected to your Substack.
 </Tip>
@@ -141,4 +11,66 @@ Congratulations on your migration to Ghost 🙌. All that’s left to do is chec
 
 The Substack migrator allows you to quickly import content and members from your Substack to your Ghost publication. You can access the migrator tool from the **Settings → Advanced →** **Import/Export** area of Ghost Admin.
 
-\![](https://ghost.org/help/content/images/size/w1000/2025/04/migrate-tools-apr-2025-1.png
+![Migrate Tools Apr 2025 Pn](/images/migrate-tools-apr-2025.png)
+
+It's helpful to log in to your Substack account before running the migration in Ghost Admin.
+
+### **1. Enter your Substack URL**
+
+To start the migration process, enter the public URL to your Substack, and click **Continue**.
+
+![enter-url.png](/images/enter-url.png)
+
+### **2. Export content**
+
+Next, click **Open Substack Settings. **If already logged into Substack, this will take you directly to the location of your Substack account where an export can be generated.
+
+![import-content.png](/images/import-content.png)
+
+Click **Create new export**, and then download the zip file that's generated after the export is completed in Substack.
+
+### **3. Upload content**
+
+Once your export has been downloaded, return to the migrator window in Ghost Admin, and select **Click or drag file here to upload**, and navigate to the zip file you downloaded from Substack, once uploaded click **Continue**.
+
+If you're unsure of where the file was saved, check your Downloads folder.
+
+### **4. Export free subscribers**
+
+Next, it's time to import your Substack subscribers. Click **Download free subscribers from Substack**, to trigger a CSV file download of your subscriber list.
+
+Once downloaded, select **Click or drag CSV file here to upload** and navigate to the CSV download, and click **Continue**.
+
+![import-free-subscribers.png](/images/import-free-subscribers.png)
+
+### **5. Export paid subscribers**
+
+Next, it's time to import your Substack subscribers, if you have them. Click **Download paid subscribers from Substack**, to trigger a CSV file download of your subscriber list.
+
+Once downloaded, select **Click or drag CSV file here to upload** and navigate to the CSV download, and click **Continue**.
+
+![import-paid-subscribers.png](/images/import-paid-subscribers.png)
+
+### **6. Review**
+
+Ghost will confirm the number of posts and members that will be imported to your publication. If satisfied, click **Import content and subscribers** to begin the import of your data.
+
+![summary.png](/images/summary.png)
+
+After a few moments, you'll see a confirmation message, confirming that your data was successfully migrated to your Ghost site.
+
+### **Substack fees**
+
+Ghost does not take a cut of your revenue. Substack will continue to take **10% fees** on your existing paid subscriptions. If you would like help getting payment fees removed, contact [concierge@ghost.org](mailto:concierge@ghost.org).
+
+### **Statement descriptor**
+
+The statement descriptor is what's shown on bank statements, and depending on how the account was set up, might include 'Substack' in the name. We recommend updating this in your [Stripe public details settings](https://dashboard.stripe.com/settings/update/public/support-details).
+
+## Large and Complex migrations
+
+If your migration needs go beyond what our in-built migration tools can support you can still move to Ghost.
+
+If you're a **Ghost(Pro) customer**, our Migrations team can support you in migrating your content and subscribers. Learn more and get in touch with the team [here](https://ghost.org/concierge/).
+
+Alternatively, if you are a developer, comfortable with using the command line, or running a self-hosted Ghost instance, we have a suite of[ open-source migration tools ](https://github.com/TryGhost/migrate)to help with large, complex and custom migrations.
