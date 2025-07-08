@@ -3,8 +3,62 @@ title: "Migrating from Squarespace"
 description: "Migrate from Squarespace and import your content to Ghost with this guide"
 ---
 
-<Note>
-If you're a Ghost(Pro) customer, our team may be able to help you migrate your content and subscribers. Learn more about our [Concierge service](https://ghost.org/concierge/).
-</Note>
+You can easily migrate your posts from your Squarespace site to Ghost in just a few clicks, using the built-in Squarespace migrator in Ghost Admin.
 
-Migrations from Squarespace are a complex manual process with a lot of data sanitisation work. If you want to do a migration yourself, you’ll need to follow our [developer documentation](/docs/migration/custom/) to create your own migration archive.
+## **Run the migration**
+
+The Squarespace migrator allows you to quickly import content from your Squarespace site to your Ghost publication. You can access the migrator tool from the **Settings → Advanced →** **Import/Export** area of Ghost Admin.
+
+![Migrate Tools Apr 2025 Pn](/images/migrate-tools-apr-2025.png)
+
+It's helpful to log in to your Squarespace site before running the migration in Ghost Admin.
+
+### **1. Enter your Squarespace URL**
+
+To start the migration process, enter the public URL to your Squarespace site, and click **Continue**.
+
+![squarepace-1.png](/images/squarepace-1.png)
+
+### **2. Export content**
+
+Next, click \*\*Open Squarespace settings. \*\*If already logged into Squarespace, this will take you directly to the location of your Squarespace site where an export can be generated.
+
+![squarepace-2.png](/images/squarepace-2.png)
+
+Click **Export**, which will download an XML file with your content in it.
+
+### **3. Upload content**
+
+Once your export has been downloaded, return to the migrator window in Ghost Admin, and select **Click or drag file here to upload**, and navigate to the XML file you downloaded from Squarespace, once uploaded click **Continue**.
+
+If you're unsure of where the file was saved, check your Downloads folder.
+
+### **4. Review**
+
+Ghost will confirm the number of posts and pages that will be imported to your publication. If satisfied, click \*\*Import content \*\*to begin the import of your data.
+
+![squarepace-3.png](/images/squarepace-3.png)
+
+After a few moments, you'll see a confirmation message, confirming that your data was successfully migrated to your Ghost site.
+
+---
+
+### **Redirects**
+
+<Info>
+  Squarespace categories are converted to [tags](https://ghost.org/help/tags/) during the migration. The first category for any post will also become the [primary tag](https://ghost.org/help/tags/#primary-tags).
+</Info>
+
+You may need to add [redirects](https://ghost.org/help/redirects/) to ensure backlinks lead to the correct content.
+
+Please refer to this list of the [most common redirection rules for Squarespace migrations](https://ghost.org/tutorials/implementing-redirects/#common-redirects).
+
+---
+
+## Large and Complex migrations
+
+If your migration needs go beyond what our in-built migration tools can support you can still move to Ghost.
+
+If you're a **Ghost(Pro) customer**, our Migrations team can support you in migrating your content and subscribers. Learn more and get in touch with the team [here](https://ghost.org/concierge/).
+
+Alternatively, if you are a developer, comfortable with using the command line, or running a self-hosted Ghost instance, we have a suite of[ open-source migration tools ](https://github.com/TryGhost/migrate)to help with large, complex and custom migrations.
