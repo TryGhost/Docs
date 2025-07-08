@@ -23,7 +23,7 @@ To start the migration process, enter the public URL to your Substack, and click
 
 ### **2. Export content**
 
-Next, click **Open Substack Settings. **If already logged into Substack, this will take you directly to the location of your Substack account where an export can be generated.
+Next, click \*\*Open Substack Settings. \*\*If already logged into Substack, this will take you directly to the location of your Substack account where an export can be generated.
 
 ![import-content.png](/images/import-content.png)
 
@@ -66,6 +66,24 @@ Ghost does not take a cut of your revenue. Substack will continue to take **10% 
 ### **Statement descriptor**
 
 The statement descriptor is what's shown on bank statements, and depending on how the account was set up, might include 'Substack' in the name. We recommend updating this in your [Stripe public details settings](https://dashboard.stripe.com/settings/update/public/support-details).
+
+### **Using custom domains**
+
+If you’re using a custom domain on Substack, you’ll need to implement redirects in Ghost to prevent broken links.
+
+Substack uses `/p/` as part of the public post URL, where as Ghost uses it in the URL for post previews. This means the redirect regular expression is quite complex, but necessary so that post previews in Ghost function correctly.
+
+```yaml
+# redirects.yaml
+301:
+    \/p\/(?![0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})(.*): /$1
+
+302:
+```
+
+This means that if a visitor or crawler goes to `https://mysite.com/p/awesome-post`, they will automatically be redirected to `https://mysite.com/awesome-post`.
+
+For more information on Substack redirects, visit our guide [here](https://ghost.org/tutorials/implementing-redirects/#substack).
 
 ## Large and Complex migrations
 
