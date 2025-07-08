@@ -3,10 +3,41 @@ title: "Migrating from Mailchimp"
 description: "Migrate from Mailchimp and import your content to Ghost with this guide"
 ---
 
-## Self-service Migration
 
-Most publishers can do this right now using our [Mailchimp migrator](https://ghost.org/help/importing-from-mailchimp/).
+You can easily migrate your subscribers from Mailchimp to Ghost in just a few clicks, using the Mailchimp migrator in Ghost Admin.
 
-<Frame>
-  <img src="/images/a50eb082-ghost-import_hu962a01aa25518bdd09da163d2805bfcd_160396_2164x0_resize_q100_h2_box_3.webp" />
-</Frame>
+<Warning>
+  ✏️ It's not currently possible to migrate your Mailchimp content.
+</Warning>
+
+## **Run the migration**
+
+The Mailchimp migrator allows you to quickly import members from your Mailchimp to your Ghost publication. You can access the migrator tool from the **Settings → Advanced →** **Import/Export** area of Ghost Admin.
+
+![migrate-tools-apr-2025.png](/images/migrate-tools-apr-2025.png)
+
+It's helpful to log in to your Mailchimp account before running the migration in Ghost Admin.
+
+### **1. Export subscribers**
+
+Next, it's time to import your Mailchimp subscribers. Click **Open Mailchimp Audience**, and click **Export Audience**.
+
+Once downloaded, select **Click or drag file here to upload** and navigate to the text download, and click **Continue**.
+
+![audience-1.png](/images/audience-1.png)
+
+### **2. Review**
+
+Ghost will confirm the number of subscribers that will be imported to your publication. If satisfied, click **Import subscribers** to begin the import of your data.
+
+![overview-2.png](/images/overview-2.png)
+
+After a few moments, you'll see a confirmation message, confirming that your data was successfully migrated to your Ghost site.
+
+## **Large and Complex migrations**
+
+If your migration needs go beyond what our in-built migration tools can support you can still move to Ghost.
+
+If you're a **Ghost(Pro) customer**, our Migrations team can support you in migrating your content and subscribers. Learn more and get in touch with the team [here](https://ghost.org/concierge/).
+
+Alternatively, if you are a developer, comfortable with using the command line, or running a self-hosted Ghost instance, we have a suite of[ open-source migration tools ](https://github.com/TryGhost/migrate)to help with large, complex and custom migrations.
