@@ -12,6 +12,7 @@
     "default": "light"
   },
   "styling": {
+    "eyebrows": "breadcrumbs",
     "codeblocks": "dark"
   },
   "navigation": {
@@ -63,9 +64,73 @@
               {
                 "group": "Helpers",
                 "pages": [
-                  "/themes/helpers/functional-helpers",
-                  "/themes/helpers/data-helpers",
-                  "/themes/helpers/utility-helpers"
+                  {
+                    "group": "Functional",
+                    "pages": [
+                      "/themes/helpers/functional",
+                      "/themes/helpers/functional/foreach",
+                      "/themes/helpers/functional/get",
+                      "/themes/helpers/functional/has",
+                      "/themes/helpers/functional/if",
+                      "/themes/helpers/functional/is",
+                      "/themes/helpers/functional/match",
+                      "/themes/helpers/functional/unless"
+                    ]
+                  },
+                  {
+                    "group": "Data",
+                    "pages": [
+                      "/themes/helpers/data",
+                      "/themes/helpers/data/config",
+                      "/themes/helpers/data/custom",
+                      "/themes/helpers/data/page",
+                      "/themes/helpers/data/site",
+                      "/themes/helpers/data/authors",
+                      "/themes/helpers/data/comments",
+                      "/themes/helpers/data/content",
+                      "/themes/helpers/data/date",
+                      "/themes/helpers/data/excerpt",
+                      "/themes/helpers/data/facebook",
+                      "/themes/helpers/data/social_url",
+                      "/themes/helpers/data/img_url",
+                      "/themes/helpers/data/link",
+                      "/themes/helpers/data/meta_data",
+                      "/themes/helpers/data/navigation",
+                      "/themes/helpers/data/post",
+                      "/themes/helpers/data/price",
+                      "/themes/helpers/data/readable_url",
+                      "/themes/helpers/data/recommendations",
+                      "/themes/helpers/data/tags",
+                      "/themes/helpers/data/tiers",
+                      "/themes/helpers/data/title",
+                      "/themes/helpers/data/total_members",
+                      "/themes/helpers/data/total_paid_members",
+                      "/themes/helpers/data/twitter",
+                      "/themes/helpers/data/url"
+                    ]
+                  },
+                  {
+                    "group": "Utility",
+                    "pages": [
+                      "/themes/helpers/utility",
+                      "/themes/helpers/utility/asset",
+                      "/themes/helpers/utility/block",
+                      "/themes/helpers/utility/body_class",
+                      "/themes/helpers/utility/concat",
+                      "/themes/helpers/utility/encode",
+                      "/themes/helpers/utility/ghost_head_foot",
+                      "/themes/helpers/utility/link_class",
+                      "/themes/helpers/utility/log",
+                      "/themes/helpers/utility/pagination",
+                      "/themes/helpers/utility/partials",
+                      "/themes/helpers/utility/plural",
+                      "/themes/helpers/utility/post_class",
+                      "/themes/helpers/utility/prev_next_post",
+                      "/themes/helpers/utility/reading_time",
+                      "/themes/helpers/utility/search",
+                      "/themes/helpers/utility/translate"
+                    ]
+                  }
                 ]
               },
               "themes/content",
