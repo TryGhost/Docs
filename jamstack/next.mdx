@@ -38,17 +38,17 @@ Next.js can also be setup manually – refer to the [official Next.js documentat
 
 ## Getting started
 
-Thanks to the [JavaScript Content API Client Library](/docs/content-api/javascript/), it’s possible for content from a Ghost site can be directly accessed within a Next.js application.
+Thanks to the [JavaScript Content API Client Library](/content-api/javascript/), it’s possible for content from a Ghost site can be directly accessed within a Next.js application.
 
 Create a new file called `posts.js` within an `lib/` directory. This file will contain all the functions needed to request Ghost post content, as well as an instance of the Ghost Content API.
 
-Install the official [JavaScript Ghost Content API](/docs/content-api/javascript/#installation) helper using:
+Install the official [JavaScript Ghost Content API](/content-api/javascript/#installation) helper using:
 
 ```bash
 yarn add @tryghost/content-api
 ```
 
-Once the helper is installed it can be added to the `posts.js` file using a [static `import` statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import):
+Once the helper is installed it can be added to the `posts.js` file using a [static `import` statement](https://developer.mozilla.org/en-US/Web/JavaScript/Reference/Statements/import):
 
 ```js
 import GhostContentAPI from "@tryghost/content-api";
@@ -75,11 +75,11 @@ Create a custom integration within Ghost Admin to generate a key and change the 
   <img src="/images/d3673af2-apikey_huc23d3a1fbe859434094a9db94f574d9a_265920_2920x0_resize_q100_h2_box_3.webp" />
 </Frame>
 
-For more detailed steps on setting up Integrations check out [our documentation on the Content API](/docs/content-api/#authentication).
+For more detailed steps on setting up Integrations check out [our documentation on the Content API](/content-api/#authentication).
 
 ### Exposing content
 
-The [`posts.browse()`](/docs/content-api/javascript/#endpoints) endpoint can be used to get all the posts from a Ghost site. This can be done with the following code as an asynchronous function:
+The [`posts.browse()`](/content-api/javascript/#endpoints) endpoint can be used to get all the posts from a Ghost site. This can be done with the following code as an asynchronous function:
 
 ```js
 export async function getPosts() {
@@ -97,7 +97,7 @@ Using an asynchronous function means Next.js will wait until all the content has
 
 ### Rendering posts
 
-Since you’re sending content from Ghost to a React application, data is passed to pages and components with [`props`](https://reactjs.org/docs/components-and-props.html). Next.js extends upon that concept with [`getStaticProps`](https://nextjs.org/docs/basic-features/data-fetching#getstaticprops-static-generation). This function will load the Ghost site content into the page before it’s rendered in the browser.
+Since you’re sending content from Ghost to a React application, data is passed to pages and components with [`props`](https://reactjs.org/components-and-props.html). Next.js extends upon that concept with [`getStaticProps`](https://nextjs.org/basic-features/data-fetching#getstaticprops-static-generation). This function will load the Ghost site content into the page before it’s rendered in the browser.
 
 Use the following to import the `getPosts` function created in previous steps within a page you want to render Ghost posts:
 
@@ -139,7 +139,7 @@ Pages in Next.js are stored in a `pages/` directory. To find out more about how 
 
 ### Rendering a single post
 
-Retrieving Ghost content from a single post can be done in a similar fashion to retrieving all posts. By using [`posts.read()`](/docs/content-api/javascript/#endpoints) it’s possible to query the Ghost Content API for a particular post using a [post `id` or `slug`](/docs/content-api/#posts).
+Retrieving Ghost content from a single post can be done in a similar fashion to retrieving all posts. By using [`posts.read()`](/content-api/javascript/#endpoints) it’s possible to query the Ghost Content API for a particular post using a [post `id` or `slug`](/content-api/#posts).
 
 Reopen the `lib/posts.js` file and add the following async function:
 
@@ -157,7 +157,7 @@ export async function getSinglePost(postSlug) {
 
 This function accepts a single `postSlug` parameter, which will be passed down by the template file using it. The page slug can then be used to query the Ghost Content API and get the associated post data back.
 
-Next.js provides [dynamic routes](https://nextjs.org/docs/routing/dynamic-routes) for pages that don’t have a fixed URL / slug. The name of the js file will be the variable, in this case the post `slug`, wrapped in square brackets – `[slug].js`.
+Next.js provides [dynamic routes](https://nextjs.org/routing/dynamic-routes) for pages that don’t have a fixed URL / slug. The name of the js file will be the variable, in this case the post `slug`, wrapped in square brackets – `[slug].js`.
 
 The `getSinglePost()` function can be used within the `[slug].js` file like so:
 
@@ -229,17 +229,17 @@ const IndexPage = (props) => (
 );
 ```
 
-Pages are linked in this fashion within Next.js applications to make full use of client-side rendering as well as server-side rendering. To read more about how the `Link` component works and it’s use within Next.js apps [check out their documentation](https://nextjs.org/docs/api-reference/next/link).
+Pages are linked in this fashion within Next.js applications to make full use of client-side rendering as well as server-side rendering. To read more about how the `Link` component works and it’s use within Next.js apps [check out their documentation](https://nextjs.org/api-reference/next/link).
 
 ## Examples
 
-The flexibility of the [Ghost Content API](/docs/content-api/javascript/) allows you to feed posts, pages and any other pieces of content from Ghost site into a Next.js JavaScript app.
+The flexibility of the [Ghost Content API](/content-api/javascript/) allows you to feed posts, pages and any other pieces of content from Ghost site into a Next.js JavaScript app.
 
 Below are a few examples of how content from Ghost can be passed into a Next.js project.
 
 ## Getting pages
 
-Pages can be generated in the [same fashion as posts](/docs/jamstack/next/#exposing-content), and can even use the same dynamic route file.
+Pages can be generated in the [same fashion as posts](/jamstack/next/#exposing-content), and can even use the same dynamic route file.
 
 ```js
 export async function getPages() {
@@ -272,7 +272,7 @@ export async function getPosts() {
 
 ### Rendering author pages
 
-An author can be requested using the [`authors.read()`](/docs/content-api/javascript/#endpoints) endpoint.
+An author can be requested using the [`authors.read()`](/content-api/javascript/#endpoints) endpoint.
 
 ```js
 export async function getAuthor(authorSlug) {

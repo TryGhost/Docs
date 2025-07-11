@@ -9,7 +9,7 @@ description: "A full guide for installing, configuring and running Ghost on your
 
 This the official guide for self-hosting Ghost using our recommended stack of Ubuntu 20.04 or 22.04. If you’re comfortable installing, maintaining and updating your own software, this is the place for you. By the end of this guide you’ll have a fully configured Ghost install running in production using MySQL.
 
-This install is **not** suitable for [local use](/docs/install/local/) or [contributing](/docs/install/source/) to core.
+This install is **not** suitable for [local use](/install/local/) or [contributing](/install/source/) to core.
 
 ## Prerequisites
 
@@ -17,7 +17,7 @@ The officially recommended production installation requires the following stack:
 
 - Ubuntu 20.04 or Ubuntu 22.04
 - NGINX (minimum of 1.9.5 for SSL)
-- A [supported version](/docs/faq/node-versions/) of [Node.js](https://nodejs.org)
+- A [supported version](/faq/node-versions/) of [Node.js](https://nodejs.org)
 - MySQL 8
 - Systemd
 - A server with at least 1GB memory
@@ -108,7 +108,7 @@ exit
 
 ### Install Node.js
 
-You will need to have a [supported version](/docs/faq/node-versions/) of Node installed system-wide in the manner described below. If you have a different setup, you may encounter problems.
+You will need to have a [supported version](/faq/node-versions/) of Node installed system-wide in the manner described below. If you have a different setup, you may encounter problems.
 
 ```bash
 # Download and import the Nodesource GPG key
@@ -130,7 +130,7 @@ sudo apt-get install nodejs -y
 
 ## Install Ghost-CLI
 
-[Ghost-CLI](/docs/ghost-cli/) is a commandline tool to help you get Ghost installed and configured for use, quickly and easily. The npm module can be installed with `npm` or `yarn`.
+[Ghost-CLI](/ghost-cli/) is a commandline tool to help you get Ghost installed and configured for use, quickly and easily. The npm module can be installed with `npm` or `yarn`.
 
 ```bash
 sudo npm install ghost-cli@latest -g
@@ -142,7 +142,7 @@ Once installed, you can always run `ghost help` to see a list of available comma
 
 ## Install Ghost
 
-Once your server is correctly setup and `ghost-cli` is installed, you can install Ghost itself. The following steps are the recommended setup. If you need more fine-grained control, the CLI has [flags and options](/docs/ghost-cli/) that allow you to break down and customise the install steps.
+Once your server is correctly setup and `ghost-cli` is installed, you can install Ghost itself. The following steps are the recommended setup. If you need more fine-grained control, the CLI has [flags and options](/ghost-cli/) that allow you to break down and customise the install steps.
 
 ### Create a directory
 
@@ -220,7 +220,7 @@ Your Ghost site is now live\! To set up your admin account, go to `https://examp
 
 ## Future maintenance
 
-Once Ghost is properly set up it’s important to keep it properly maintained and up to date. Fortunately, this is relatively easy to do using Ghost-CLI. Run `ghost help` for a list of available commands, or explore the full [Ghost-CLI documentation](/docs/ghost-cli/).
+Once Ghost is properly set up it’s important to keep it properly maintained and up to date. Fortunately, this is relatively easy to do using Ghost-CLI. Run `ghost help` for a list of available commands, or explore the full [Ghost-CLI documentation](/ghost-cli/).
 
 ---
 
@@ -230,10 +230,10 @@ If an install goes horribly wrong, use `ghost uninstall` to remove it and try ag
 
 If an install is interrupted or the connection lost, use `ghost setup` to restart the configuration process.
 
-For troubleshooting and errors, use the site search and [FAQ section](/docs/faq/) to find information about common error messages.
+For troubleshooting and errors, use the site search and [FAQ section](/faq/) to find information about common error messages.
 
 ---
 
 ## What’s next?
 
-You’re all set\! Now you can start customising your site. Check out our range of [tutorials](/tutorials/) or the Ghost [API documentation](/docs/content-api/) depending on which page of this choose-your-own-adventure experience you’d like to subject yourself to next.
+You’re all set\! Now you can start customising your site. Check out our range of [tutorials](/tutorials/) or the Ghost [API documentation](/content-api/) depending on which page of this choose-your-own-adventure experience you’d like to subject yourself to next.

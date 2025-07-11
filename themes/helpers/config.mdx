@@ -7,7 +7,7 @@ description: The `@config` property provides access to global data properties, w
 
 Specifically `@config` will pass through the special theme config that is added in the theme’s `package.json` so that it can be used anywhere in handlebars.
 
-At the moment, there is only one property which will be passed through, as all other [properties](https://ghost.org/docs/themes/structure/#additional-properties) are accessed with their own helpers.
+At the moment, there is only one property which will be passed through, as all other [properties](/themes/structure/#additional-properties) are accessed with their own helpers.
 
 * `{{@config.posts_per_page}}` – the number of posts per page
 
@@ -48,6 +48,6 @@ Config values can be provided by adding a `config` block to package.json
 There are currently four properties supported:
 
 * `config.posts_per_page` — the default number of posts per page is 5
-* `config.image_sizes` — see the [assets](/docs/themes/assets/) guide for more details on responsive images
-* `config.card_assets` — configure the [card CSS and JS](/docs/themes/content/#editor-cards) that Ghost automatically includes
-* `config.custom` - add [custom settings](/docs/themes/custom-settings/) to your theme
+* `config.image_sizes` — see the [assets](/themes/assets/) guide for more details on responsive images
+* `config.card_assets` — configure the [card CSS and JS](/themes/content/#editor-cards) that Ghost automatically includes
+* `config.custom` - add [custom settings](/themes/custom-settings/) to your theme

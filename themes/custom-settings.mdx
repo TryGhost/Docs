@@ -311,7 +311,7 @@ The only exception is when the theme **must** have text for a specific setting. 
 
 Configure setting dependencies to ensure that only relevant settings are displayed to the user in Ghost Admin. For example, a theme may offer several different header styles: `Landing`, `Highlight`, `Magazine`, `Search`, `Off`. If that value is `Landing` or `Search`, then an additional option becomes visible in Ghost Admin that allows the use of the publication’s cover image as the background. Otherwise, the option is hidden. By configuring setting dependencies, users get a better experience by only seeing settings that are relevant.
 
-To control when settings are visible, include the `visibility` key on the dependent setting. This key specifies the conditions that must be met for the setting to be displayed. Typically, you’ll specify the name of the parent setting and value it should have for the dependent setting to be visible. You can also use any [NQL syntax](https://ghost.org/docs/content-api/#filtering) for this — the same syntax used for filtering with the `get` helper.
+To control when settings are visible, include the `visibility` key on the dependent setting. This key specifies the conditions that must be met for the setting to be displayed. Typically, you’ll specify the name of the parent setting and value it should have for the dependent setting to be visible. You can also use any [NQL syntax](/content-api/#filtering) for this — the same syntax used for filtering with the `get` helper.
 
 **Example: Header style and background image**
 

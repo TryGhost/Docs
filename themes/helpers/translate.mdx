@@ -11,7 +11,7 @@ description: 'Usage: `{{t}}`'
 
 Ghost’s front-end and themes are fully translatable by enabling a publication language in the setting in Ghost admin, and using the translate helper to wrap around any plain text in your theme.
 
-Learn more about [translation in Ghost at our FAQ](/docs/faq/translation/).
+Learn more about [translation in Ghost at our FAQ](/faq/translation/).
 
 ## Making a theme translatable
 
@@ -182,7 +182,7 @@ This can be used to translate the prefix or suffix attribute of the `{{tags}}`, 
 
 #### Plural helper
 
-`{{plural}}` is a [formatting helper](/docs/themes/helpers/plural/) for outputting strings which change depending on whether a number is singular or plural.
+`{{plural}}` is a [formatting helper](/themes/helpers/plural/) for outputting strings which change depending on whether a number is singular or plural.
 
 This can be used in translations to output information such as number of posts:
 
@@ -200,7 +200,7 @@ In the theme template `author.hbs`, several (t) subexpressions instead of normal
 
 #### Reading time helper
 
-The [reading time helper](/docs/themes/helpers/reading_time/) can be used in translations to provide a reading time for your posts in the desired language.
+The [reading time helper](/themes/helpers/reading_time/) can be used in translations to provide a reading time for your posts in the desired language.
 
 For example, in `es.json`:
 
@@ -214,7 +214,7 @@ And in the theme template `post.hbs`:
 
 #### Pagination
 
-The [`{{meta_title}}`](/docs/themes/helpers/meta_data/) helper accepts a page parameter that can be used in conjunction with translations. By using the follow it’s possible to translate the word “Page” shown in the title of paginated pages:
+The [`{{meta_title}}`](/themes/helpers/meta_data/) helper accepts a page parameter that can be used in conjunction with translations. By using the follow it’s possible to translate the word “Page” shown in the title of paginated pages:
 
 ```handlebars
 <title>{{meta_title page=(t "Page %")}}</title>

@@ -79,7 +79,7 @@ Next, update the `contentKey` value to a key associated with the Ghost site. A k
   <img src="/images/d3673af2-apikey_huc23d3a1fbe859434094a9db94f574d9a_265920_2920x0_resize_q100_h2_box_3.webp" />
 </Frame>
 
-For more detailed steps on setting up Integrations check out [our documentation on the Content API](/docs/content-api/#authentication).
+For more detailed steps on setting up Integrations check out [our documentation on the Content API](/content-api/#authentication).
 
 You can remove the `@gridsome/source-filesystem` plugin if you’re not planning on using Markdown files for your content.
 
@@ -114,7 +114,7 @@ This code renames the GraphQL identifiers in the Gridsome starter of `descriptio
 
 ### Single post page
 
-Templates in Gridsome follow a [specific naming convention](https://gridsome.org/docs/templates) which uses the type names as defined in the GraphQL schema, so the existing `Post.vue` file in `/src/templates/` needs to be renamed to `GhostPost.vue`.
+Templates in Gridsome follow a [specific naming convention](https://gridsome.org/templates) which uses the type names as defined in the GraphQL schema, so the existing `Post.vue` file in `/src/templates/` needs to be renamed to `GhostPost.vue`.
 
 Once this is done, replace the `<page-query>` section in the template with the following:
 
@@ -148,13 +148,13 @@ That’s it! Your site now loads posts from your Ghost site, lists them on the h
 
 ## Next steps
 
-Discover how to create tag and author archive pages or use other content from Ghost in your Gridsome site in our recipes on the next page. For further information, check out the [Ghost Content API documentation](/docs/content-api/) and the [official Gridsome documentation](https://gridsome.org/docs).
+Discover how to create tag and author archive pages or use other content from Ghost in your Gridsome site in our recipes on the next page. For further information, check out the [Ghost Content API documentation](/content-api/) and the [official Gridsome documentation](https://gridsome.org/docs).
 
 ## Examples
 
 The flexibility of the Ghost Content API allows you to feed posts, pages and any other pieces of content from your Ghost site into a Gridsome front-end. Below are a few code examples of how to do this.
 
-If you just landed here, see the [getting started](/docs/jamstack/gridsome/) with Gridsome page for more context!
+If you just landed here, see the [getting started](/jamstack/gridsome/) with Gridsome page for more context!
 
 ### Create tag archive pages
 
@@ -274,4 +274,4 @@ The [Gridsome Ghost Source Plugin](https://gridsome.org/plugins/@gridsome/source
 
 ## Further reading
 
-Learn more about the Ghost API and specific endpoints in our [API documentation](/docs/content-api/). Otherwise check out our Integrations and how you can deploy your Gridsome site to platforms such as [Netlify](/integrations/netlify/).
+Learn more about the Ghost API and specific endpoints in our [API documentation](/content-api/). Otherwise check out our Integrations and how you can deploy your Gridsome site to platforms such as [Netlify](/integrations/netlify/).

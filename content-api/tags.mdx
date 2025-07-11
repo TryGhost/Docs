@@ -1,6 +1,6 @@
 ---
 title: Tags
-description: Tags are the [primary taxonomy](/docs/publishing/#tags) within a Ghost site.
+description: Tags are the [primary taxonomy](/publishing/#tags) within a Ghost site.
 ---
 
 ```js
@@ -9,7 +9,7 @@ GET /content/tags/{id}/
 GET /content/tags/slug/{slug}/
 ```
 
-By default, internal tags are always included, use `filter=visibility:public` to limit the response directly or use the [tags helper](/docs/themes/helpers/tags/) to handle filtering and outputting the response.
+By default, internal tags are always included, use `filter=visibility:public` to limit the response directly or use the [tags helper](/themes/helpers/tags/) to handle filtering and outputting the response.
 
 Tags that are not associated with a post are not returned. You can supply `include=count.posts` to retrieve the number of posts associated with a tag.
 

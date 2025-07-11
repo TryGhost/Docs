@@ -105,7 +105,7 @@ By using `hidden` inputs in the examples above, newsletter details are hidden fr
 </form>
 ```
 
-Create a dynamic signup form at the theme level by using the [`get` helper](/docs/themes/helpers/get/) to fetch a site’s `newsletters`. Then, loop through the newsletters and add the `name` property to an `input` element. See below for an example implementation:
+Create a dynamic signup form at the theme level by using the [`get` helper](/themes/helpers/get/) to fetch a site’s `newsletters`. Then, loop through the newsletters and add the `name` property to an `input` element. See below for an example implementation:
 
 ```handlebars
 <form data-members-form=>
@@ -373,7 +373,7 @@ Members may have multiple subscriptions, provided as an array. Subscription data
 
 ### Subscription attributes
 
-Subscription data comes from Stripe meaning a valid Stripe account connected to Ghost is required. Using subscription data in a local environment requires the [Stripe CLI tool](https://stripe.com/docs/stripe-cli).
+Subscription data comes from Stripe meaning a valid Stripe account connected to Ghost is required. Using subscription data in a local environment requires the [Stripe CLI tool](https://stripe.com/stripe-cli).
 
 * `id` –The Stripe ID of the subscription
 * `avatar_image` — The customers avatar image, pulled in from [Gravatar](https://en.gravatar.com/). If there is not one set for their email a transparent `png` will be returned as a default
@@ -418,7 +418,7 @@ The `{{price}}` helper formats monetary values from their smallest denomination 
 
 This will output `$5`.
 
-The `{{price}}` helper has many options with detailed documentation [here](/docs/themes/helpers/price/).
+The `{{price}}` helper has many options with detailed documentation [here](/themes/helpers/price/).
 
 ### Cancel links
 

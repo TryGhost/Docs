@@ -25,7 +25,7 @@ To begin, create a new project by either cloning the [Eleventy Starter Ghost rep
 git clone git@github.com:TryGhost/eleventy-starter-ghost.git
 ```
 
-Navigate into the newly created project and use the command `yarn` to install the dependencies. Check out the official documentation on how to install[Yarn](https://yarnpkg.com/en/docs/install#mac-stable).
+Navigate into the newly created project and use the command `yarn` to install the dependencies. Check out the official documentation on how to install[Yarn](https://yarnpkg.com/en/install#mac-stable).
 
 To test everything installed correctly, use the following command to run your project:
 
@@ -59,7 +59,7 @@ Change the `GHOST_CONTENT_API_KEY` value to a key associated with the Ghost site
   <img src="/images/d3673af2-apikey_huc23d3a1fbe859434094a9db94f574d9a_265920_2920x0_resize_q100_h2_box_3.webp" />
 </Frame>
 
-More information can be found on the [Content API documentation](/docs/content-api/#key).
+More information can be found on the [Content API documentation](/content-api/#key).
 
 **Using[Netlify](https://www.netlify.com/)to host your site? If so, the `netlify.toml` file that comes with the starter template provides the deployment configuration straight out of the box.**
 
@@ -67,7 +67,7 @@ More information can be found on the [Content API documentation](/docs/content-a
 
 ## Next steps
 
-[The official Eleventy docs](https://www.11ty.io/docs/)is a great place to learn more about how Eleventy works and how it can be used to build static sites.
+[The official Eleventy docs](https://www.11ty.io/)is a great place to learn more about how Eleventy works and how it can be used to build static sites.
 
 There’s also a guide for setting up a new static site, such as Eleventy,[with the hosting platform Netlify](/integrations/netlify/) so Netlify can listen for updates on a Ghost site and rebuild the static site.
 
@@ -77,11 +77,11 @@ For community led support about linking and building a Ghost site with Eleventy,
 
 *Here are a few common examples of using the Ghost Content API within an Eleventy project.*\*
 
-Retrieving data from the Content API within an Eleventy project is pretty similar to using the API in a JavaScript application. However there are a couple of conventions and techniques that will make the data easier to access when creating template files. The majority of these examples are intended to be placed in the `.eleventy.js` file in the root of the project, to find out more on configuring Eleventy refer to [their official documentation](https://www.11ty.io/docs/config/).
+Retrieving data from the Content API within an Eleventy project is pretty similar to using the API in a JavaScript application. However there are a couple of conventions and techniques that will make the data easier to access when creating template files. The majority of these examples are intended to be placed in the `.eleventy.js` file in the root of the project, to find out more on configuring Eleventy refer to [their official documentation](https://www.11ty.io/config/).
 
 ## Initialising the Content API
 
-More information on setting up and using the Content API using the JavaScript Client Library can be found in [our API documentation](/docs/content-api/javascript/)
+More information on setting up and using the Content API using the JavaScript Client Library can be found in [our API documentation](/content-api/javascript/)
 
 ```js
 const ghostContentAPI = require("@tryghost/content-api");
@@ -95,10 +95,10 @@ const api = new ghostContentAPI({
 
 ## Retrieving posts
 
-This example retrieves posts from the API and adds them as a new [collection to Eleventy](https://www.11ty.io/docs/collections/). The example also performs some sanitisation and extra meta information to each post:
+This example retrieves posts from the API and adds them as a new [collection to Eleventy](https://www.11ty.io/collections/). The example also performs some sanitisation and extra meta information to each post:
 
 * Adding tag and author meta information to each post
-* Converting post date to a [JavaScript date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) for easier manipulation in templates
+* Converting post date to a [JavaScript date object](https://developer.mozilla.org/en-US/Web/JavaScript/Reference/Global_Objects/Date) for easier manipulation in templates
 * Bring featured posts to the top of the list
 
 ```js
@@ -128,7 +128,7 @@ This code fetches **all** posts because Eleventy creates the HTML files when the
 
 ## Retrieving posts by tag
 
-You’ll often want a page that shows all the posts that are marked with a particular tag. This example creates an [Eleventy collection](https://www.11ty.io/docs/collections/) for the tags within a Ghost site, as well as attaching all the posts that are related to that tag:
+You’ll often want a page that shows all the posts that are marked with a particular tag. This example creates an [Eleventy collection](https://www.11ty.io/collections/) for the tags within a Ghost site, as well as attaching all the posts that are related to that tag:
 
 ```js
 config.addCollection("tags", async function(collection) {
@@ -168,7 +168,7 @@ config.addCollection("tags", async function(collection) {
 
 ## Retrieving site settings
 
-We used this example within our [Eleventy Starter](https://github.com/TryGhost/eleventy-starter-ghost), but rather than putting this in the main configuration file it’s better to add it to a [Data file](https://www.11ty.io/docs/data/), which partitions it from other code and allows it to be attached to a global variable like `site`.
+We used this example within our [Eleventy Starter](https://github.com/TryGhost/eleventy-starter-ghost), but rather than putting this in the main configuration file it’s better to add it to a [Data file](https://www.11ty.io/data/), which partitions it from other code and allows it to be attached to a global variable like `site`.
 
 ```js
 module.exports = async function() {
@@ -190,4 +190,4 @@ All the examples above use asynchronous functions when getting data from the Con
 
 ## Next steps
 
-Check out our documentation on the [Content API Client Library](/docs/content-api/javascript/) to see what else is possible, many of the examples there overlap with the examples above. [The official Eleventy docs site](https://www.11ty.io/docs/)is very extensive as well if you wish to delve deeper into the API.
+Check out our documentation on the [Content API Client Library](/content-api/javascript/) to see what else is possible, many of the examples there overlap with the examples above. [The official Eleventy docs site](https://www.11ty.io/)is very extensive as well if you wish to delve deeper into the API.

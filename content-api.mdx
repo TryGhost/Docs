@@ -13,7 +13,7 @@ Access control is managed via an API key, and even the most complex filters are 
 
 ### JavaScript Client Library
 
-We’ve developed an [API client for JavaScript](/docs/content-api/javascript/) that will allow you to quickly and easily interact with the Content API. The client is an advanced wrapper on top of our REST API - everything that can be done with the Content API can be done using the client, with no need to deal with the details of authentication or the request & response format.
+We’ve developed an [API client for JavaScript](/content-api/javascript/) that will allow you to quickly and easily interact with the Content API. The client is an advanced wrapper on top of our REST API - everything that can be done with the Content API can be done using the client, with no need to deal with the details of authentication or the request & response format.
 
 ***
 
@@ -39,7 +39,7 @@ Obtain the Content API URL and key by creating a new `Custom Integration` under 
 
 `Accept-Version: v{major}.{minor}`
 
-Use the `Accept-Version` header to indicate the minimum version of Ghost’s API to operate with. See [API Versioning](/docs/faq/api-versioning/) for more details.
+Use the `Accept-Version` header to indicate the minimum version of Ghost’s API to operate with. See [API Versioning](/faq/api-versioning/) for more details.
 
 ### Working Example
 
@@ -53,26 +53,26 @@ curl -H "Accept-Version: v5.0" "https://demo.ghost.io/ghost/api/content/posts/?k
 
 ## Endpoints
 
-The Content API provides access to Posts, Pages, Tags, Authors, Tiers, and Settings. All endpoints return JSON and are considered [stable](/docs/faq/api-versioning/).
+The Content API provides access to Posts, Pages, Tags, Authors, Tiers, and Settings. All endpoints return JSON and are considered [stable](/faq/api-versioning/).
 
 ### Working Example
 
 | Verb | Path                               | Method                |
 | ---- | ---------------------------------- | --------------------- |
-| GET  | [/posts/](/docs/content-api/posts)                  | Browse posts          |
-| GET  | [/posts/\{id}/](/docs/content-api/posts)            | Read a post by ID     |
-| GET  | [/posts/slug/\{slug}/](/docs/content-api/posts)     | Read a post by slug   |
-| GET  | [/authors/](/docs/content-api/authors)              | Browse authors        |
-| GET  | [/authors/\{id}/](/docs/content-api/authors)        | Read an author by ID  |
-| GET  | [/authors/slug/\{slug}/](/docs/content-api/authors) | Read a author by slug |
-| GET  | [/tags/](/docs/content-api/tags)                    | Browse tags           |
-| GET  | [/tags/\{id}/](/docs/content-api/tags)              | Read a tag by ID      |
-| GET  | [/tags/slug/\{slug}/](/docs/content-api/tags)       | Read a tag by slug    |
-| GET  | [/pages/](/docs/content-api/pages)                  | Browse pages          |
-| GET  | [/pages/\{id}/](/docs/content-api/pages)            | Read a page by ID     |
-| GET  | [/pages/slug/\{slug}/](/docs/content-api/pages)     | Read a page by slug   |
-| GET  | [/tiers/](/docs/content-api/tiers)                  | Browse tiers          |
-| GET  | [/settings/](/docs/content-api/settings)            | Browse settings       |
+| GET  | [/posts/](/content-api/posts)                  | Browse posts          |
+| GET  | [/posts/\{id}/](/content-api/posts)            | Read a post by ID     |
+| GET  | [/posts/slug/\{slug}/](/content-api/posts)     | Read a post by slug   |
+| GET  | [/authors/](/content-api/authors)              | Browse authors        |
+| GET  | [/authors/\{id}/](/content-api/authors)        | Read an author by ID  |
+| GET  | [/authors/slug/\{slug}/](/content-api/authors) | Read a author by slug |
+| GET  | [/tags/](/content-api/tags)                    | Browse tags           |
+| GET  | [/tags/\{id}/](/content-api/tags)              | Read a tag by ID      |
+| GET  | [/tags/slug/\{slug}/](/content-api/tags)       | Read a tag by slug    |
+| GET  | [/pages/](/content-api/pages)                  | Browse pages          |
+| GET  | [/pages/\{id}/](/content-api/pages)            | Read a page by ID     |
+| GET  | [/pages/slug/\{slug}/](/content-api/pages)     | Read a page by slug   |
+| GET  | [/tiers/](/content-api/tiers)                  | Browse tiers          |
+| GET  | [/settings/](/content-api/settings)            | Browse settings       |
 
 The Content API supports two types of request: Browse and Read. Browse endpoints allow you to fetch lists of resources, whereas Read endpoints allow you to fetch a single resource.
 
@@ -92,6 +92,6 @@ The API will always return valid JSON in the same structure:
 ```
 
 * `resource_type`: will always match the resource name in the URL. All resources are returned wrapped in an array, with the exception of `/site/` and `/settings/`.
-* `meta`: contains [pagination](/docs/content-api/pagination) information for browse requests.
+* `meta`: contains [pagination](/content-api/pagination) information for browse requests.
 
 

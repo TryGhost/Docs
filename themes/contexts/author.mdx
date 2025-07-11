@@ -9,7 +9,7 @@ Authors in Ghost each get their own page which outputs a list of posts that were
 
 ## Routes
 
-The default URL for author pages is `/author/:slug/`. The `author` context is also set on subsequent pages of the post list, which live at `/author/:slug/page/:num/`. The `slug` part of the URL is based on the name of the author and can be configured in admin. To change the author URL structure, use [routing](/docs/themes/#routing).
+The default URL for author pages is `/author/:slug/`. The `author` context is also set on subsequent pages of the post list, which live at `/author/:slug/page/:num/`. The `slug` part of the URL is based on the name of the author and can be configured in admin. To change the author URL structure, use [routing](/themes/#routing).
 
 ## Templates
 
@@ -52,7 +52,7 @@ The best way to output pagination is to use the pagination helper — the pagina
 
 The `{{#author}}{{/author}}` block expression is useful for accessing all of the author attributes. Once inside the author you can access the attributes and use helpers like `{{img_url}}` and `{{url}}` to output the author’s details.
 
-Using `{{#foreach posts}}{{/foreach}}` is the best way to loop through your posts and output each one. If you’re using the Members feature, consider the [content visibility](/docs/themes/members/#content-visibility) of your posts.
+Using `{{#foreach posts}}{{/foreach}}` is the best way to loop through your posts and output each one. If you’re using the Members feature, consider the [content visibility](/themes/members/#content-visibility) of your posts.
 
 If your theme does have a `tag.hbs` and `author.hbs` file all outputting similar post lists to `index.hbs` you may wish to use a partial to define your post list item, e.g. `{{> "loop"}}`.
 

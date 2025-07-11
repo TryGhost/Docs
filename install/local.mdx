@@ -9,7 +9,7 @@ description: Fast-track local install for getting Ghost running on your computer
 
 Running Ghost locally is the easiest way to get your own copy of the software running and be able to do some local development with it. By the end of this guide you will have completed a local Ghost install that runs in development mode using SQLite3.
 
-This install is **not** suitable for [production use](/docs/install/ubuntu/) or [contributing](/docs/install/source/) to core.
+This install is **not** suitable for [production use](/install/ubuntu/) or [contributing](/install/source/) to core.
 
 ***
 
@@ -18,15 +18,15 @@ This install is **not** suitable for [production use](/docs/install/ubuntu/) or 
 To install Ghost locally you will need the following:
 
 * A computer running MacOS, Windows or Linux
-* A [supported version](/docs/faq/node-versions/) of [Node.js](https://nodejs.org)
-* Either [yarn](https://yarnpkg.com/en/docs/install#alternatives-tab) or [npm](https://www.npmjs.com/get-npm) to manage packages
+* A [supported version](/faq/node-versions/) of [Node.js](https://nodejs.org)
+* Either [yarn](https://yarnpkg.com/en/install#alternatives-tab) or [npm](https://www.npmjs.com/get-npm) to manage packages
 * A clean, empty directory on your machine
 
 ***
 
 ## Install Ghost-CLI
 
-[Ghost-CLI](/docs/ghost-cli/) is a commandline tool to help you get Ghost installed and configured for use, quickly and easily. The npm module can be installed with `npm` or `yarn` on a local machine, depending on your preference.
+[Ghost-CLI](/ghost-cli/) is a commandline tool to help you get Ghost installed and configured for use, quickly and easily. The npm module can be installed with `npm` or `yarn` on a local machine, depending on your preference.
 
 ```bash
 npm install ghost-cli@latest -g
@@ -63,17 +63,17 @@ Ghost runs in a separate background process and remains running until you stop i
 * `ghost log` views logs
 * `ghost ls` to list all running Ghost blogs
 
-Run `ghost help` for a list of available commands, or explore the full [Ghost-CLI documentation](/docs/ghost-cli/).
+Run `ghost help` for a list of available commands, or explore the full [Ghost-CLI documentation](/ghost-cli/).
 
 #### Troubleshooting
 
-For troubleshooting and errors, try searching this documentation and [FAQ section](/docs/faq/) to find information about common error messages.
+For troubleshooting and errors, try searching this documentation and [FAQ section](/faq/) to find information about common error messages.
 
 ***
 
 ## Developing Themes
 
-To work on a [Ghost Handlebars Theme](/docs/themes/) locally, your custom theme should always be placed in the top-level `/content/themes/` directory.
+To work on a [Ghost Handlebars Theme](/themes/) locally, your custom theme should always be placed in the top-level `/content/themes/` directory.
 
 ### Live reloading
 
@@ -100,6 +100,6 @@ GScan can also be accessed at [gscan.ghost.org](https://gscan.ghost.org/), where
 
 You’ve completed a local Ghost install — congrats! You can now put Ghost through its paces and see what it’s all about, or jump right into developing a custom Ghost theme.
 
-When you’re ready ship your site to production, [follow one of these guides](/docs/install/).
+When you’re ready ship your site to production, [follow one of these guides](/install/).
 
-For more information about theme development read the [Handlebars theme documentation](/docs/themes/) and check out the [tutorials](/tutorials/).
+For more information about theme development read the [Handlebars theme documentation](/themes/) and check out the [tutorials](/tutorials/).

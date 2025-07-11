@@ -13,7 +13,7 @@ The API is RESTful with predictable resource URLs, standard HTTP verbs, response
 
 ### JavaScript Client Library
 
-We’ve developed an [API client for JavaScript](/docs/admin-api/javascript/), that simplifies authenticating with the admin API, and makes reading and writing data a breeze. The client is designed for use with integrations, supporting token authentication and the endpoints available to integrations.
+We’ve developed an [API client for JavaScript](/admin-api/javascript/), that simplifies authenticating with the admin API, and makes reading and writing data a breeze. The client is designed for use with integrations, supporting token authentication and the endpoints available to integrations.
 
 ## Structure
 
@@ -27,7 +27,7 @@ All admin API requests start with this base URL. Your admin domain can be differ
 
 `Accept-Version: v{major}.{minor}`
 
-Use the `Accept-Version` header to indicate the minimum version of Ghost’s API to operate with. See [API Versioning](/docs/faq/api-versioning/) for more details.
+Use the `Accept-Version` header to indicate the minimum version of Ghost’s API to operate with. See [API Versioning](/faq/api-versioning/) for more details.
 
 ### JSON Format
 
@@ -43,7 +43,7 @@ The API uses a consistent JSON structure for all requests and responses:
 ```
 
 * `resource_type`: will always match the resource name in the URL. All resources are returned wrapped in an array, with the exception of `/site/` and `/settings/`.
-* `meta`: contains [pagination](/docs/content-api/pagination) information for browse requests.
+* `meta`: contains [pagination](/content-api/pagination) information for browse requests.
 
 #### Composing requests
 
@@ -72,17 +72,17 @@ All browse endpoints are paginated, returning 15 records by default. You can use
 
 Query parameters provide fine-grained control over responses. All endpoints accept `include` and `fields`. Browse endpoints additionally accept `filter`, `limit`, `page` and `order`. Some endpoints have their own specific parameters.
 
-The values provided as query parameters MUST be url encoded when used directly. The [client library](/docs/admin-api/javascript/) will handle this for you.
+The values provided as query parameters MUST be url encoded when used directly. The [client library](/admin-api/javascript/) will handle this for you.
 
-For more details see the [Content API](/docs/content-api/parameters).
+For more details see the [Content API](/content-api/parameters).
 
 ### Filtering
 
-See the [Content API](/docs/content-api/filtering).
+See the [Content API](/content-api/filtering).
 
 ### Errors
 
-See the [Content API](/docs/content-api/errors).
+See the [Content API](/content-api/errors).
 
 ## Authentication
 
@@ -435,20 +435,20 @@ curl -b ghost-cookie.txt \
 
 ## Endpoints
 
-These are the endpoints & methods currently available to integrations. More endpoints are available through user authentication. Each endpoint has a stability index, see [versioning](/docs/faq/api-versioning) for more information.
+These are the endpoints & methods currently available to integrations. More endpoints are available through user authentication. Each endpoint has a stability index, see [versioning](/faq/api-versioning) for more information.
 
 | Resource                                      | Methods                               | Stability |
 | --------------------------------------------- | ------------------------------------- | --------- |
-| [/posts/](/docs/admin-api/#posts)             | Browse, Read, Edit, Add, Copy, Delete | Stable    |
-| [/pages/](/docs/admin-api/#pages)             | Browse, Read, Edit, Add, Copy, Delete | Stable    |
+| [/posts/](/admin-api/#posts)             | Browse, Read, Edit, Add, Copy, Delete | Stable    |
+| [/pages/](/admin-api/#pages)             | Browse, Read, Edit, Add, Copy, Delete | Stable    |
 | /tags/                                        | Browse, Read, Edit, Add, Delete       | Stable    |
-| [/tiers/](/docs/admin-api/#tiers)             | Browse, Read, Edit, Add               | Stable    |
-| [/newsletters/](/docs/admin-api/#newsletters) | Browse, Read, Edit, Add               | Stable    |
-| [/offers/](/docs/admin-api/#offers)           | Browse, Read, Edit, Add               | Stable    |
-| [/members/](/docs/admin-api/#members)         | Browse, Read, Edit, Add               | Stable    |
-| [/users/](/docs/admin-api/#users)             | Browse, Read                          | Stable    |
-| [/images/](/docs/admin-api/#images)           | Upload                                | Stable    |
-| [/themes/](/docs/admin-api/#themes)[]()       | Upload, Activate                      | Stable    |
-| [/site/](/docs/admin-api/#site)               | Read                                  | Stable    |
-| [/webhooks/](/docs/admin-api/#webhooks)       | Edit, Add, Delete                     | Stable    |
+| [/tiers/](/admin-api/#tiers)             | Browse, Read, Edit, Add               | Stable    |
+| [/newsletters/](/admin-api/#newsletters) | Browse, Read, Edit, Add               | Stable    |
+| [/offers/](/admin-api/#offers)           | Browse, Read, Edit, Add               | Stable    |
+| [/members/](/admin-api/#members)         | Browse, Read, Edit, Add               | Stable    |
+| [/users/](/admin-api/#users)             | Browse, Read                          | Stable    |
+| [/images/](/admin-api/#images)           | Upload                                | Stable    |
+| [/themes/](/admin-api/#themes)[]()       | Upload, Activate                      | Stable    |
+| [/site/](/admin-api/#site)               | Read                                  | Stable    |
+| [/webhooks/](/admin-api/#webhooks)       | Edit, Add, Delete                     | Stable    |
 

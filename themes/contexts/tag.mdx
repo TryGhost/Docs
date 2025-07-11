@@ -9,7 +9,7 @@ Tags in Ghost each get their own tag archive which lists all posts associated wi
 
 ## Routes
 
-The default URL for tag pages is `/tag/:slug/`. The `tag` context is also set on subsequent pages of the post list, which live at `/tag/:slug/page/:num/`. The `slug` part of the URL is based on the name of the tag and can be configured from the **Tags** page in Admin. To change the tag URL structure, use [routing](/docs/themes/routing/).
+The default URL for tag pages is `/tag/:slug/`. The `tag` context is also set on subsequent pages of the post list, which live at `/tag/:slug/page/:num/`. The `slug` part of the URL is based on the name of the tag and can be configured from the **Tags** page in Admin. To change the tag URL structure, use [routing](/themes/routing/).
 
 ## Templates
 
@@ -53,7 +53,7 @@ The pagination object provided is the same everywhere. The best way to output pa
 
 The `{{#tag}}{{/tag}}` block expression is useful for accessing all attributes. Once inside the tag, use helpers like `{{img_url}}` and `{{url}}` to output the tag’s details.
 
-Using `{{#foreach 'posts'}}{{/foreach}}` is the best way to loop through the list of posts and output each one. If you’re using the Members feature, consider the [content visibility](/docs/themes/members/#content-visibility) of your posts
+Using `{{#foreach 'posts'}}{{/foreach}}` is the best way to loop through the list of posts and output each one. If you’re using the Members feature, consider the [content visibility](/themes/members/#content-visibility) of your posts
 
 If your theme does have a `tag.hbs` and `author.hbs` file all outputting similar post lists to `index.hbs` you may wish to use a partial to define your post list item, for example: `{{> "loop"}}`.
 

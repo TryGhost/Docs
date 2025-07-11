@@ -5,21 +5,21 @@ description: A catalog of critical changes between major Ghost versions
 
 ***
 
-New major versions typically involve some backwards incompatible changes. These mostly affect custom themes, and our theme compatibility tool [GScan](/docs/themes/gscan/) will guide you through the updates. If you use custom integrations,the API or webhooks you should also expect things to change when switching between [API versions](/docs/faq/api-versioning).
+New major versions typically involve some backwards incompatible changes. These mostly affect custom themes, and our theme compatibility tool [GScan](/themes/gscan/) will guide you through the updates. If you use custom integrations,the API or webhooks you should also expect things to change when switching between [API versions](/faq/api-versioning).
 
 #### How to update?
 
-The [update guide](/docs/update/) explains how to update from Ghost 1.0 or higher to the **latest version**. Ghost(Pro) customers should use the [update guide for Ghost (Pro)](https://ghost.org/help/how-to-upgrade-ghost/).
+The [update guide](/update/) explains how to update from Ghost 1.0 or higher to the **latest version**. Ghost(Pro) customers should use the [update guide for Ghost (Pro)](https://ghost.org/help/how-to-upgrade-ghost/).
 
 #### When to update?
 
-The best time to do a [major version](/docs/faq/major-versions-lts) update is shortly after the first minor version - so for Ghost 5.x, the best time to update will be when 5.1.0 is released, which is usually a week or two after the first 5.x release.
+The best time to do a [major version](/faq/major-versions-lts) update is shortly after the first minor version - so for Ghost 5.x, the best time to update will be when 5.1.0 is released, which is usually a week or two after the first 5.x release.
 
 This is when any bugs or unexpected compatibility issues have been resolved but the [team & community](https://forum.ghost.org) are still context loaded about the changes. The longer you hold off, the bigger the gap becomes between the software you are using and the latest version.
 
 ## Mobiledoc deprecation
 
-With the release of the [new editor](https://ghost.org/changelog/editor-beta/), Ghost uses [Lexical](https://lexical.dev/) to store post content, which replaces the previous format Mobiledoc. Transitioning to Lexical enables Ghost to build new powerful features that weren’t possible with Mobiledoc. To remain compatible with Ghost, integrations that rely on Mobiledoc should switch to using Lexical. [For more resources on working with Lexical, see their docs](https://lexical.dev/docs/intro).
+With the release of the [new editor](https://ghost.org/changelog/editor-beta/), Ghost uses [Lexical](https://lexical.dev/) to store post content, which replaces the previous format Mobiledoc. Transitioning to Lexical enables Ghost to build new powerful features that weren’t possible with Mobiledoc. To remain compatible with Ghost, integrations that rely on Mobiledoc should switch to using Lexical. [For more resources on working with Lexical, see their docs](https://lexical.dev/intro).
 
 ## Ghost 5.0
 
@@ -38,7 +38,7 @@ Note: MariaDB is not an officially supported database for Ghost.
 
 If you’re embedding portal on an external site, you’ll need to update your script tag.
 
-You can generate a Content API key and check your API url in the Custom Integration section in Ghost Admin. For more information see the [Content API docs](/docs/content-api/).
+You can generate a Content API key and check your API url in the Custom Integration section in Ghost Admin. For more information see the [Content API docs](/content-api/).
 
 ```html
 <script defer src="https://unpkg.com/@tryghost/portal@latest/umd/portal.min.js" data-ghost="{site_url}" data-api="{api_url}/ghost/api/content/" data-key="{content_api_key}"></script>
@@ -48,16 +48,16 @@ You can generate a Content API key and check your API url in the Custom Integrat
 
 Themes can be validated against 5.x in [GScan](https://gscan.ghost.org).
 
-* Card assets will now be included by default, including bookmark and gallery cards. ([docs](/docs/themes/helpers/config/))
+* Card assets will now be included by default, including bookmark and gallery cards. ([docs](/themes/helpers/config/))
 * Previously deprecated features have been removed: `@blog`, single authors.
 
 **Custom membership flows**
 
 The syntax used to build custom membership flows has changed significantly.
 
-* Tier benefits are now returned as a list of strings. ([docs](/docs/themes/helpers/tiers/#fetching-tiers-with-the-get-helper))
-* Paid Tiers now have numeric `monthly_price` and `yearly_price` attributes, and a separate `currency` attribute. ([docs](/docs/themes/helpers/tiers/))
-* The following legacy product and price helpers used to build custom membership flows have been removed: `@price`, `@products`, `@product` and `@member.product`. See below for examples of the new syntax for building a custom signup form and account page. ([docs](/docs/themes/members/#member-subscriptions))
+* Tier benefits are now returned as a list of strings. ([docs](/themes/helpers/tiers/#fetching-tiers-with-the-get-helper))
+* Paid Tiers now have numeric `monthly_price` and `yearly_price` attributes, and a separate `currency` attribute. ([docs](/themes/helpers/tiers/))
+* The following legacy product and price helpers used to build custom membership flows have been removed: `@price`, `@products`, `@product` and `@member.product`. See below for examples of the new syntax for building a custom signup form and account page. ([docs](/themes/members/#member-subscriptions))
 
 **Sign up form**
 
@@ -140,7 +140,7 @@ Requests to the old, versioned URLs are rewritten internally with the relevant `
 * Removed support for serving secure requests when `config.url` is set to `http`
 * Removed support for configuring the server to connect to a socket instead of a port
 * Deleting a user will no longer remove their posts, but assign them to the site owner instead
-* Site-level email design settings have been replaced with design settings on individual newsletters (see [`/newsletters/*` endpoints](/docs/admin-api/#newsletters))
+* Site-level email design settings have been replaced with design settings on individual newsletters (see [`/newsletters/*` endpoints](/admin-api/#newsletters))
 
 ## Ghost 4.0
 
@@ -176,11 +176,11 @@ Members functionality is no longer considered beta and is always enabled. The fo
 
 ## Ghost 3.0
 
-* The Subscribers labs feature has been replaced with the [Members](/docs/members/) labs feature.
-* The v0.1 API endpoints & Public API Beta have been removed. Ghost now has a set of fully supported [Core APIs](/docs/architecture/).
+* The Subscribers labs feature has been replaced with the [Members](/members/) labs feature.
+* The v0.1 API endpoints & Public API Beta have been removed. Ghost now has a set of fully supported [Core APIs](/architecture/).
 * The Apps beta concept has been removed. Use the Core APIs & [integrations](https://ghost.org/integrations/) instead.
 * Themes using [GhostHunter](https://github.com/jamalneufeld/ghostHunter) must upgrade to [GhostHunter 0.6.0](https://github.com/jamalneufeld/ghostHunter#ghosthunter-v060).
-* Themes using `ghost.url.api()` must upgrade to the [Content API client library](/docs/content-api/javascript/).
+* Themes using `ghost.url.api()` must upgrade to the [Content API client library](/content-api/javascript/).
 * Themes may be missing CSS for editor cards added in 2.x. Use [GScan](https://gscan.ghost.org/) to make sure your theme is fully 3.0 compatible.
 * Themes must replace `{{author}}` for either `{{#primary_author}}` or `{{authors}}`.
 * New `/v3/` (stable) and `/canary/` (experimental) API versions have been added.
@@ -194,11 +194,11 @@ Members functionality is no longer considered beta and is always enabled. The fo
 ### Switching from v0.1 API
 
 * The Core APIs are stable, with both read & write access fully supported.
-* v0.1 Public API (read only access) is replaced by the [Content API](/docs/content-api/).
-* v0.1 Private API (write access) is replaced by the [Admin API](/docs/admin-api/).
+* v0.1 Public API (read only access) is replaced by the [Content API](/content-api/).
+* v0.1 Private API (write access) is replaced by the [Admin API](/admin-api/).
 * v0.1 Public API `client_id` and `client_secret` are replaced with a single `key`, found by configuring a new Custom Integration in Ghost Admin.
-* v0.1 Public API `ghost-sdk.min.js` and `ghost.url.api()` are replaced with the `@tryghost/content-api` [client library](/docs/content-api/javascript/).
-* v0.1 Private API client auth is replaced with JWT auth & user auth now uses a session cookie. The `@tryghost/admin-api` [client library](/docs/admin-api/javascript/) supports easily creating content via JWT auth.
+* v0.1 Public API `ghost-sdk.min.js` and `ghost.url.api()` are replaced with the `@tryghost/content-api` [client library](/content-api/javascript/).
+* v0.1 Private API client auth is replaced with JWT auth & user auth now uses a session cookie. The `@tryghost/admin-api` [client library](/admin-api/javascript/) supports easily creating content via JWT auth.
 * Scripts need updating to handle API changes, e.g. posts and pages being served on separate endpoints and users being called authors in the Content API.
 
 ## Ghost 2.0
@@ -216,7 +216,7 @@ Members functionality is no longer considered beta and is always enabled. The fo
 
 ## Ghost 1.0
 
-* This is a major upgrade, with breaking changes and no automatic migration path. All publications upgrading from Ghost 0.x versions must be [upgraded](/docs/faq/update-0x/) to Ghost 1.0 before they can be successfully upgraded to Ghost 2.0 and beyond.
+* This is a major upgrade, with breaking changes and no automatic migration path. All publications upgrading from Ghost 0.x versions must be [upgraded](/faq/update-0x/) to Ghost 1.0 before they can be successfully upgraded to Ghost 2.0 and beyond.
 * See [announcement post](https://ghost.org/changelog/1-0/) and [developer details](https://ghost.org/changelog/ghost-1-0-0/) for full information on what we changed in 1.0.
 * v0.1 Public API `/shared/ghost-url.min.js` util has been moved and renamed to `/public/ghost-sdk.min.js`
 * Ghost 0.11.x exports don’t include `clients` and `trusted_domains` so these aren’t imported to your new site - you’ll need to update any scripts with a new `client_id` and `client_secret` from your 1.0 install.

@@ -11,7 +11,7 @@ Rather than providing access to all data in all contexts, Ghost optimises what d
 
 ### Using contexts
 
-Contexts play a big part in the building blocks of a Ghost theme. Besides determining what data is available and what template to render, contexts also interact with [handlebars helpers](/docs/themes/helpers/), since the context also determines what dynamic data the helper outputs.
+Contexts play a big part in the building blocks of a Ghost theme. Besides determining what data is available and what template to render, contexts also interact with [handlebars helpers](/themes/helpers/), since the context also determines what dynamic data the helper outputs.
 
 For example, the `{{meta_title}}` helper outputs different things based on the current context. If the context is `post` then the helper knows it can use `post.meta_title` and in a `tag` context it uses `tag.meta_title`.
 
@@ -19,9 +19,9 @@ To detect a context in your theme, use the `{{#is}}` helper. For example, in a p
 
 ## List of contexts
 
-* [index](/docs/themes/contexts/index-context/)
-* [page](/docs/themes/contexts/page/)
-* [post](/docs/themes/contexts/post/)
-* [author](/docs/themes/contexts/author/)
-* [tag](/docs/themes/contexts/tag/)
-* [error](/docs/themes/contexts/error/)
+* [index](/themes/contexts/index-context/)
+* [page](/themes/contexts/page/)
+* [post](/themes/contexts/post/)
+* [author](/themes/contexts/author/)
+* [tag](/themes/contexts/tag/)
+* [error](/themes/contexts/error/)

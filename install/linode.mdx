@@ -9,13 +9,13 @@ description: A full guide for installing, configuring and running Ghost on your 
 
 This the official guide for hosting Ghost on Linode. If you’re comfortable installing, maintaining and updating your own software, this is the place for you. By the end of this guide you’ll have a fully configured Ghost install running in production using MySQL.
 
-This install is **not** suitable for [local use](/docs/install/local/) or [contributing](/docs/install/source/) to core.
+This install is **not** suitable for [local use](/install/local/) or [contributing](/install/source/) to core.
 
 ## Prerequisites
 
 The officially recommended production installation requires the following stack:
 
-* A [configured](https://www.linode.com/docs/guides/getting-started/) and [secured](https://www.linode.com/docs/guides/securing-your-server/) Linode server
+* A [configured](https://www.linode.com/guides/getting-started/) and [secured](https://www.linode.com/guides/securing-your-server/) Linode server
 * A server with at least 1GB memory
 
 ***
@@ -26,7 +26,7 @@ This part of the guide will ensure all prerequisites are met for installing the 
 
 ### Setup the server
 
-Follow the [official “Getting Started with Linode” guide](https://www.linode.com/docs/guides/getting-started/) to setup your server. You must choose the **Ubuntu image** when creating your server. As you’re creating a new server you should prefer Ubuntu version 22.04 LTS. However you can use Ubuntu 20.04, 18.04 or 16.04 if you want.
+Follow the [official “Getting Started with Linode” guide](https://www.linode.com/guides/getting-started/) to setup your server. You must choose the **Ubuntu image** when creating your server. As you’re creating a new server you should prefer Ubuntu version 22.04 LTS. However you can use Ubuntu 20.04, 18.04 or 16.04 if you want.
 
 <Note>
    Note: Using the user name `ghost` causes conflicts with the Ghost-CLI, so it’s important to use an alternative name.
@@ -34,8 +34,8 @@ Follow the [official “Getting Started with Linode” guide](https://www.linode
 
 ### Secure your server
 
-Follow the [official “How to Secure Your Server” Linode guide](https://www.linode.com/docs/guides/securing-your-server/) to secure your server.
+Follow the [official “How to Secure Your Server” Linode guide](https://www.linode.com/guides/securing-your-server/) to secure your server.
 
 ### Install Ghost on Ubuntu
 
-Now that you have a secure server with Ubuntu, follow the [Ubuntu](/docs/install/ubuntu/) instructions to install Ghost.
+Now that you have a secure server with Ubuntu, follow the [Ubuntu](/install/ubuntu/) instructions to install Ghost.

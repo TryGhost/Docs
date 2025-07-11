@@ -47,7 +47,7 @@ An optional `/partials` directory allows you to use partial templates across you
 
 Two template files are required: `index.hbs` and `post.hbs`. All other templates are optional.
 
-It’s recommended using a `default.hbs` file as a base layout for your theme. If you have significantly different layouts for different pages or content types, use the [dynamic routing](/docs/themes/routing) configuration layer, or use partials to encapsulate common parts of your theme.
+It’s recommended using a `default.hbs` file as a base layout for your theme. If you have significantly different layouts for different pages or content types, use the [dynamic routing](/themes/routing) configuration layer, or use partials to encapsulate common parts of your theme.
 
 Theme templates are hierarchical, so one template can extend another template. This prevents base HTML from being repeated. Here are some commonly used templates and their uses:
 
@@ -101,7 +101,7 @@ An optional theme template for status code-specific errors (e.g. `error-404.hbs`
 
 #### amp.hbs
 
-An optional theme template for AMP ([Accelerated Mobile Pages](https://www.ampproject.org/docs/get_started/about-amp.html)). If your theme doesn’t provide an `amp.hbs` file, Ghost will use its default.
+An optional theme template for AMP ([Accelerated Mobile Pages](https://www.ampproject.org/get_started/about-amp.html)). If your theme doesn’t provide an `amp.hbs` file, Ghost will use its default.
 
 #### robots.txt
 
@@ -119,7 +119,7 @@ In order for a Ghost theme to work, you must make use of the required helpers: `
 
 ## Contexts
 
-Each page in a Ghost theme belongs to a [context](/docs/themes/contexts/) which is determined by the URL. The context will decide what template will be used, what data is available and what is output by the `{{body_class}}` helper.
+Each page in a Ghost theme belongs to a [context](/themes/contexts/) which is determined by the URL. The context will decide what template will be used, what data is available and what is output by the `{{body_class}}` helper.
 
 ## Styling
 
@@ -127,7 +127,7 @@ When building themes it is important to consider the scope of classes and IDs to
 
 ## Development mode
 
-It is recommended to use a local install to build a custom theme using development mode – review the [local install guide](/docs/install/local/) to get started with your own local install for development.
+It is recommended to use a local install to build a custom theme using development mode – review the [local install guide](/install/local/) to get started with your own local install for development.
 
 In production mode, template files are loaded and cached by the server. For any changes in a `hbs` file to be reflected, use the `ghost restart` command.
 
@@ -169,9 +169,9 @@ The data in the file must be valid JSON, including double quotes around all prop
 Here are some of the most common optional properties that can be used in the `package.json` file:
 
 * `config.posts_per_page` — the default number of posts per page is 5
-* `config.image_sizes` — read more about using [image sizes](/docs/themes/assets/) guide for more details
-* `config.card_assets` — configure the [card CSS and JS](/docs/themes/content/#editor-cards) that Ghost automatically includes
-* `config.custom` - add [custom settings](/docs/themes/custom-settings/) to your theme
+* `config.image_sizes` — read more about using [image sizes](/themes/assets/) guide for more details
+* `config.card_assets` — configure the [card CSS and JS](/themes/content/#editor-cards) that Ghost automatically includes
+* `config.custom` - add [custom settings](/themes/custom-settings/) to your theme
 * `description` — provides a short description about your theme and what makes it unique
 * `docs` - include a URL to docs about how to use the theme. The link to the docs will be available in Ghost Admin on the **Design** page
 * `license` — use a valid licence string, we recommend `MIT` 😉
@@ -180,6 +180,6 @@ Changes to the `package.json` require a restart using the `ghost restart` comman
 
 ## Next steps
 
-The rest of the theme documentation explores how [contexts](/docs/themes/contexts/) and [helpers](/docs/themes/helpers/) work, and serves as a useful reference list for your theme development.
+The rest of the theme documentation explores how [contexts](/themes/contexts/) and [helpers](/themes/helpers/) work, and serves as a useful reference list for your theme development.
 
 For community led support about theme development, visit [the forum](https://forum.ghost.org/c/themes/).

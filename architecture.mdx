@@ -57,7 +57,7 @@ Whether you want to publish content from your favourite desktop editor, build a 
 
 Ghost’s public Content API is what delivers published content to the world and can be accessed in a read-only manner by any client to render in a website, app or other embedded media.
 
-Access control is managed via an API key, and even the most complex filters are made simple with our [query language](/docs/content-api/#filtering). The Content API is designed to be fully cachable, meaning you can fetch data as often as you like without limitation.
+Access control is managed via an API key, and even the most complex filters are made simple with our [query language](/content-api/#filtering). The Content API is designed to be fully cachable, meaning you can fetch data as often as you like without limitation.
 
 ### Admin API
 
@@ -69,7 +69,7 @@ When authenticated with the **admin** or **owner** role, the Admin API provides 
 
 ### JavaScript SDK
 
-Ghost core comes with an accompanying JavaScript [API Client](/docs/content-api/javascript/) and [SDK](/docs/content-api/javascript/#javascript-sdk) designed to remove pain around authentication and data access.
+Ghost core comes with an accompanying JavaScript [API Client](/content-api/javascript/) and [SDK](/content-api/javascript/#javascript-sdk) designed to remove pain around authentication and data access.
 
 It provides tools for working with API data to accomplish common use cases such as returning a list of tags for a post, rendering meta data in the `<head>`, and outputting data with sensible fallbacks.
 
@@ -83,7 +83,7 @@ By combining Webhooks and the API it is possible to integrate into any aspect of
 
 ### Versioning
 
-Ghost ships with a mature set of core APIs, with only minimal changes between major versions. We maintain a [stability index](/docs/faq/api-versioning/) so that you can be sure about depending on them in production.
+Ghost ships with a mature set of core APIs, with only minimal changes between major versions. We maintain a [stability index](/faq/api-versioning/) so that you can be sure about depending on them in production.
 
 Ghost major versions ship every 8-12 months, meaning code you write against our API today will be stable for a minimum of 2 years.
 
@@ -123,7 +123,7 @@ Ghost Admin also comes with a world-class editor for authoring posts, which is d
   <img src="/images/bfab12f9-ghost-admin-editor_hu2424779d321f8c77f888150ff83e2859_59570_1236x0_resize_q100_h2_box_3.webp" />
 </Frame>
 
-But, our default client app isn’t the only way to interact with content on the Ghost [Admin API](/docs/admin-api/). You can send data into Ghost from pretty much anywhere, or even write your own custom admin client if you have a particular usecase which requires it.
+But, our default client app isn’t the only way to interact with content on the Ghost [Admin API](/admin-api/). You can send data into Ghost from pretty much anywhere, or even write your own custom admin client if you have a particular usecase which requires it.
 
 Ghost-Admin is extremely powerful but entirely optional.
 
@@ -139,15 +139,15 @@ It doesn’t even have to be a website!
 
 ### Handlebars Themes
 
-Ghost ships with its own [Handlebars.js](/docs/themes/) theme layer served by an Express.js webserver, so out of the box it automatically comes with a default front-end. This is a really fast way to get a site up and running, and despite being relatively simple Handlebars is both powerful and extremely performant.
+Ghost ships with its own [Handlebars.js](/themes/) theme layer served by an Express.js webserver, so out of the box it automatically comes with a default front-end. This is a really fast way to get a site up and running, and despite being relatively simple Handlebars is both powerful and extremely performant.
 
-Ghost Handlebars Themes have the additional benefit of being fairly widely adopted since the platform first launched back in 2013, so there’s a broad [third party marketplace](https://ghost.org/marketplace/) of pre-built themes as well as [extensive documentation](/docs/themes/) on how to build a custom theme.
+Ghost Handlebars Themes have the additional benefit of being fairly widely adopted since the platform first launched back in 2013, so there’s a broad [third party marketplace](https://ghost.org/marketplace/) of pre-built themes as well as [extensive documentation](/themes/) on how to build a custom theme.
 
 ### Static Site Generators
 
 Thanks to its decoupled architecture Ghost is also compatible with just about any of the front-end frameworks or static site generators which have become increasingly popular thanks to being fun to work with, extremely fast, and more and more powerful as the JAMstack grows in maturity. So it works with the tools you already use.
 
-This very documentation site is running on a [Gatsby.js](/docs/jamstack/gatsby/) front-end, connected to both **Ghost** and **GitHub** as content sources, hosted statically on [Netlify](https://netlify.com) with dynamic serverless functions powered by [AWS Lambda](https://aws.amazon.com/lambda/) (like the feedback form at the bottom of this page). It’s a brave new world!
+This very documentation site is running on a [Gatsby.js](/jamstack/gatsby/) front-end, connected to both **Ghost** and **GitHub** as content sources, hosted statically on [Netlify](https://netlify.com) with dynamic serverless functions powered by [AWS Lambda](https://aws.amazon.com/lambda/) (like the feedback form at the bottom of this page). It’s a brave new world!
 
 We’re working on greatly expanding our range of documentation, tools and SDKs to better serve the wider front-end development community.
 

@@ -25,7 +25,7 @@ To install Nuxt.js manually refer to the [official documentation](https://nuxtjs
 
 ## Getting started
 
-Thanks to the [JavaScript Content API Client Library](/docs/content-api/javascript/), content from a Ghost site can be directly accessed within a Nuxt.js application.
+Thanks to the [JavaScript Content API Client Library](/content-api/javascript/), content from a Ghost site can be directly accessed within a Nuxt.js application.
 
 Create a new file called `posts.js` within an `api/` directory. This file will contain all the functions needed to request Ghost post content, as well as an instance of the Ghost Content API.
 
@@ -62,11 +62,11 @@ Create a custom integration within Ghost Admin to generate a key and change the 
   <img src="/images/d3673af2-apikey_huc23d3a1fbe859434094a9db94f574d9a_265920_2920x0_resize_q100_h2_box_3.webp" />
 </Frame>
 
-For more detailed steps on setting up Integrations check out [our documentation on the Content API](/docs/content-api/#authentication).
+For more detailed steps on setting up Integrations check out [our documentation on the Content API](/content-api/#authentication).
 
 ### Exposing content
 
-The [`posts.browse()`](/docs/content-api/javascript/#endpoints) endpoint can be used to get all the posts from a Ghost site. This can be done with the following code as an asynchronous function:
+The [`posts.browse()`](/content-api/javascript/#endpoints) endpoint can be used to get all the posts from a Ghost site. This can be done with the following code as an asynchronous function:
 
 ```js
 export async function getPosts() {
@@ -136,7 +136,7 @@ For more information about how pages work, check out the [Nuxt.js pages document
 
 ### Rendering a single post
 
-Retrieving Ghost content from a single post can be done in a similar fashion to retrieving all posts. By using [`posts.read()`](/docs/content-api/javascript/#endpoints) it’s possible to query the Ghost Content API for a particular post using a post id or slug.
+Retrieving Ghost content from a single post can be done in a similar fashion to retrieving all posts. By using [`posts.read()`](/content-api/javascript/#endpoints) it’s possible to query the Ghost Content API for a particular post using a post id or slug.
 
 Reopen the `api/posts.js` file and add the following async function:
 
@@ -200,13 +200,13 @@ Don’t forget to refer to the [official Nuxt.js guides](https://nuxtjs.org/guid
 
 ## Examples
 
-The flexibility of the [Ghost Content API](/docs/content-api/javascript/) allows you to feed posts, pages and any other pieces of content from any Ghost site into a Nuxt.js JavaScript app.
+The flexibility of the [Ghost Content API](/content-api/javascript/) allows you to feed posts, pages and any other pieces of content from any Ghost site into a Nuxt.js JavaScript app.
 
-Below are a few examples of how content from Ghost can be passed into a Nuxt.js project. If you just landed here, see the [Nuxt.js](/docs/jamstack/nuxt/) page for more context!
+Below are a few examples of how content from Ghost can be passed into a Nuxt.js project. If you just landed here, see the [Nuxt.js](/jamstack/nuxt/) page for more context!
 
 ## Getting pages
 
-Pages can be generated in the [same fashion as posts](/docs/jamstack/nuxt/#exposing-content), and can even use the same dynamic route file.
+Pages can be generated in the [same fashion as posts](/jamstack/nuxt/#exposing-content), and can even use the same dynamic route file.
 
 ```js
 export async function getPages() {
@@ -239,7 +239,7 @@ export async function getPosts() {
 
 ### Rendering author pages
 
-An author can be requested using the [`authors.read()`](/docs/content-api/javascript/#endpoints) endpoint.
+An author can be requested using the [`authors.read()`](/content-api/javascript/#endpoints) endpoint.
 
 ```js
 export async function getAuthor(authorSlug) {

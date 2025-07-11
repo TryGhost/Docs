@@ -27,13 +27,13 @@ hexo init my-hexo-site
 
 Running the Hexo site locally can be done by running `hexo server` and navigating to `http://localhost:4000/` in a web browser.
 
-More information on setting up and creating a Hexo site can be found on [the official Hexo site](https://hexo.io/docs/setup).
+More information on setting up and creating a Hexo site can be found on [the official Hexo site](https://hexo.io/setup).
 
 ## Getting started
 
-Firstly, create a new JavaScript file within a `scripts` folder at the root of the project directory, for example `./scripts/ghost.js` . Any script placed in the scripts folder acts like a Hexo script plugin, you can find out more about the [Plugins API in the Hexo documentation](https://hexo.io/docs/plugins).
+Firstly, create a new JavaScript file within a `scripts` folder at the root of the project directory, for example `./scripts/ghost.js` . Any script placed in the scripts folder acts like a Hexo script plugin, you can find out more about the [Plugins API in the Hexo documentation](https://hexo.io/plugins).
 
-Next, install the official [JavaScript Ghost Content API](/docs/content-api/javascript/#installation) helper using:
+Next, install the official [JavaScript Ghost Content API](/content-api/javascript/#installation) helper using:
 
 ```bash
 yarn add @tryghost/content-api
@@ -59,11 +59,11 @@ Create a custom integration within Ghost Admin to generate a key and change the 
   <img src="/images/d3673af2-apikey_huc23d3a1fbe859434094a9db94f574d9a_265920_2920x0_resize_q100_h2_box_3.webp" />
 </Frame>
 
-For more detailed steps on setting up Integrations check out [our documentation on the Content API](/docs/content-api/#authentication).
+For more detailed steps on setting up Integrations check out [our documentation on the Content API](/content-api/#authentication).
 
 ### The code
 
-Once the API integration has been setup, content can be pulled from your Ghost site. To get all posts, use the [`api.posts.browse()`](/docs/content-api/javascript/#endpoints) endpoint:
+Once the API integration has been setup, content can be pulled from your Ghost site. To get all posts, use the [`api.posts.browse()`](/content-api/javascript/#endpoints) endpoint:
 
 ```js
 // Store Ghost posts in a 'data' variable
@@ -137,13 +137,13 @@ For the changes to take affect the Hexo site needs to be restarted using `hexo s
 
 ## Next steps
 
-The example code above is the most straightforward approach to using Ghost with Hexo. To use other content such as pages, authors and site data check out the [JavaScript Content API documentation](/docs/content-api/javascript/#endpoints). As well as our documentation there’s the [official Hexo documentation](https://hexo.io/docs/) which explains other ways Hexo can accept data.
+The example code above is the most straightforward approach to using Ghost with Hexo. To use other content such as pages, authors and site data check out the [JavaScript Content API documentation](/content-api/javascript/#endpoints). As well as our documentation there’s the [official Hexo documentation](https://hexo.io/) which explains other ways Hexo can accept data.
 
 ## Examples
 
-The flexibility of the [Ghost Content API](/docs/content-api/javascript/) allows you to generate posts, pages and any other pieces of content from a Ghost site and send it to a front-end built with the Node.js based static site generator, Hexo.
+The flexibility of the [Ghost Content API](/content-api/javascript/) allows you to generate posts, pages and any other pieces of content from a Ghost site and send it to a front-end built with the Node.js based static site generator, Hexo.
 
-Below are a few examples of how various types of content can be sent to your Hexo front-end. All examples assume that the API has already been setup, see the [Working with Hexo](/docs/jamstack/hexo/) page for more information.
+Below are a few examples of how various types of content can be sent to your Hexo front-end. All examples assume that the API has already been setup, see the [Working with Hexo](/jamstack/hexo/) page for more information.
 
 ## Generate pages
 
@@ -214,9 +214,9 @@ ghostAuthors();
 
 ## Adding post meta
 
-All the metadata that is exposed by the [Ghost Content API](/docs/content-api/#endpoints) is available to use inside of a Hexo site. That includes post meta like authors and tags.
+All the metadata that is exposed by the [Ghost Content API](/content-api/#endpoints) is available to use inside of a Hexo site. That includes post meta like authors and tags.
 
-In the example below the `posts.browse()` API options have been changed to include tags and authors which will be attached to each post object when it is returned. More information on the `include` API option can be found in our [Content API Endpoints](/docs/content-api/#include) documentation.
+In the example below the `posts.browse()` API options have been changed to include tags and authors which will be attached to each post object when it is returned. More information on the `include` API option can be found in our [Content API Endpoints](/content-api/#include) documentation.
 
 ```js
 const data = await api.posts
@@ -258,6 +258,6 @@ The `author.slug` includes `/authors/` in the string so it correlates with [the 
 
 ## Further reading
 
-We highly recommend reading into the [official Hexo documentation](https://hexo.io/docs/) for more info on how pages are generated. There’s also a handy [Troubleshooting page](https://hexo.io/docs/troubleshooting.html) for any common issues encountered.
+We highly recommend reading into the [official Hexo documentation](https://hexo.io/) for more info on how pages are generated. There’s also a handy [Troubleshooting page](https://hexo.io/troubleshooting.html) for any common issues encountered.
 
 Additionally there’s [plenty of themes for Hexo](https://hexo.io/themes/) that might be a good place to start when creating a custom Hexo site.

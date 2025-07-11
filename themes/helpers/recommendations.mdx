@@ -41,7 +41,7 @@ Alternatively, override the default template altogether with a custom one by add
 When building a custom template, the `recommendation` object contains the following data:
 
 * `id`: Recommendation ID used to track the number of clicks.
-* `url`: The recommended site’s URL. Use the [`readable_url` helper](/docs/themes/helpers/readable_url) to make a more human-readable URL.
+* `url`: The recommended site’s URL. Use the [`readable_url` helper](/themes/helpers/readable_url) to make a more human-readable URL.
 * `favicon`: The recommended site’s favicon, output as an image URL
 * `featured_image`: The recommended site’s feature image, output as an image URL
 * `title`: The recommended site’s title
@@ -82,7 +82,7 @@ When the total number of recommendations exceeds the number defined in `limit`, 
 
 ### Filter
 
-Use logic-based queries to filter recommendations. For a guide to filtering syntax, see our [Content API docs](https://ghost.org/docs/content-api/#filtering).
+Use logic-based queries to filter recommendations. For a guide to filtering syntax, see our [Content API docs](/content-api/#filtering).
 
 ```handlebars
 {{recommendations filter="favicon:-null"}}

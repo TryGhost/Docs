@@ -43,11 +43,11 @@ The Content API URL and key can be obtained by creating a new `Custom Integratio
 * `key` - hex string copied from the “Integrations” screen in Ghost Admin
 * `version` - should be set to ‘v3’
 
-See the documentation on [Content API authentication](/docs/content-api/#authentication) for more explanation.
+See the documentation on [Content API authentication](/content-api/#authentication) for more explanation.
 
 ## Endpoints
 
-All endpoints & parameters provided by the [Content API](/docs/content-api/) are supported.
+All endpoints & parameters provided by the [Content API](/content-api/) are supported.
 
 ```js
 // Browsing posts returns Promise([Post...]);
@@ -93,7 +93,7 @@ api.settings.browse();
 
 For all resources except settings, the `browse()` method will return an array of objects, and the `read()` method will return a single object. The `settings.browse()` endpoint always returns a single object with all the available key-value pairs.
 
-See the documentation on [Content API resources](/docs/content-api/#resources) for a full description of the response for each resource.
+See the documentation on [Content API resources](/content-api/#resources) for a full description of the response for each resource.
 
 ## Installation
 
@@ -136,7 +136,7 @@ Get the [latest version](https://unpkg.com/@tryghost/content-api) from [unpkg.co
 
 Ghost provides the `filter` parameter to fetch your content with endless possibilities! Especially useful for retrieving posts according to their tags, authors or other properties.
 
-Ghost uses the NQL query language to create filters in a simple yet powerful string format. See the [NQL Syntax Reference](/docs/content-api/#filtering) for full details.
+Ghost uses the NQL query language to create filters in a simple yet powerful string format. See the [NQL Syntax Reference](/content-api/#filtering) for full details.
 
 Filters are provided to client libraries via the `filter` property of any `browse` method.
 
@@ -187,7 +187,7 @@ A collection of packages for common API usecases
 * Package: `@tryghost/helpers`
 * Builds: CJS, ES, UMD
 
-The shared helpers are designed for performing data formatting tasks, usually when creating custom frontends. These are the underlying tools that power our [handlebars](/docs/themes/) and [gatsby](/docs/jamstack/gatsby/#custom-helpers) helpers.
+The shared helpers are designed for performing data formatting tasks, usually when creating custom frontends. These are the underlying tools that power our [handlebars](/themes/) and [gatsby](/jamstack/gatsby/#custom-helpers) helpers.
 
 #### Tags
 

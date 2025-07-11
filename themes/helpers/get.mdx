@@ -7,7 +7,7 @@ description: 'Usage: `{{#get "posts"}}{{/get}}`'
 
 ## Description
 
-`{{#get}}` is a special block helper that makes a custom query to the Ghost API to fetch publicly available data. These requests are made server-side before your templates are rendered. This means you can fetch additional data, separate from what is provided by [default in each context](/docs/themes/contexts/).
+`{{#get}}` is a special block helper that makes a custom query to the Ghost API to fetch publicly available data. These requests are made server-side before your templates are rendered. This means you can fetch additional data, separate from what is provided by [default in each context](/themes/contexts/).
 
 In its most basic form, the `{{#get}}` helper performs a “browse” query that creates a block of data that represents a list of your **posts**, **authors**, **tags**, or **tiers**. Use the `{{#foreach}}` helper to iterate over this block of data.
 
@@ -35,7 +35,7 @@ Get a single post with the id of 2, including its related tags and author data, 
 {{/get}}
 ```
 
-Fetch all tags and output them using the [tags helper](/docs/themes/helpers/tags).
+Fetch all tags and output them using the [tags helper](/themes/helpers/tags).
 
 ```handlebars
 {{#get "tags" limit="all"}}{{tags}}{{/get}}
@@ -79,7 +79,7 @@ Block parameters are entered between pipe symbols (`|`)
 
 </Note>
 
-The `{{#get}}` helper supports two parameters. The first entry refers to your returned data collection. The second entry refers to your [pagination object](/docs/themes/helpers/pagination/).
+The `{{#get}}` helper supports two parameters. The first entry refers to your returned data collection. The second entry refers to your [pagination object](/themes/helpers/pagination/).
 
 **Block parameters example:**
 
@@ -118,7 +118,7 @@ To output different content when there are no results returned from the `{{#get}
 
 ## Attributes
 
-Use `{{#get}}` helper attributes to specify which data is returned. Available attributes are identical to those used with the [Ghost Content API](/docs/content-api/#parameters).
+Use `{{#get}}` helper attributes to specify which data is returned. Available attributes are identical to those used with the [Ghost Content API](/content-api/#parameters).
 
 “Browse” requests (fetching multiple items) accept any or all of these attributes. “Read” requests (fetching a single item by **id** or **slug**) only accept the **include** attribute.
 
@@ -277,7 +277,7 @@ Use `filter` to make complex, logic-based queries on the data to fetch. In its m
 {{/get}}
 ```
 
-Specify multiple rules for the `filter` attribute by using `,` for *or*, `+` for *and*, and `-` for *negation*. It’s possible to check for booleans, match against strings, look for items within a group, and much more. For a full breakdown of the filtering syntax and how to use it, please see the [filter documentation in the API docs](/docs/content-api/#filtering).
+Specify multiple rules for the `filter` attribute by using `,` for *or*, `+` for *and*, and `-` for *negation*. It’s possible to check for booleans, match against strings, look for items within a group, and much more. For a full breakdown of the filtering syntax and how to use it, please see the [filter documentation in the API docs](/content-api/#filtering).
 
 #### Passing data to `filter`
 
@@ -320,7 +320,7 @@ Tip: To filter based on dates, use the data attributes, e.g.`{{published_at}}`, 
 
 #### Filtering by primary tag
 
-The `primary_tag` represents the first tag on a post. See the available [attributes](/docs/themes/helpers/tags/#list-of-attributes).
+The `primary_tag` represents the first tag on a post. See the available [attributes](/themes/helpers/tags/#list-of-attributes).
 
 ```handlebars
 {{! Get three posts that have the same primary tag as the current post}}
@@ -335,7 +335,7 @@ The `primary_tag` represents the first tag on a post. See the available [attribu
 
 #### Filtering by primary author
 
-The `primary_author` represents the first author listed on a post. See the available [attributes](/docs/themes/contexts/author/#author-object-attributes).
+The `primary_author` represents the first author listed on a post. See the available [attributes](/themes/contexts/author/#author-object-attributes).
 
 ```handlebars
 {{! Get three posts that have the same primary author as the current post}}

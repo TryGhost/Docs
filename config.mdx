@@ -20,7 +20,7 @@ The configuration is managed by [nconf](https://github.com/indexzero/nconf/). A 
 Since Node.js has the concept of environments built in, Ghost supports two environments: **development** and **production**. All public Ghost publications run in production mode, while development mode can be used to test or build on top of Ghost locally.
 
 <Note>
-Check out the official install guides for [development](/docs/install/local/) and [production](/docs/install/ubuntu/).
+Check out the official install guides for [development](/install/local/) and [production](/install/ubuntu/).
 
 </Note>
 
@@ -226,11 +226,11 @@ We recommend ensuring transactional emails are functional before moving on to bu
 
 #### Configuring with Mailgun
 
-[Mailgun](https://www.mailgun.com/) is a service for sending emails and provides more than adequate resources to send bulk emails at a reasonable price. Find out more about [using Mailgun with Ghost here](/docs/faq/mailgun-newsletters/).
+[Mailgun](https://www.mailgun.com/) is a service for sending emails and provides more than adequate resources to send bulk emails at a reasonable price. Find out more about [using Mailgun with Ghost here](/faq/mailgun-newsletters/).
 
 Mailgun allows you to use your own domain for sending transactional emails. Otherwise, you can use a subdomain that Mailgun provides you with (also known as the sandbox domain, limited to 300 emails per day). You can change this at any time.
 
-Mailgun is an optional service for sending transactional emails, but it is required for bulk mail — [read more](/docs/faq/mailgun-newsletters/).
+Mailgun is an optional service for sending transactional emails, but it is required for bulk mail — [read more](/faq/mailgun-newsletters/).
 
 #### Create a Mailgun account
 
@@ -242,7 +242,7 @@ Once your site is fully set up [create a Mailgun account](https://signup.mailgun
 
 In addition to this information, you’ll need the password, which can be obtained by clicking the **Reset Password** button. Keep these details for future reference.
 
-Mailgun provides options for using their own subdomains for sending emails, as well as custom domains for a [competitive price](/docs/faq/mailgun-newsletters/#did-you-know-mailgun-doesn-t-have-free-accounts-anymore).
+Mailgun provides options for using their own subdomains for sending emails, as well as custom domains for a [competitive price](/faq/mailgun-newsletters/#did-you-know-mailgun-doesn-t-have-free-accounts-anymore).
 
 #### Add credentials to `config.production.json`
 
@@ -618,7 +618,7 @@ With custom cache adapters, like Redis storage, the cache can expand its size in
 
 #### Ghost’s built-in Redis cache adapter
 
-Ghost’s built-in Redis cache adapter solves the downsides named above by persisting across Ghost restarts and not being limited by the Ghost instance’s RAM capacity. [Implementing a Redis cache](https://redis.io/docs/getting-started/installation/,) is a good solution for sites with high load and complicated templates, ones using lots of `get` helpers. Note that this adapter requires Redis to be set up and running in addition to Ghost.
+Ghost’s built-in Redis cache adapter solves the downsides named above by persisting across Ghost restarts and not being limited by the Ghost instance’s RAM capacity. [Implementing a Redis cache](https://redis.io/getting-started/installation/,) is a good solution for sites with high load and complicated templates, ones using lots of `get` helpers. Note that this adapter requires Redis to be set up and running in addition to Ghost.
 
 To use the Redis cache adapter, change the value for the cache adapter from “Memory” to “Redis” in the site’s configuration file. In the following example, image sizes and the tags Content API endpoint are cached in Redis for optimized performance.
 
@@ -772,7 +772,7 @@ Tell Ghost how to treat [spam requests](https://github.com/TryGhost/Ghost/blob/f
 
 ### Caching
 
-Configure [HTTP caching](https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching) for HTTP responses served from Ghost.
+Configure [HTTP caching](https://developer.mozilla.org/en-US/Web/HTTP/Caching) for HTTP responses served from Ghost.
 
 `caching` configuration is available for responses containing `public` value in `Cache-Control` header. Each key under `caching` section contains `maxAge` property that controls the `max-age` value in `Cache-Control` header. For example, the following configuration:
 
@@ -789,15 +789,15 @@ Adds `Cache-Control: public, max-age=10` header with all Content API responses, 
 The following configuration keys are available with default `maxAge` values:
 
 * “frontend” - with `"maxAge": 0`, controls responses coming from public Ghost pages (like the homepage)
-* “contentAPI” - with `"maxAge": 0`, controls responses coming from [Content API](https://ghost.org/docs/content-api/)
-* “robotstxt” - with `"maxAge": 3600`, controls responses for `robots.txt` [files](https://ghost.org/docs/themes/structure/#robotstxt)
+* “contentAPI” - with `"maxAge": 0`, controls responses coming from [Content API](/content-api/)
+* “robotstxt” - with `"maxAge": 3600`, controls responses for `robots.txt` [files](/themes/structure/#robotstxt)
 * “sitemap” - with `"maxAge": 3600`, controls responses for `sitemap.xml` [files](https://ghost.org/changelog/xml-sitemaps/)
 * “sitemapXSL” - with `"maxAge": 86400`, controls responses for `sitemap.xsl` files
 * “wellKnown” - with `"maxAge": 86400`, controls responses coming from `*/.wellknown/*` endpoints
-* “cors” - with `"maxAge": 86400`, controls responses for `OPTIONS` [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) requests
+* “cors” - with `"maxAge": 86400`, controls responses for `OPTIONS` [CORS](https://developer.mozilla.org/en-US/Web/HTTP/CORS) requests
 * “publicAssets” - with `"maxAge": 31536000`, controls responses for public assets like `public/ghost.css`, `public/cards.min.js`, etc.
 * “301” - with `"maxAge": 31536000`, controls 301 redirect responses
-* “customRedirects” - with `"maxAge": 31536000`, controls redirects coming from [custom redirects](https://ghost.org/docs/themes/routing/#redirects)
+* “customRedirects” - with `"maxAge": 31536000`, controls redirects coming from [custom redirects](/themes/routing/#redirects)
 
 ### Compress
 

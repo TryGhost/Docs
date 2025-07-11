@@ -86,7 +86,7 @@ If you’re using `ghost config` to generate a configuration file, you can suppl
 
 All of these options can also be passed to `ghost install` and `ghost setup` , as these commands call `ghost config`.
 
-See the [config guide](/docs/config/) or run `ghost config --help` for more detailed information.
+See the [config guide](/config/) or run `ghost config --help` for more detailed information.
 
 **Application options**
 
@@ -171,7 +171,7 @@ The `ghost install` command is your one-stop-shop to get a running production in
 This command includes the necessary mysql, nginx and systemd configuration to get your publication online, and provides a series of setup questions to configure your new publication. The end result is a fully installed and configured instance ✨
 
 <Note>
-Not ready for production yet? `ghost install local` installs ghost in development mode using sqlite3 and a local process manager. Read more about [local installs](/docs/install/local/).
+Not ready for production yet? `ghost install local` installs ghost in development mode using sqlite3 and a local process manager. Read more about [local installs](/install/local/).
 
 </Note>
 
@@ -181,7 +181,7 @@ The `ghost install` command runs a nested command structure, but you only ever h
 
 First, it will run `ghost doctor` to check your environment is compatible. If checks pass, a local folder is setup, and Ghost is then downloaded from npm and installed.
 
-Next, `ghost setup` runs, which will provide [prompts](/docs/install/ubuntu/#install-questions) for you to configure your new publication via the `ghost config` command, including creating a MySQL user, initialising a database, configure nginx and sets up SSL.
+Next, `ghost setup` runs, which will provide [prompts](/install/ubuntu/#install-questions) for you to configure your new publication via the `ghost config` command, including creating a MySQL user, initialising a database, configure nginx and sets up SSL.
 
 Finally, the CLI will prompt to see if you want to run Ghost and if you choose yes `ghost start` will run.
 
@@ -258,7 +258,7 @@ When you install Ghost using Ghost-CLI, the local directory will be setup with a
 
 #### How it works
 
-Setup configures your server ready for running Ghost in production. It assumes the [recommended stack](/docs/install/ubuntu/#prerequisites/) and leaves your site in a production-ready state. Setup is broken down into stages:
+Setup configures your server ready for running Ghost in production. It assumes the [recommended stack](/install/ubuntu/#prerequisites/) and leaves your site in a production-ready state. Setup is broken down into stages:
 
 * **mysql** - create a specific MySQL user that is used only for talking to Ghost’s database.
 * **nginx** - creates an nginx configuration
@@ -460,9 +460,9 @@ ghost update --no-check-mem
 
 #### Major updates
 
-Every 12-18 months we release a [major version](/docs/faq/major-versions-lts/) which breaks backwards compatibility and requires a more involved upgrade process, including backups and theme compatibility.
+Every 12-18 months we release a [major version](/faq/major-versions-lts/) which breaks backwards compatibility and requires a more involved upgrade process, including backups and theme compatibility.
 
-Use the [update documentation](/docs/update/) as a guide to the necessary steps for a smooth upgrade experience.
+Use the [update documentation](/update/) as a guide to the necessary steps for a smooth upgrade experience.
 
 #### Debugging
 
@@ -476,7 +476,7 @@ Run `ghost backup` to generate a zip file backup of your site data.
 
 #### How it works
 
-When performing manual updates it’s recommended to make frequent backups, so if anything goes wrong, you’ll still have all your data. This is especially important when [updating](/docs/update/) to the latest major version.
+When performing manual updates it’s recommended to make frequent backups, so if anything goes wrong, you’ll still have all your data. This is especially important when [updating](/update/) to the latest major version.
 
 This command creates a full backup of your site data, including:
 
@@ -486,7 +486,7 @@ This command creates a full backup of your site data, including:
 * Images, files, and media (video and audio)
 * A copy of `routes.yaml` and `redirects.yaml` or `redirects.json`
 
-Read more about how to [manually download your site data](/docs/faq/manual-backup/).
+Read more about how to [manually download your site data](/faq/manual-backup/).
 
 ***
 
@@ -603,9 +603,9 @@ ghost log --dir /path/to/site/
 
 #### Debugging
 
-There may be some output from Ghost that doesn’t appear in the log files, so for debugging purposes you may also want to try the [ghost run](/docs/ghost-cli#ghost-run) command.
+There may be some output from Ghost that doesn’t appear in the log files, so for debugging purposes you may also want to try the [ghost run](/ghost-cli#ghost-run) command.
 
-If you have a custom log configuration the `ghost log` command may not work for you. In particular the `ghost log` command requires that file logging is enabled. See the [logging configuration docs](/docs/config/#logging) for more information.
+If you have a custom log configuration the `ghost log` command may not work for you. In particular the `ghost log` command requires that file logging is enabled. See the [logging configuration docs](/config/#logging) for more information.
 
 ***
 
