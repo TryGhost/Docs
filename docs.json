@@ -33,173 +33,173 @@
           {
             "group": "Getting Started",
             "pages": [
-              "docs/introduction",
-              "docs/install",
-              "docs/hosting",
-              "docs/update"
+              "introduction",
+              "install",
+              "hosting",
+              "update"
             ]
           },
           {
             "group": "Core Concepts",
             "pages": [
-              "docs/product",
-              "docs/architecture",
-              "docs/config",
-              "docs/staff",
-              "docs/publishing",
-              "docs/members",
-              "docs/recommendations",
-              "docs/newsletters",
-              "docs/security"
+              "product",
+              "architecture",
+              "config",
+              "staff",
+              "publishing",
+              "members",
+              "recommendations",
+              "newsletters",
+              "security"
             ]
           },
           {
             "group": "Themes",
             "pages": [
-              "docs/themes",
-              "docs/themes/structure",
-              "docs/themes/contexts",
-              "docs/themes/assets",
+              "themes",
+              "themes/structure",
+              "themes/contexts",
+              "themes/assets",
               {
                 "group": "Helpers",
                 "pages": [
-                  "/docs/themes/helpers/functional-helpers",
-                  "/docs/themes/helpers/data-helpers",
-                  "/docs/themes/helpers/utility-helpers"
+                  "/themes/helpers/functional-helpers",
+                  "/themes/helpers/data-helpers",
+                  "/themes/helpers/utility-helpers"
                 ]
               },
-              "docs/themes/content",
-              "docs/themes/search",
-              "docs/themes/members",
-              "docs/themes/routing",
-              "docs/themes/custom-settings",
-              "docs/themes/gscan"
+              "themes/content",
+              "themes/search",
+              "themes/members",
+              "themes/routing",
+              "themes/custom-settings",
+              "themes/gscan"
             ]
           },
           {
             "group": "Advanced Tools",
             "pages": [
-              "docs/ghost-cli",
+              "ghost-cli",
               {
                 "group": "Content API",
                 "pages": [
-                  "docs/content-api",
-                  "docs/content-api/posts",
-                  "docs/content-api/pages",
-                  "docs/content-api/tags",
-                  "docs/content-api/authors",
-                  "docs/content-api/settings",
-                  "docs/content-api/tiers",
-                  "docs/content-api/parameters",
-                  "docs/content-api/filtering",
-                  "docs/content-api/pagination",
-                  "docs/content-api/errors",
-                  "docs/content-api/versioning"
+                  "content-api",
+                  "content-api/posts",
+                  "content-api/pages",
+                  "content-api/tags",
+                  "content-api/authors",
+                  "content-api/settings",
+                  "content-api/tiers",
+                  "content-api/parameters",
+                  "content-api/filtering",
+                  "content-api/pagination",
+                  "content-api/errors",
+                  "content-api/versioning"
                 ]
               },
               {
                 "group": "Admin API",
                 "pages": [
-                  "docs/admin-api",
+                  "admin-api",
                   {
                     "group": "Posts",
                     "pages": [
-                      "docs/admin-api/posts/overview",
-                      "docs/admin-api/posts/creating-a-post",
-                      "docs/admin-api/posts/updating-a-post",
-                      "docs/admin-api/posts/publishing-a-post",
-                      "docs/admin-api/posts/scheduling-a-post",
-                      "docs/admin-api/posts/sending-a-post",
-                      "docs/admin-api/posts/email-only-posts",
-                      "docs/admin-api/posts/deleting-a-post"
+                      "admin-api/posts/overview",
+                      "admin-api/posts/creating-a-post",
+                      "admin-api/posts/updating-a-post",
+                      "admin-api/posts/publishing-a-post",
+                      "admin-api/posts/scheduling-a-post",
+                      "admin-api/posts/sending-a-post",
+                      "admin-api/posts/email-only-posts",
+                      "admin-api/posts/deleting-a-post"
                     ]
                   },
                   {
                     "group": "Pages",
                     "pages": [
-                      "docs/admin-api/pages/overview"
+                      "admin-api/pages/overview"
                     ]
                   },
                   {
                     "group": "Tiers",
                     "pages": [
-                      "docs/admin-api/tiers/overview",
-                      "docs/admin-api/tiers/creating-a-tier",
-                      "docs/admin-api/tiers/updating-a-tier"
+                      "admin-api/tiers/overview",
+                      "admin-api/tiers/creating-a-tier",
+                      "admin-api/tiers/updating-a-tier"
                     ]
                   },
                   {
                     "group": "Newsletters",
                     "pages": [
-                      "docs/admin-api/newsletters/overview",
-                      "docs/admin-api/newsletters/creating-a-newsletter",
-                      "docs/admin-api/newsletters/updating-a-newsletter",
-                      "docs/admin-api/newsletters/sender-email-validation"
+                      "admin-api/newsletters/overview",
+                      "admin-api/newsletters/creating-a-newsletter",
+                      "admin-api/newsletters/updating-a-newsletter",
+                      "admin-api/newsletters/sender-email-validation"
                     ]
                   },
                   {
                     "group": "Offers",
                     "pages": [
-                      "docs/admin-api/offers/overview",
-                      "docs/admin-api/offers/creating-an-offer",
-                      "docs/admin-api/offers/updating-an-offer"
+                      "admin-api/offers/overview",
+                      "admin-api/offers/creating-an-offer",
+                      "admin-api/offers/updating-an-offer"
                     ]
                   },
                   {
                     "group": "Members",
                     "pages": [
-                      "docs/admin-api/members/overview",
-                      "docs/admin-api/members/creating-a-member",
-                      "docs/admin-api/members/updating-a-member"
+                      "admin-api/members/overview",
+                      "admin-api/members/creating-a-member",
+                      "admin-api/members/updating-a-member"
                     ]
                   },
                   {
                     "group": "Users",
                     "pages": [
-                      "docs/admin-api/users/overview",
-                      "docs/admin-api/users/roles",
-                      "docs/admin-api/users/invites",
-                      "docs/admin-api/users/updating-a-user",
-                      "docs/admin-api/users/deleting-a-user"
+                      "admin-api/users/overview",
+                      "admin-api/users/roles",
+                      "admin-api/users/invites",
+                      "admin-api/users/updating-a-user",
+                      "admin-api/users/deleting-a-user"
                     ]
                   },
                   {
                     "group": "Images",
                     "pages": [
-                      "docs/admin-api/images/overview",
-                      "docs/admin-api/images/uploading-an-image"
+                      "admin-api/images/overview",
+                      "admin-api/images/uploading-an-image"
                     ]
                   },
                   {
                     "group": "Themes",
                     "pages": [
-                      "docs/admin-api/themes/overview",
-                      "docs/admin-api/themes/uploading-a-theme"
+                      "admin-api/themes/overview",
+                      "admin-api/themes/uploading-a-theme"
                     ]
                   },
                   {
                     "group": "Webhooks",
                     "pages": [
-                      "docs/admin-api/webhooks/overview",
-                      "docs/admin-api/webhooks/creating-a-webhook",
-                      "docs/admin-api/webhooks/updating-a-webhook",
-                      "docs/admin-api/webhooks/deleting-a-webhook"
+                      "admin-api/webhooks/overview",
+                      "admin-api/webhooks/creating-a-webhook",
+                      "admin-api/webhooks/updating-a-webhook",
+                      "admin-api/webhooks/deleting-a-webhook"
                     ]
                   }
                 ]
               },
-              "docs/jamstack",
-              "docs/webhooks"
+              "jamstack",
+              "webhooks"
             ]
           },
           {
             "group": "Resources",
             "pages": [
-              "docs/faq",
-              "docs/changes",
-              "docs/contributing",
-              "docs/license",
-              "docs/logos",
+              "faq",
+              "changes",
+              "contributing",
+              "license",
+              "logos",
               "trademark"
             ]
           }
@@ -211,22 +211,22 @@
           {
             "group": "Migrating to Ghost",
             "pages": [
-              "docs/migration",
-              "docs/migration/substack",
-              "docs/migration/beehiiv",
-              "docs/migration/wordpress",
-              "docs/migration/newspack",
-              "docs/migration/medium",
-              "docs/migration/squarespace",
-              "docs/migration/kit",
-              "docs/migration/mailchimp",
-              "docs/migration/patreon",
-              "docs/migration/buttondown",
-              "docs/migration/memberful",
-              "docs/migration/gumroad",
-              "docs/migration/jekyll",
-              "docs/migration/ghost",
-              "docs/migration/custom"
+              "migration",
+              "migration/substack",
+              "migration/beehiiv",
+              "migration/wordpress",
+              "migration/newspack",
+              "migration/medium",
+              "migration/squarespace",
+              "migration/kit",
+              "migration/mailchimp",
+              "migration/patreon",
+              "migration/buttondown",
+              "migration/memberful",
+              "migration/gumroad",
+              "migration/jekyll",
+              "migration/ghost",
+              "migration/custom"
             ]
           }
         ]
