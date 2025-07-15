@@ -8,7 +8,7 @@
     "dark": "#15171A"
   },
   "favicon": "/favicon.png",
-    "appearance": {
+  "appearance": {
     "default": "light"
   },
   "styling": {
@@ -263,6 +263,7 @@
               "faq",
               "changes",
               "contributing",
+              "llm",
               "license",
               "logos",
               "trademark"
