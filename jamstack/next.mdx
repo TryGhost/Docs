@@ -48,7 +48,7 @@ Install the official [JavaScript Ghost Content API](/content-api/javascript/#ins
 yarn add @tryghost/content-api
 ```
 
-Once the helper is installed it can be added to the `posts.js` file using a [static `import` statement](https://developer.mozilla.org/en-US/Web/JavaScript/Reference/Statements/import):
+Once the helper is installed it can be added to the `posts.js` file using a [static `import` statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import):
 
 ```js
 import GhostContentAPI from "@tryghost/content-api";
@@ -97,7 +97,7 @@ Using an asynchronous function means Next.js will wait until all the content has
 
 ### Rendering posts
 
-Since you’re sending content from Ghost to a React application, data is passed to pages and components with [`props`](https://reactjs.org/components-and-props.html). Next.js extends upon that concept with [`getStaticProps`](https://nextjs.org/basic-features/data-fetching#getstaticprops-static-generation). This function will load the Ghost site content into the page before it’s rendered in the browser.
+Since you’re sending content from Ghost to a React application, data is passed to pages and components with [`props`](https://react.dev/learn/passing-props-to-a-component). Next.js extends upon that concept with [`getStaticProps`](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-props). This function will load the Ghost site content into the page before it’s rendered in the browser.
 
 Use the following to import the `getPosts` function created in previous steps within a page you want to render Ghost posts:
 
@@ -157,7 +157,7 @@ export async function getSinglePost(postSlug) {
 
 This function accepts a single `postSlug` parameter, which will be passed down by the template file using it. The page slug can then be used to query the Ghost Content API and get the associated post data back.
 
-Next.js provides [dynamic routes](https://nextjs.org/routing/dynamic-routes) for pages that don’t have a fixed URL / slug. The name of the js file will be the variable, in this case the post `slug`, wrapped in square brackets – `[slug].js`.
+Next.js provides [dynamic routes](https://nextjs.org/docs/routing/dynamic-routes) for pages that don’t have a fixed URL / slug. The name of the js file will be the variable, in this case the post `slug`, wrapped in square brackets – `[slug].js`.
 
 The `getSinglePost()` function can be used within the `[slug].js` file like so:
 
@@ -229,7 +229,7 @@ const IndexPage = (props) => (
 );
 ```
 
-Pages are linked in this fashion within Next.js applications to make full use of client-side rendering as well as server-side rendering. To read more about how the `Link` component works and it’s use within Next.js apps [check out their documentation](https://nextjs.org/api-reference/next/link).
+Pages are linked in this fashion within Next.js applications to make full use of client-side rendering as well as server-side rendering. To read more about how the `Link` component works and it’s use within Next.js apps [check out their documentation](https://nextjs.org/docs/pages/api-reference/components/link).
 
 ## Examples
 

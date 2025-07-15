@@ -618,7 +618,7 @@ With custom cache adapters, like Redis storage, the cache can expand its size in
 
 #### Ghost’s built-in Redis cache adapter
 
-Ghost’s built-in Redis cache adapter solves the downsides named above by persisting across Ghost restarts and not being limited by the Ghost instance’s RAM capacity. [Implementing a Redis cache](https://redis.io/getting-started/installation/,) is a good solution for sites with high load and complicated templates, ones using lots of `get` helpers. Note that this adapter requires Redis to be set up and running in addition to Ghost.
+Ghost’s built-in Redis cache adapter solves the downsides named above by persisting across Ghost restarts and not being limited by the Ghost instance’s RAM capacity. [Implementing a Redis cache](https://redis.io/docs/getting-started/installation/) is a good solution for sites with high load and complicated templates, ones using lots of `get` helpers. Note that this adapter requires Redis to be set up and running in addition to Ghost.
 
 To use the Redis cache adapter, change the value for the cache adapter from “Memory” to “Redis” in the site’s configuration file. In the following example, image sizes and the tags Content API endpoint are cached in Redis for optimized performance.
 
@@ -772,7 +772,7 @@ Tell Ghost how to treat [spam requests](https://github.com/TryGhost/Ghost/blob/f
 
 ### Caching
 
-Configure [HTTP caching](https://developer.mozilla.org/en-US/Web/HTTP/Caching) for HTTP responses served from Ghost.
+Configure [HTTP caching](https://developer.mozilla.org/en-US/docs/Web/HTTP/Caching) for HTTP responses served from Ghost.
 
 `caching` configuration is available for responses containing `public` value in `Cache-Control` header. Each key under `caching` section contains `maxAge` property that controls the `max-age` value in `Cache-Control` header. For example, the following configuration:
 
@@ -794,7 +794,7 @@ The following configuration keys are available with default `maxAge` values:
 * “sitemap” - with `"maxAge": 3600`, controls responses for `sitemap.xml` [files](https://ghost.org/changelog/xml-sitemaps/)
 * “sitemapXSL” - with `"maxAge": 86400`, controls responses for `sitemap.xsl` files
 * “wellKnown” - with `"maxAge": 86400`, controls responses coming from `*/.wellknown/*` endpoints
-* “cors” - with `"maxAge": 86400`, controls responses for `OPTIONS` [CORS](https://developer.mozilla.org/en-US/Web/HTTP/CORS) requests
+* “cors” - with `"maxAge": 86400`, controls responses for `OPTIONS` [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) requests
 * “publicAssets” - with `"maxAge": 31536000`, controls responses for public assets like `public/ghost.css`, `public/cards.min.js`, etc.
 * “301” - with `"maxAge": 31536000`, controls 301 redirect responses
 * “customRedirects” - with `"maxAge": 31536000`, controls redirects coming from [custom redirects](/themes/routing/#redirects)
@@ -825,7 +825,7 @@ The original image is kept with the suffix `_o`.
 
 When creating NFT embeds, Ghost fetches the information from the [OpenSea](https://opensea.io) API. This API is rate limited, and OpenSea request that you use an API key in production environments.
 
-You can [request an OpenSea API key](https://docs.opensea.io/reference/request-an-api-key) from them directly, without needing an account.
+You can [request an OpenSea API key](https://docs.opensea.io/reference/api-keys) from them directly, without needing an account.
 
 ```json
 "opensea": {
