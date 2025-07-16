@@ -23,7 +23,7 @@ Note that the `index.hbs` template is also used to output the tag and author con
 
 The `index` context provides templates with access to an array of post objects and a pagination object. As with all contexts, all of the `@site` global data is also available.
 
-The number of posts provided will depend on the `post per page` setting which you can configure [in your package.json](/themes/helpers/foreach/) file. The array will provide the correct posts for the current page number, with the posts ordered chronologically, newest first. Therefore on the home page, the theme will have access to the first 6 posts by default. On /page/2/ the theme will have access to posts 7-12.
+The number of posts provided will depend on the `post per page` setting which you can configure [in your package.json](/themes/helpers/functional/foreach/) file. The array will provide the correct posts for the current page number, with the posts ordered chronologically, newest first. Therefore on the home page, the theme will have access to the first 6 posts by default. On /page/2/ the theme will have access to posts 7-12.
 
 Each of the posts can be looped through using `{{#foreach 'posts'}}{{/foreach}}`. The template code inside the block will be rendered for each post, and have access to all of the post object attributes.
 
@@ -35,7 +35,7 @@ Using `{{#foreach 'posts'}}{{/foreach}}` is the best way to loop through your po
 
 If your theme does have a `tag.hbs` and `author.hbs` file all outputting similar post lists you may wish to use a partial to define your post list item, e.g. `{{> "loop"}}`. There’s an example showing this in detail below.
 
-The [\{\{pagination}}](/themes/helpers/pagination/) helper is the best way to output pagination. This is fully customisable.
+The [\{\{pagination}}](/themes/helpers/utility/pagination/) helper is the best way to output pagination. This is fully customisable.
 
 ## Example Code
 

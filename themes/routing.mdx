@@ -110,7 +110,7 @@ Now, the data from `site.com/team/` will be available inside the `{{#page}}` blo
 
 In the examples used so far, routes have been configured to generate a single page, some data and a template, but that’s not all routes can do. You can make a route output just about anything, for instance a custom RSS feed or JSON endpoint.
 
-If you create a custom template file with a [\{\{#get}}](/themes/helpers/get/) helper API query loading a list of filtered posts, you can return those posts on a custom route with custom formatting.
+If you create a custom template file with a [\{\{#get}}](/themes/helpers/functional/get/) helper API query loading a list of filtered posts, you can return those posts on a custom route with custom formatting.
 
 ```yaml
 routes:
@@ -177,7 +177,7 @@ Using an example from the previous section on [custom routes](/themes/routing/#r
 
 ### Filtering collections
 
-Much like the [\{\{#get}}](/themes/helpers/get/) helper, collections can be filtered to contain only a subset of content on your site, rather than all of it.
+Much like the [\{\{#get}}](/themes/helpers/functional/get/) helper, collections can be filtered to contain only a subset of content on your site, rather than all of it.
 
 ```yaml
 collections:

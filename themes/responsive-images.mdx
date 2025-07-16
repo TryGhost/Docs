@@ -44,7 +44,7 @@ Here’s a sample of [the image sizes in Ghost’s default Casper theme](https:/
 
 ### Using image sizes
 
-Once image sizes are defined, pass a `size` parameter to the [\{\{img\_url}}](/themes/helpers/img_url/) helper in your theme to output an image at a particular size.
+Once image sizes are defined, pass a `size` parameter to the [\{\{img\_url}}](/themes/helpers/data/img_url/) helper in your theme to output an image at a particular size.
 
 ```handlebars
 <img src="{{img_url feature_image size="s"}}">
@@ -70,7 +70,7 @@ Here’s an [example from Ghost default Casper theme](https://github.com/TryGhos
 
 ### Converting images to smaller image types
 
-Pass a `format` parameter to the [\{\{img\_url}}](/themes/helpers/img_url/) helper in your theme to output an image in a particular image format. This only works in combination with the `size` parameter.
+Pass a `format` parameter to the [\{\{img\_url}}](/themes/helpers/data/img_url/) helper in your theme to output an image in a particular image format. This only works in combination with the `size` parameter.
 
 ```handlebars
 {{img_url feature_image size="s" format="webp"}}
@@ -122,4 +122,4 @@ Unlike other platforms, there’s no manual work needed to manage image sizes in
 
 Image sizes are automatically generated for all feature images and theme images, and regenerated whenever an image is changed, the image sizes configuration is changed, or when theme changes are made. Images are generated on the first request for each image at a particular size.
 
-Dynamic image sizes are *not* compatible with externally hosted images (except inserted images from [Unsplash](/integrations/unsplash/)). If you store your image files on a third party storage adapter, then the image URL returned will be determined by the external source.
+Dynamic image sizes are *not* compatible with externally hosted images (except inserted images from [Unsplash](https://ghost.org/integrations/unsplash/)). If you store your image files on a third party storage adapter, then the image URL returned will be determined by the external source.
