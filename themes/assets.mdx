@@ -44,7 +44,7 @@ Here’s a sample of [the image sizes in Ghost’s default Casper theme](https:/
 
 ### Using image sizes
 
-Once image sizes are defined, pass a `size` parameter to the [\{\{img\_url}}](/themes/helpers/img_url/) helper in your theme to output an image at a particular size.
+Once image sizes are defined, pass a `size` parameter to the [\{\{img\_url}}](/themes/helpers/data/img_url/) helper in your theme to output an image at a particular size.
 
 ```handlebars
 <img src="{{img_url feature_image size="s"}}">
@@ -70,7 +70,7 @@ Here’s an [example from Ghost default Casper theme](https://github.com/TryGhos
 
 ### Converting images to smaller image types
 
-Pass a `format` parameter to the [\{\{img\_url}}](/themes/helpers/img_url/) helper in your theme to output an image in a particular image format. This only works in combination with the `size` parameter.
+Pass a `format` parameter to the [\{\{img\_url}}](/themes/helpers/data/img_url/) helper in your theme to output an image in a particular image format. This only works in combination with the `size` parameter.
 
 ```handlebars
 {{img_url feature_image size="s" format="webp"}}

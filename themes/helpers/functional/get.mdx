@@ -35,7 +35,7 @@ Get a single post with the id of 2, including its related tags and author data, 
 {{/get}}
 ```
 
-Fetch all tags and output them using the [tags helper](/themes/helpers/tags).
+Fetch all tags and output them using the [tags helper](/themes/helpers/data/tags).
 
 ```handlebars
 {{#get "tags" limit="all"}}{{tags}}{{/get}}
@@ -79,7 +79,7 @@ Block parameters are entered between pipe symbols (`|`)
 
 </Note>
 
-The `{{#get}}` helper supports two parameters. The first entry refers to your returned data collection. The second entry refers to your [pagination object](/themes/helpers/pagination/).
+The `{{#get}}` helper supports two parameters. The first entry refers to your returned data collection. The second entry refers to your [pagination object](/themes/helpers/utility/pagination/).
 
 **Block parameters example:**
 
@@ -320,7 +320,7 @@ Tip: To filter based on dates, use the data attributes, e.g.`{{published_at}}`, 
 
 #### Filtering by primary tag
 
-The `primary_tag` represents the first tag on a post. See the available [attributes](/themes/helpers/tags/#list-of-attributes).
+The `primary_tag` represents the first tag on a post. See the available [attributes](/themes/helpers/data/tags/#list-of-attributes).
 
 ```handlebars
 {{! Get three posts that have the same primary tag as the current post}}

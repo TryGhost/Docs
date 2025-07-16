@@ -48,15 +48,15 @@ You can generate a Content API key and check your API url in the Custom Integrat
 
 Themes can be validated against 5.x in [GScan](https://gscan.ghost.org).
 
-* Card assets will now be included by default, including bookmark and gallery cards. ([docs](/themes/helpers/config/))
+* Card assets will now be included by default, including bookmark and gallery cards. ([docs](/themes/helpers/data/config/))
 * Previously deprecated features have been removed: `@blog`, single authors.
 
 **Custom membership flows**
 
 The syntax used to build custom membership flows has changed significantly.
 
-* Tier benefits are now returned as a list of strings. ([docs](/themes/helpers/tiers/#fetching-tiers-with-the-get-helper))
-* Paid Tiers now have numeric `monthly_price` and `yearly_price` attributes, and a separate `currency` attribute. ([docs](/themes/helpers/tiers/))
+* Tier benefits are now returned as a list of strings. ([docs](/themes/helpers/data/tiers/#fetching-tiers-with-the-get-helper))
+* Paid Tiers now have numeric `monthly_price` and `yearly_price` attributes, and a separate `currency` attribute. ([docs](/themes/helpers/data/tiers/))
 * The following legacy product and price helpers used to build custom membership flows have been removed: `@price`, `@products`, `@product` and `@member.product`. See below for examples of the new syntax for building a custom signup form and account page. ([docs](/themes/members/#member-subscriptions))
 
 **Sign up form**
