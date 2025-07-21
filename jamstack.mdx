@@ -3,20 +3,69 @@ title: "Ghost On The JAMstack"
 sidebarTitle: "JAMstack"
 description: How to use Ghost as a headless CMS with popular static site generators
 ---
+import { CardCenteredContent } from '/snippets/card-centered-content.jsx';
 
 ***
 
-Ghost ships with a default front-end theme layer built with Handlebars, but based on its flexible [architecture](/architecture/) it also be used as a headless CMS with third party front-end frameworks. We have setup guides for most of the most popular frameworks and how to use Ghost with them.
+Ghost ships with a default front-end theme layer built with Handlebars, but based on its flexible [architecture](/architecture/) it also be used** **as a headless CMS with third party front-end frameworks. We have setup guides for most of the most popular frameworks and how to use Ghost with them.
 
 <CardGroup cols={3}>
-  <Card img="/images/9994e9a8-nextjs-logo.svg" href="/jamstack/next/" />
-  <Card img="/images/cf116fbd-gatsby-logo.svg" href="/jamstack/gatsby/" />
-  <Card img="/images/475cf82c-hexo-logo.svg" href="/jamstack/hexo/" />
-  <Card img="/images/138c831d-nuxtjs-logo_hu9cae5061ed1f69c9d83af67ed2b31db3_33854_921x0_resize_q100_h2_box_3.webp" href="/jamstack/nuxt/" />
-  <Card img="/images/ccfd30e7-vuepress-logo_hu682ba1d96ca023ceb24ae8867fa88f58_8588_1031x0_resize_q100_h2_box_3.webp" href="/jamstack/vuepress/" />
-  <Card img="/images/fff9bebe-gridsome-logo.svg" href="/jamstack/gridsome/" />
-  <Card img="/images/0d290655-eleventy-logo.svg" href="/jamstack/eleventy/" />
-  <Card img="/images/2abd65c9-custom.svg" href="/jamstack/custom/" />
+  <CardCenteredContent
+    src="/images/9994e9a8-nextjs-logo.svg"
+    href="/jamstack/next/"
+    title="Working With Next.js"
+    alt="Next.js logo"
+    hideTitle={true}
+  />
+  <CardCenteredContent
+    src="/images/cf116fbd-gatsby-logo.svg"
+    href="/jamstack/gatsby/"
+    title="Working With Gatsby"
+    alt="Gatsby logo"
+    hideTitle={true}
+  />
+  <CardCenteredContent
+    src="/images/475cf82c-hexo-logo.svg"
+    href="/jamstack/hexo/"
+    title="Working With Hexo"
+    alt="Hexo logo"
+    hideTitle={true}
+  />
+  <CardCenteredContent
+    src="/images/nuxt-logo-green-black.svg"
+    href="/jamstack/nuxt/"
+    title="Working With Nuxt.js"
+    alt="Nuxt.js logo"
+    hideTitle={true}
+  />
+  <CardCenteredContent
+    src="/images/vuepress-logo.png"
+    href="/jamstack/vuepress/"
+    title="Working With VuePress"
+    alt="VuePress logo"
+    hideTitle={true}
+  />
+  <CardCenteredContent
+    src="/images/fff9bebe-gridsome-logo.svg"
+    href="/jamstack/gridsome/"
+    title="Working With Gridsome"
+    alt="Gridsome logo"
+    hideTitle={true}
+  />
+  <CardCenteredContent
+    src="/images/0d290655-eleventy-logo.svg"
+    href="/jamstack/eleventy/"
+    title="Working With Eleventy"
+    alt="Eleventy logo"
+    hideTitle={true}
+  />
+  <CardCenteredContent
+    src="/images/2abd65c9-custom.svg"
+    href="/jamstack/custom/"
+    title="Building A Custom Front End For Ghost"
+    alt="The word 'custom' in brackets"
+    hideTitle={true}
+  />
 </CardGroup>
 
 ## Tips for using Ghost headless
