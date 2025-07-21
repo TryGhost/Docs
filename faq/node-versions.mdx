@@ -1,6 +1,6 @@
 ---
 title: "Supported Node Versions"
-description: Ghost’s current recommended Node version is Node v20 LTS.
+description: Ghost’s current required Node version is Node v22 LTS.
 ---
 
 ***
@@ -8,16 +8,16 @@ description: Ghost’s current recommended Node version is Node v20 LTS.
 | Version                      | Support Level   |
 | ---------------------------- | --------------- |
 | 17.x and below               | Unsupported     |
-| 18.x (Node v18 Hydrogen LTS) | Supported       |
+| 18.x (Node v18 Hydrogen LTS) | Unsupported     |
 | 19.x                         | Unsupported     |
-| **20.x (Node v20 Iron LTS)** | **Recommended** |
+| 20.x (Node v20 Iron LTS)     | Unsupported     |
 | 21.x                         | Unsupported     |
-| 22.x (Node v22 Jod LTS)      | Supported       |
+| **22.x (Node v22 Jod LTS)**  | **Required**    |
 | 23.x and above               | Unsupported     |
 
 We use the recommended version of Node.js in production on Ghost(Pro), which means it’s heavily tested and the Ghost core team actively fixes issues.
 
-Running Ghost on the latest version of Node.js is not guaranteed to work, and we can’t offer support for any issues. Ghost is a small team so we keep version support to a minimum to give us time to build new features 🏃♀️
+Running Ghost on the latest version of Node.js is not guaranteed to work, and we can’t offer support for any issues. Ghost is a small team so we keep version support to a minimum to give us time to build new features. 🏃‍♀️
 
 Compatible versions of Node.js can be downloaded from the Node.js releases page. You can also install multiple versions of Node using nave or nvm.
 
@@ -39,7 +39,7 @@ curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg 
 2. Create deb repository
 
 ```bash
-NODE_MAJOR=20 # Use a supported version
+NODE_MAJOR=22 # Use a supported version
 echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
 ```
 
@@ -99,3 +99,4 @@ If you want to run Ghost on the latest version of Node, you can, however, we can
 | 2023/10/27 | ≥5.71.0  | ^18.12.1                             | Removed Node 16                                                                                |
 | 2024/04/19 | ≥5.82.3  | ^18.12.1 \|\| ^20.11.1               | Added Node 20                                                                                  |
 | 2025/02/21 | ≥5.110.0 | ^18.12.1 \|\| ^20.11.1 \|\| ^22.13.1 | Added Node 22 and bumped Ghost-CLI to ^1.27.0                                                  |
+| 2025/08/04 | ≥6.0.0   | ^22.13.1                             | Removed Node 18 and Node 20  |
