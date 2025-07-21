@@ -6,21 +6,27 @@ description: The Ghost brand is our pride and joy. We’ve gone to great lengths
 ***
 
 <Frame>
-  <img src="/images/ed2eeb2c-ghost-logo-dark.png" />
+  <div className='dark:bg-white/70 w-full flex items-center justify-center'>
+    <img src="/images/ed2eeb2c-ghost-logo-dark.png" alt='Dark Ghost logo' />
+  </div>
 </Frame>
 <div className='mt-2 mb-8'>
   <a href="/images/ed2eeb2c-ghost-logo-dark.png" download="ghost-logo-dark.png">Download</a>
 </div>
 
 <Frame>
-  <img src="/images/74e0ffae-ghost-logo-orb.png" />
+  <div className='dark:bg-white/70 w-full flex items-center justify-center'>
+    <img src="/images/74e0ffae-ghost-logo-orb.png" alt='Ghost orb logo' />
+  </div>
 </Frame>
 <div className='mt-2 mb-8'>
   <a href="/images/74e0ffae-ghost-logo-orb.png" download="ghost-logo-orb.png">Download</a>
 </div>
 
 <Frame>
-  <img src="/images/3715a5ca-ghost-logo-light.png" />
+  <div className='bg-primary dark:bg-transparent w-full flex items-center justify-center'>
+    <img src="/images/3715a5ca-ghost-logo-light.png" alt='White Ghost logo' />
+  </div>
 </Frame>
 <div className='mt-2 mb-8'>
   <a href="/images/3715a5ca-ghost-logo-light.png" download="ghost-logo-light.png">Download</a>
@@ -30,34 +36,49 @@ description: The Ghost brand is our pride and joy. We’ve gone to great lengths
 
 Light backgrounds and tinted greys, accented with Ghost Green.
 
-Ghost Green
+<div className='grid gap-4 sm:grid-cols-2 md:grid-cols-3'>
+  <div className='bg-[#30cf43] rounded-xl p-4 text-white flex flex-col gap-20'>
+    <div className='grow'>Ghost Green</div>
+    <ul className='not-prose text-sm space-y-1'>
+      <li>$green</li>
+      <li>RGB 48, 207, 67</li>
+      <li>#30cf43</li>
+    </ul>
+  </div>
+  <div className='bg-white rounded-xl p-4 text-black border border-gray-200 flex flex-col gap-20'>
+    <div className='grow'>White</div>
+    <ul className='not-prose text-sm space-y-1'>
+      <li>RGB 255, 255, 255</li>
+      <li>#ffffff</li>
+    </ul>
+  </div>
+  <div className='bg-[#CED4D9] rounded-xl p-4 text-black flex flex-col gap-20'>
+    <div className='grow'>Light Grey</div>
+    <ul className='not-prose text-sm space-y-1'>
+      <li>$lightgrey</li>
+      <li>RGB 206, 212, 217</li>
+      <li>#CED4D9</li>
+    </ul>
+  </div>
+  <div className='bg-[#7C8B9A] rounded-xl p-4 text-white flex flex-col gap-20'>
+    <div className='grow'>Mid Grey</div>
+    <ul className='not-prose text-sm space-y-1'>
+      <li>$midgrey</li>
+      <li>RGB 124, 139, 154</li>
+      <li>#7C8B9A</li>
+    </ul>
+  </div>
+  <div className='bg-[#15171A] rounded-xl p-4 text-white flex flex-col gap-20'>
+    <div className='grow'>Dark Grey</div>
+    <ul className='not-prose text-sm space-y-1'>
+      <li>$darkgrey</li>
+      <li>RGB 21, 33, 42</li>
+      <li>#15171A</li>
+    </ul>
+  </div>
+</div>
 
-* \$green
-* RGB 48, 207, 67
-* \#30cf43
-
-White
-
-* RGB 255, 255, 255
-* \#ffffff
-
-Light Grey
-
-* \$lightgrey
-* RGB 206, 212, 217
-* \#CED4D9
-
-Mid Grey
-
-* \$midgrey
-* RGB 124, 139, 154
-* \#7C8B9A
-
-Dark Grey
-
-* \$darkgrey
-* RGB 21, 33, 42
-* \#15171A
+***
 
 <Card horizontal icon="file-lines">
   Any use of Ghost brand materials constitutes acceptance of the Ghost [Terms of Service](https://ghost.org/terms/), [Trademark Policy](/trademark/) and these Brand Guidelines, which may be updated from time to time. You fully acknowledge that Ghost Foundation is the sole owner of Ghost trademarks, promise not to interfere with Ghost's rights, and acknowledge that goodwill derived from their use accrues only to Ghost. Ghost may review or terminate use of brand materials at any time.
