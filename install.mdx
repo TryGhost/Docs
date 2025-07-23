@@ -5,6 +5,11 @@ description: The fastest way to get started is to set up a site on **Ghost(Pro)*
 ---
 import { CardCenteredContent } from '/snippets/card-centered-content.jsx';
 import { DockerLogo } from '/snippets/logos/docker.jsx';
+import { UbuntuLogo } from '/snippets/logos/ubuntu.jsx';
+import { SourceLogo } from '/snippets/logos/source.jsx';
+import { GhostProLogo } from '/snippets/logos/ghostpro.jsx';
+import { DigitalOceanLogo } from '/snippets/logos/digitalocean.jsx';
+import { LinodeLogo } from '/snippets/logos/linode.jsx';
 
 ***
 
@@ -12,7 +17,7 @@ import { DockerLogo } from '/snippets/logos/docker.jsx';
   <Card
     title="Ubuntu"
     href="/install/ubuntu/"
-    icon="/images/68d12c6e-ubuntu-logo.svg"
+    icon={<UbuntuLogo />}
     alt="Ubuntu logo"
   >
     16.04, 18.04, 20.04, 22.04 LTS
@@ -36,22 +41,10 @@ import { DockerLogo } from '/snippets/logos/docker.jsx';
   <Card
     title="Install from source"
     href="/install/source/"
-    icon="./images/10a9ccc0-source.svg"
+    icon={<SourceLogo />}
     alt="Source code logo"
   >
     For working on Ghost Core
-  </Card>
-</CardGroup>
-<CardGroup cols={2}>
-  <CardCenteredContent
-    title="Ubuntu"
-    href="/install/ubuntu/"
-    description="16.04, 18.04, 20.04, 22.04 LTS"
-    src="https://mintlify.s3.us-west-1.amazonaws.com/ghost/images/68d12c6e-ubuntu-logo.svg"
-    alt="Ubuntu logo"
-  />
-  <Card title="Ubuntu" img="/images/68d12c6e-ubuntu-logo.svg" href="/install/ubuntu/" >
-    16.04, 18.04, 20.04, 22.04 LTS
   </Card>
 </CardGroup>
 
@@ -61,7 +54,7 @@ import { DockerLogo } from '/snippets/logos/docker.jsx';
   <Card
     title="Ghost(Pro)"
     href="https://ghost.org/pricing/"
-    icon="/images/8e9b8c2f-pro-logo.svg"
+    icon={<GhostProLogo />}
     alt="Ghost(Pro) logo"
   >
     Official managed hosting
@@ -69,7 +62,7 @@ import { DockerLogo } from '/snippets/logos/docker.jsx';
   <Card
     title="Digital Ocean"
     href="/install/digitalocean/"
-    icon="/images/b5a6f6ec-digitalocean-logo.svg"
+    icon={<DigitalOceanLogo />}
     alt="Digital Ocean logo"
   >
     Pre-built VPS image
@@ -77,7 +70,7 @@ import { DockerLogo } from '/snippets/logos/docker.jsx';
   <Card
     title="Linode"
     href="/install/linode/"
-    icon="/images/73849ab7-linode-logo.svg"
+    icon={<LinodeLogo />}
     alt="Linode logo"
   >
     Virtual private servers
