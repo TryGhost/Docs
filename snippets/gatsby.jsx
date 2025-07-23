@@ -1,5 +1,5 @@
-export const GatsbyLogo = ({ width = 32, height = 32 }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width={ width } height={ height } viewBox="0 0 28 28" focusable="false">
+export const GatsbyLogo = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 28 28" focusable="false">
     <title>
       Gatsby
     </title>
