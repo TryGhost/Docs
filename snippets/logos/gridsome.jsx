@@ -1,7 +1,6 @@
 export const GridsomeLogo = ({ width = 144, height = 28 }) => (
   <svg
     alt="Gridsome.org"
-    className="logo__svg"
     fill="none"
     width={ width }
     height={ height }

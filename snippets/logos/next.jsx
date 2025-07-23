@@ -1,7 +1,6 @@
 export const NextLogo = ({ width = 32, height = 32 }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    data-testid="geist-icon"
     height={ height }
     width={ width }
     viewBox="0 0 16 16"

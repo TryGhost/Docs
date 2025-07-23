@@ -10,6 +10,7 @@ import { SourceLogo } from '/snippets/logos/source.jsx';
 import { GhostProLogo } from '/snippets/logos/ghostpro.jsx';
 import { DigitalOceanLogo } from '/snippets/logos/digitalocean.jsx';
 import { LinodeLogo } from '/snippets/logos/linode.jsx';
+import { LocalInstallLogo } from '/snippets/logos/local.jsx';
 
 ***
 
@@ -33,7 +34,7 @@ import { LinodeLogo } from '/snippets/logos/linode.jsx';
   <Card
     title="Local install"
     href="/install/local/"
-    icon="https://mintlify.s3.us-west-1.amazonaws.com/ghost/images/2bef395e-local_hufd41d0e39e6a56af2fade6d8e93ee88b_4742_432x0_resize_q100_h2_box_3.webp"
+    icon={<LocalInstallLogo />}
     alt="Local install logo"
   >
     MacOS, Windows & Linux
