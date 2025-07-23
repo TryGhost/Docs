@@ -4,6 +4,7 @@ sidebarTitle: "JAMstack"
 description: How to use Ghost as a headless CMS with popular static site generators
 ---
 import { CardCenteredContent } from '/snippets/card-centered-content.jsx';
+import { NuxtLogo } from '/snippets/logos/nuxt.jsx';
 
 ***
 
@@ -31,7 +32,7 @@ Ghost ships with a default front-end theme layer built with Handlebars, but base
   <Card
     title="Nuxt.js"
     href="/jamstack/nuxt/"
-    icon="/images/nuxt-logo-green-black.svg"
+    icon={<NuxtLogo />}
     alt="Nuxt.js logo"
   />
   <Card
