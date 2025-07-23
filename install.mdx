@@ -4,6 +4,7 @@ sidebarTitle: "Installation"
 description: The fastest way to get started is to set up a site on **Ghost(Pro)**. If you're running a self-hosted instance, we strongly recommend an Ubuntu server with at least 1GB of memory to run Ghost.
 ---
 import { CardCenteredContent } from '/snippets/card-centered-content.jsx';
+import { DockerLogo } from '/snippets/logos/docker.jsx';
 
 ***
 
@@ -19,7 +20,7 @@ import { CardCenteredContent } from '/snippets/card-centered-content.jsx';
   <Card
     title="Docker"
     href="/install/docker/"
-    icon="images/4cf2b2dd-docker-logo.svg"
+    icon={<DockerLogo />}
     alt="Docker logo"
   >
     Community image
@@ -46,7 +47,7 @@ import { CardCenteredContent } from '/snippets/card-centered-content.jsx';
     title="Ubuntu"
     href="/install/ubuntu/"
     description="16.04, 18.04, 20.04, 22.04 LTS"
-    src="../images/68d12c6e-ubuntu-logo.svg"
+    src="/images/68d12c6e-ubuntu-logo.svg"
     alt="Ubuntu logo"
   />
   <Card title="Ubuntu" img="/images/68d12c6e-ubuntu-logo.svg" href="/install/ubuntu/" >
