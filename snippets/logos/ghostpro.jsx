@@ -1,11 +1,10 @@
-export const GhostProLogo = (props) => (
+export const GhostProLogo = ({ width = 48, height = 32 }) => (
   <svg
-    width={ 214 / 7 }
-    height={ 114 / 7 }
+    width={ width }
+    height={ height }
     viewBox="0 0 214 114"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    { ...props }
   >
     <rect width="214" height="114" rx="23" fill="url(#paint0_linear)" />
     <rect

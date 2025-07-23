@@ -1,11 +1,10 @@
-export const UbuntuLogo = (props) => (
+export const UbuntuLogo = ({ width = 32, height = 32 }) => (
   <svg
-    width={ 285 / 10 }
-    height={ 285 / 10 }
+    width={ width }
+    height={ height }
     viewBox="0 0 285 285"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    { ...props }
   >
     <path
       d="M284.331 142.595C284.331 220.874 220.881 284.33 142.602 284.33C64.323 284.33 0.866943 220.874 0.866943 142.595C0.866943 64.321 64.324 0.867004 142.602 0.867004C220.881 0.867004 284.331 64.32 284.331 142.595Z"

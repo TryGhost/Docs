@@ -5,6 +5,11 @@ description: How to use Ghost as a headless CMS with popular static site generat
 ---
 import { CardCenteredContent } from '/snippets/card-centered-content.jsx';
 import { NuxtLogo } from '/snippets/logos/nuxt.jsx';
+import { GatsbyLogo } from '/snippets/logos/gatsby.jsx';
+import { NextLogo } from '/snippets/logos/next.jsx';
+import { GridsomeLogo } from '/snippets/logos/gridsome.jsx';
+import { EleventyLogo } from '/snippets/logos/eleventy.jsx';
+import { HexoLogo } from '/snippets/logos/hexo.jsx';
 
 ***
 
@@ -14,50 +19,42 @@ Ghost ships with a default front-end theme layer built with Handlebars, but base
   <Card
     title="Next.js"
     href="/jamstack/next/"
-    icon="/images/9994e9a8-nextjs-logo.svg"
-    alt="Next.js logo"
+    icon={<NextLogo />}
   />
   <Card
     title="Gatsby"
     href="/jamstack/gatsby/"
-    icon="/images/cf116fbd-gatsby-logo.svg"
-    alt="Gatsby logo"
+    icon={<GatsbyLogo />}
   />
   <Card
     title="Hexo"
     href="/jamstack/hexo/"
-    icon="/images/475cf82c-hexo-logo.svg"
-    alt="Hexo logo"
+    icon={<HexoLogo />}
   />
   <Card
     title="Nuxt.js"
     href="/jamstack/nuxt/"
     icon={<NuxtLogo />}
-    alt="Nuxt.js logo"
   />
   <Card
     title="VuePress"
     href="/jamstack/vuepress/"
     icon="/images/vuepress-logo.png"
-    alt="VuePress logo"
   />
   <Card
     title="Gridsome"
     href="/jamstack/gridsome/"
-    icon="/images/fff9bebe-gridsome-logo.svg"
-    alt="Gridsome logo"
+    icon={<GridsomeLogo />}
   />
   <Card
     title="Eleventy"
     href="/jamstack/eleventy/"
-    icon="/images/0d290655-eleventy-logo.svg"
-    alt="Eleventy logo"
+    icon={<EleventyLogo />}
   />
   <Card
     title="Custom Frontend"
     href="/jamstack/custom/"
     icon="/images/2abd65c9-custom.svg"
-    alt="The word 'custom' in brackets"
   />
 </CardGroup>
 

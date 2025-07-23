@@ -1,11 +1,10 @@
-export const DockerLogo = (props) => (
+export const DockerLogo = ({ width = 52, height = 29 }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width={ 256 / 5 }
-    height={ 145 / 5 }
+    width={ width }
+    height={ height }
     viewBox="0 0 256 145"
     fill="none"
-    { ...props }
   >
     <path
       fill="#364548"

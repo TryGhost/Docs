@@ -1,10 +1,9 @@
-export const DigitalOceanLogo = (props) => (
+export const DigitalOceanLogo = ({ width = 32, height = 32 }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    height={ 512 / 15 }
-    width={ 512 / 15 }
+    height={ height }
+    width={ width }
     viewBox="0 0 512 512"
-    { ...props }
   >
     <rect width="512" height="512" rx="15%" fill="#0080ff" />
     <path
