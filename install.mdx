@@ -8,60 +8,74 @@ import { CardCenteredContent } from '/snippets/card-centered-content.jsx';
 ***
 
 <CardGroup cols={2}>
+  <Card
+    title="Ubuntu"
+    href="/install/ubuntu/"
+    icon="/images/68d12c6e-ubuntu-logo.svg"
+    alt="Ubuntu logo"
+  >
+    16.04, 18.04, 20.04, 22.04 LTS
+  </Card>
+  <Card
+    title="Docker"
+    href="/install/docker/"
+    icon="/images/4cf2b2dd-docker-logo.svg"
+    alt="Docker logo"
+  >
+    Community image
+  </Card>
+  <Card
+    title="Local install"
+    href="/install/local/"
+    icon="/images/2bef395e-local_hufd41d0e39e6a56af2fade6d8e93ee88b_4742_432x0_resize_q100_h2_box_3.webp"
+    alt="Local install logo"
+  >
+    MacOS, Windows & Linux
+  </Card>
+  <Card
+    title="Install from source"
+    href="/install/source/"
+    icon="/images/10a9ccc0-source.svg"
+    alt="Source code logo"
+  >
+    For working on Ghost Core
+  </Card>
+</CardGroup>
+<CardGroup cols={2}>
   <CardCenteredContent
     title="Ubuntu"
     href="/install/ubuntu/"
     description="16.04, 18.04, 20.04, 22.04 LTS"
-    src="/images/68d12c6e-ubuntu-logo.svg"
+    src="images/68d12c6e-ubuntu-logo.svg"
     alt="Ubuntu logo"
   />
-  <CardCenteredContent
-    title="Docker"
-    href="/install/docker/"
-    description="Community image"
-    src="/images/4cf2b2dd-docker-logo.svg"
-    alt="Docker logo"
-  />
-  <CardCenteredContent
-    title="Local install"
-    href="/install/local/"
-    description="MacOS, Windows & Linux"
-    src="/images/2bef395e-local_hufd41d0e39e6a56af2fade6d8e93ee88b_4742_432x0_resize_q100_h2_box_3.webp"
-    alt="Local install logo"
-  />
-  <CardCenteredContent
-    title="Install from source"
-    href="/install/source/"
-    description="For working on Ghost Core"
-    src="/images/10a9ccc0-source.svg"
-    alt="Source code logo"
-  />
-
-
 </CardGroup>
 
 ## Cloud hosting
 
 <CardGroup cols={3}>
-  <CardCenteredContent
+  <Card
     title="Ghost(Pro)"
     href="https://ghost.org/pricing/"
-    description="Official managed hosting"
-    src="/images/8e9b8c2f-pro-logo.svg"
+    icon="/images/8e9b8c2f-pro-logo.svg"
     alt="Ghost(Pro) logo"
-  />
-  <CardCenteredContent
+  >
+    Official managed hosting
+  </Card>
+  <Card
     title="Digital Ocean"
     href="/install/digitalocean/"
-    description="Pre-built VPS image"
-    src="/images/b5a6f6ec-digitalocean-logo.svg"
+    icon="/images/b5a6f6ec-digitalocean-logo.svg"
     alt="Digital Ocean logo"
-  />
-  <CardCenteredContent
+  >
+    Pre-built VPS image
+  </Card>
+  <Card
     title="Linode"
     href="/install/linode/"
-    description="Virtual private servers"
-    src="/images/73849ab7-linode-logo.svg"
+    icon="/images/73849ab7-linode-logo.svg"
     alt="Linode logo"
-  />
+  >
+    Virtual private servers
+  </Card>
 </CardGroup>
