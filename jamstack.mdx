@@ -3,6 +3,12 @@ title: "Ghost On The JAMstack"
 sidebarTitle: "JAMstack"
 description: How to use Ghost as a headless CMS with popular static site generators
 ---
+import { GatsbyLogo } from '/snippets/gatsby.jsx';
+import { NextLogo } from '/snippets/next.jsx';
+import { HexoLogo } from '/snippets/hexo.jsx';
+import { NuxtLogo } from '/snippets/nuxt.jsx';
+import { GridsomeLogo } from '/snippets/gridsome.jsx';
+import { EleventyLogo } from '/snippets/eleventy.jsx';
 
 ***
 
@@ -12,26 +18,37 @@ Ghost ships with a default front-end theme layer built with Handlebars, but base
   <Card
     title="Next.js"
     href="/jamstack/next/"
+    icon={<NextLogo />}
   />
   <Card
     title="Gatsby"
     href="/jamstack/gatsby/"
+    icon={<GatsbyLogo />}
   />
   <Card
     title="Hexo"
     href="/jamstack/hexo/"
+    icon={<HexoLogo />}
   />
   <Card
     title="Nuxt.js"
     href="/jamstack/nuxt/"
+    icon={<NuxtLogo />}
+  />
+  <Card
+    title="VuePress"
+    href="/jamstack/vuepress/"
+    icon="https://mintlify.s3.us-west-1.amazonaws.com/ghost/images/vuepress-logo.png"
   />
   <Card
     title="Gridsome"
     href="/jamstack/gridsome/"
+    icon={<GridsomeLogo />}
   />
   <Card
     title="Eleventy"
     href="/jamstack/eleventy/"
+    icon={<EleventyLogo />}
   />
   <Card
     title="Custom Frontend"

@@ -3,6 +3,13 @@ title: "How To Install Ghost"
 sidebarTitle: "Installation"
 description: The fastest way to get started is to set up a site on **Ghost(Pro)**. If you're running a self-hosted instance, we strongly recommend an Ubuntu server with at least 1GB of memory to run Ghost.
 ---
+import { UbuntuLogo } from '/snippets/ubuntu.jsx';
+import { SourceLogo } from '/snippets/source.jsx';
+import { DigitalOceanLogo } from '/snippets/digitalocean.jsx';
+import { LinodeLogo } from '/snippets/linode.jsx';
+import { DockerLogo } from '/snippets/docker.jsx';
+import { GhostProLogo } from '/snippets/ghostpro.jsx';
+import { LocalInstallLogo } from '/snippets/local.jsx'
 
 ***
 
@@ -10,24 +17,28 @@ description: The fastest way to get started is to set up a site on **Ghost(Pro)*
   <Card
     title="Ubuntu"
     href="/install/ubuntu/"
+    icon={<UbuntuLogo />}
   >
     16.04, 18.04, 20.04, 22.04 LTS
   </Card>
   <Card
     title="Docker"
     href="/install/docker/"
+    icon={<DockerLogo />}
   >
     Community image
   </Card>
   <Card
     title="Local install"
     href="/install/local/"
+    icon={<LocalInstallLogo />}
   >
     MacOS, Windows & Linux
   </Card>
   <Card
     title="Install from source"
     href="/install/source/"
+    icon={<SourceLogo />}
   >
     For working on Ghost Core
   </Card>
@@ -39,18 +50,21 @@ description: The fastest way to get started is to set up a site on **Ghost(Pro)*
   <Card
     title="Ghost(Pro)"
     href="https://ghost.org/pricing/"
+    icon={<GhostProLogo />}
   >
     Official managed hosting
   </Card>
   <Card
     title="Digital Ocean"
     href="/install/digitalocean/"
+    icon={<DigitalOceanLogo />}
   >
     Pre-built VPS image
   </Card>
   <Card
     title="Linode"
     href="/install/linode/"
+    icon={<LinodeLogo />}
   >
     Virtual private servers
   </Card>
