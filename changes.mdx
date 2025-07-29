@@ -17,13 +17,47 @@ The best time to do a [major version](/faq/major-versions-lts) update is shortly
 
 This is when any bugs or unexpected compatibility issues have been resolved but the [team & community](https://forum.ghost.org) are still context loaded about the changes. The longer you hold off, the bigger the gap becomes between the software you are using and the latest version.
 
-## Mobiledoc deprecation
 
-With the release of the [new editor](https://ghost.org/changelog/editor-beta/), Ghost uses [Lexical](https://lexical.dev/) to store post content, which replaces the previous format Mobiledoc. Transitioning to Lexical enables Ghost to build new powerful features that weren’t possible with Mobiledoc. To remain compatible with Ghost, integrations that rely on Mobiledoc should switch to using Lexical. [For more resources on working with Lexical, see their docs](https://lexical.dev/docs/intro).
+## Ghost 6.0
+
+Most changes in Ghost 6.0 are non-breaking cleanup, with the most notable exception being the removal of `?limit=all` support from all API endpoints.
+
+#### Return max 100 results from APIs (deprecating `?limit=all`)
+
+Providing for requesting all data from an endpoint by setting the `limit` parameter to `"all"` has been a useful feature for many tools and integrations.
+However, on larger sites it can cause performance and stability issues. Therefore we've removed this feature and added a max page size of 100, in line with other similar platforms.
+
+Requesting `?limit=all` from any API endpoint will not error, but instead will return a maximum of 100 items. Attempting to request more than 100 items will also fall back to returning a maximum of 100 items.
+
+To fetch more than 100 items, pagination should be used, being mindful to build in small delays so as not to trigger any rate limits or fair usage policies of your hosts.
+
+If you're using Ghost as a headless CMS, have custom integrations, or an advanced custom theme please be sure to change these to handle pagination before updating to Ghost 6.0.
+
+#### Supported Node versions
+
+* Ghost 6.0 is only compatible with Node.js v22
+* Support for both Node.js v18 (EOL) and Node.js v20 have been dropped
+
+#### Supported databases
+
+**MySQL 8** remains the only supported database for both development and production environments.
+* SQLite3 is supported only in development environments. With Node.js v22, sqlite3 requires python setup tools to install correctly.
+
+#### Miscellaneous Changes
+
+* Feature: Removed AMP - [Google no longer prioritizes AMP](https://developers.google.com/search/blog/2021/04/more-details-page-experience). Ghost's AMP feature has been deprecated for some time, and is completely removed in Ghost 6.0.
+* Database: Removed `created_by` & `updated_by` from all tables - these properties were unused and are now deleted. Use the `actions` table instead.
+* Database: Cleaned up users without an ObjectID - a very old holdover from incremental IDs prior to Ghost 1.0 was that owner users were still created with ID 1. This has been fixed and cleaned up. This update may take a while on larger sites.
+* Admin API: Removed `GET /ghost/api/admin/session/` endpoint - this was an unused endpoint that has been cleaned up. Use `GET /ghost/api/admin/users/me/` instead.
+* Themes: Stopped serving files without an extension from theme root - the behaviour of serving files from themes has changed slightly. Assets will now correctly 404 if missing. Files without an extension will not be served at all.
 
 ## Ghost 5.0
 
 Ghost 5.0 includes significant changes to the Ghost API and database support to ensure optimal performance.
+
+### Mobiledoc deprecation
+
+With the release of the [new editor](https://ghost.org/changelog/editor-beta/), Ghost uses [Lexical](https://lexical.dev/) to store post content, which replaces the previous format Mobiledoc. Transitioning to Lexical enables Ghost to build new powerful features that weren’t possible with Mobiledoc. To remain compatible with Ghost, integrations that rely on Mobiledoc should switch to using Lexical. [For more resources on working with Lexical, see their docs](https://lexical.dev/docs/intro).
 
 #### Supported databases
 
@@ -135,7 +169,7 @@ Requests to the old, versioned URLs are rewritten internally with the relevant `
 * Paid Tiers now have numeric `monthly_price` and `yearly_price` attributes, and a separate `currency` attribute
 * The member `subscribed` flag has been deprecated in favor of the `newsletters` relation, which includes the newsletters a member is subscribed to
 
-#### Misc
+#### Miscellaneous Changes
 
 * Removed support for serving secure requests when `config.url` is set to `http`
 * Removed support for configuring the server to connect to a socket instead of a port
