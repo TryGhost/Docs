@@ -72,7 +72,7 @@ The [`posts.browse()`](/content-api/javascript/#endpoints) endpoint can be used 
 export async function getPosts() {
   return await api.posts
     .browse({
-      limit: "all"
+      limit: 100
     })
     .catch(err => {
       console.error(err);
@@ -212,7 +212,7 @@ Pages can be generated in the [same fashion as posts](/jamstack/nuxt/#exposing-c
 export async function getPages() {
   return await api.pages
     .browse({
-      limit: "all"
+      limit: 100
     })
     .catch(err => {
       console.error(err);
@@ -229,7 +229,7 @@ export async function getPosts() {
   return await api.posts
     .browse({
       include: "tags,authors",
-      limit: "all"
+      limit: 100
     })
     .catch(err => {
       console.error(err);

@@ -106,7 +106,7 @@ config.addCollection("posts", async function(collection) {
   collection = await api.posts
     .browse({
       include: "tags,authors", // Include tags as well as authors
-      limit: "all" // Get all posts to generate all content at build time
+      limit: 100 // Get all posts to generate all content at build time
     })
     .catch(err => {
       console.error(err);
@@ -135,7 +135,7 @@ config.addCollection("tags", async function(collection) {
   collection = await api.tags
     .browse({
       include: "count.posts", // Get the number of posts within a tag
-      limit: "all"
+      limit: 100
     })
     .catch(err => {
       console.error(err);
@@ -145,7 +145,7 @@ config.addCollection("tags", async function(collection) {
   const posts = await api.posts
     .browse({
       include: "tags,authors",
-      limit: "all"
+      limit: 100
     })
     .catch(err => {
       console.error(err);

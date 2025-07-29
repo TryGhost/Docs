@@ -38,7 +38,7 @@ Get a single post with the id of 2, including its related tags and author data, 
 Fetch all tags and output them using the [tags helper](/themes/helpers/data/tags).
 
 ```handlebars
-{{#get "tags" limit="all"}}{{tags}}{{/get}}
+{{#get "tags" limit="100"}}{{tags}}{{/get}}
 ```
 
 ## Usage
@@ -124,11 +124,13 @@ Use `{{#get}}` helper attributes to specify which data is returned. Available at
 
 ### *limit*
 
-Specify the size of your collection
+How many items to return
 
-Allowed values: positive integers and “all”
+Allowed values: 1-100
 
 Default value: 15
+
+Requesting more than 100 items will return a maximum of 100 items
 
 It’s possible to use the global `posts_per_page` setting, which is **5** by default. Configure the setting in the active theme’s `package.json` file. This global value is available via the `@config` global as `@config.posts_per_page`.
 
@@ -137,9 +139,6 @@ It’s possible to use the global `posts_per_page` setting, which is **5** by de
 ```handlebars
 {{! Get the 20 most recently published posts }}
 {{#get "posts" limit="20"}}{{/get}}
-
-{{! Get all published posts }}
-{{#get "posts" limit="all"}}{{/get}}
 
 {{! Use the posts_per_page setting}}
 {{#get "posts" limit=@config.posts_per_page}}{{/get}}
@@ -220,14 +219,14 @@ Include options for *Tiers*
 {{/get}}
 
 {{! Get all tags and order them by post count }}
-{{#get "tags" limit="all" include="count.posts" order="count.posts desc"}}
+{{#get "tags" limit="100" include="count.posts" order="count.posts desc"}}
     {{#foreach tags}}
         <p>{{name}} ({{count.posts}})</p>
     {{/foreach}}
 {{/get}}
 
 {{! Get all tiers with monthly price, yearly price, and benefits data }}
-{{#get "tiers" include="monthly_price,yearly_price,benefits" limit="all" as |tiers|}}
+{{#get "tiers" include="monthly_price,yearly_price,benefits" limit="100" as |tiers|}}
     {{! Loop through our tiers collection }}
     {{#foreach tiers}}
         {{name}}
@@ -270,7 +269,7 @@ Use `filter` to make complex, logic-based queries on the data to fetch. In its m
 
 ```handlebars
 {{! Only get posts that are featured }}
-{{#get "posts" limit="all" filter="featured:true"}}
+{{#get "posts" limit="25" filter="featured:true"}}
     {{#foreach posts}}
         <a href="{{slug}}">{{title}}</a>
     {{/foreach}}

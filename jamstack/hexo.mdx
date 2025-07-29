@@ -69,7 +69,7 @@ Once the API integration has been setup, content can be pulled from your Ghost s
 // Store Ghost posts in a 'data' variable
 const data = await api.posts
   .browse({
-    limit: "all"
+    limit: 100
   })
   .catch(err => {
     console.error(err);
@@ -111,7 +111,7 @@ const api = new ghostContentAPI({
 const ghostPostData = async () => {
   const data = await api.posts
     .browse({
-      limit: "all"
+      limit: 100
     })
     .catch(err => {
       console.error(err);
@@ -155,7 +155,7 @@ const ghostPages = async () => {
   // Get all pages
   const data = await api.pages
     .browse({
-      limit: "all"
+      limit: 100
     })
     .catch(err => {
       console.error(err);
@@ -187,7 +187,7 @@ const ghostAuthors = async () => {
   // Get all post authors
   const data = await api.authors
     .browse({
-      limit: "all"
+      limit: 100
     })
     .catch(err => {
       console.error(err);
@@ -223,7 +223,7 @@ const data = await api.posts
   .browse({
     // Ensure tags and authors is included in post objects
     include: "tags,authors",
-    limit: "all"
+    limit: 100
   })
   .catch(err => {
     console.error(err);
