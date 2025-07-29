@@ -22,7 +22,7 @@ This is when any bugs or unexpected compatibility issues have been resolved but 
 
 Most changes in Ghost 6.0 are non-breaking cleanup, with the most notable exception being the removal of `?limit=all` support from all API endpoints.
 
-#### Return max 100 results from APIs (deprecating `?limit=all`)
+#### Return max 100 results from APIs (removing `?limit=all` support)
 
 Providing for requesting all data from an endpoint by setting the `limit` parameter to `"all"` has been a useful feature for many tools and integrations.
 However, on larger sites it can cause performance and stability issues. Therefore we've removed this feature and added a max page size of 100, in line with other similar platforms.
