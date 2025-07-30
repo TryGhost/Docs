@@ -30,10 +30,27 @@ Additionally, you’ll need to setup a React & Next.js application via the comma
 
 ```bash
 yarn create next-app
+```
+
+Then answer the prompts. The examples in these docs answer "No" to all for simplicity: 
+<Warning>**Note this uses the [pages router](https://nextjs.org/docs/pages), not the [app router](https://nextjs.org/docs/app/getting-started).**</Warning>
+```bash
+✔ What is your project named? … my-next-app
+✔ Would you like to use TypeScript? … **No** / Yes
+✔ Would you like to use ESLint? … **No** / Yes
+✔ Would you like to use Tailwind CSS? … **No** / Yes
+✔ Would you like your code inside a src/ directory? … **No** / Yes
+✔ Would you like to use App Router? … **No** / Yes
+✔ Would you like to use Turbopack for next dev? … **No** / Yes
+✔ Would you like to customize the import alias? … **No** / Yes
+```
+
+Finally, start the app:
+
+```bash
 cd my-next-app
 yarn dev
 ```
-
 Next.js can also be setup manually – refer to the [official Next.js documentation](https://nextjs.org/docs) for more information.
 
 ## Getting started
@@ -57,13 +74,14 @@ import GhostContentAPI from "@tryghost/content-api";
 Now an instance of the Ghost Content API can be created using Ghost site credentials:
 
 ```js
+// lib/posts.js - or make a separate file to reuse for other resources
 import GhostContentAPI from "@tryghost/content-api";
 
 // Create API instance with site credentials
 const api = new GhostContentAPI({
   url: 'https://demo.ghost.io',
   key: '22444f78447824223cefc48062',
-  version: "v5.0"
+  version: "v6.0"
 });
 ```
 
@@ -85,7 +103,7 @@ The [`posts.browse()`](/content-api/javascript/#endpoints) endpoint can be used 
 export async function getPosts() {
   return await api.posts
     .browse({
-      limit: 100
+      limit: 15 // default is 15, max is 100
     })
     .catch(err => {
       console.error(err);
@@ -99,7 +117,7 @@ Using an asynchronous function means Next.js will wait until all the content has
 
 Since you’re sending content from Ghost to a React application, data is passed to pages and components with [`props`](https://react.dev/learn/passing-props-to-a-component). Next.js extends upon that concept with [`getStaticProps`](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-props). This function will load the Ghost site content into the page before it’s rendered in the browser.
 
-Use the following to import the `getPosts` function created in previous steps within a page you want to render Ghost posts:
+Use the following to import the `getPosts` function created in previous steps within a page you want to render Ghost posts, like `pages/index.js`:
 
 ```js
 import { getPosts } from '../lib/posts';
@@ -108,7 +126,7 @@ import { getPosts } from '../lib/posts';
 The posts can be fetched from within `getStaticProps` for the given page:
 
 ```js
-export async function getStaticProps(context) {
+export async function getStaticProps() {
   const posts = await getPosts()
 
   if (!posts) {
@@ -123,23 +141,25 @@ export async function getStaticProps(context) {
 }
 ```
 
-Now the posts can be used within the `IndexPage` via the component `props`:
+Now the posts can be used within the `Home` page in `pages/index.js` via the component `props`:
 
 ```js
-const IndexPage = (props) => (
-  <ul>
-    {props.posts.map(post => (
-      <li key={post.id}>{post.title}</li>
-    ))}
-  </ul>
-);
+export default function Home(props) {
+  return (
+      <ul>
+        {props.posts.map((post) => (
+          <li key={post.id}>{post.title}</li>
+        ))}
+      </ul>
+  );
+}
 ```
 
-Pages in Next.js are stored in a `pages/` directory. To find out more about how pages work [check out the official documentation](https://nextjs.org/docs#basic-example).
+Pages in Next.js are stored in a `pages/` directory. To find out more about how pages work [check out the official documentation](https://nextjs.org/docs/pages/building-your-application/routing/pages-and-layouts).
 
 ### Rendering a single post
 
-Retrieving Ghost content from a single post can be done in a similar fashion to retrieving all posts. By using [`posts.read()`](/content-api/javascript/#endpoints) it’s possible to query the Ghost Content API for a particular post using a [post `id` or `slug`](/content-api/#posts).
+Retrieving Ghost content from a single post can be done in a similar fashion to retrieving all posts. By using [`posts.read()`](/content-api/javascript/#endpoints) it’s possible to query the Ghost Content API for a particular post using a [post `id` or `slug`](/content-api/posts).
 
 Reopen the `lib/posts.js` file and add the following async function:
 
@@ -157,18 +177,54 @@ export async function getSinglePost(postSlug) {
 
 This function accepts a single `postSlug` parameter, which will be passed down by the template file using it. The page slug can then be used to query the Ghost Content API and get the associated post data back.
 
-Next.js provides [dynamic routes](https://nextjs.org/docs/routing/dynamic-routes) for pages that don’t have a fixed URL / slug. The name of the js file will be the variable, in this case the post `slug`, wrapped in square brackets – `[slug].js`.
+Next.js provides [dynamic routes](https://nextjs.org/docs/pages/building-your-application/routing/dynamic-routes) for pages that don’t have a fixed URL / slug. The name of the js file will be the variable, in this case the post `slug`, wrapped in square brackets – `[slug].js`.
 
-The `getSinglePost()` function can be used within the `[slug].js` file like so:
+In order to generate these routes, Next.js needs to know the slug for each post. This is accomplished by using `getStaticPaths` in `posts/[slug].js`. 
+
+Create another function in `lib/posts.js` called `getAllPostSlugs`. The maximum amount of items that can be fetched from a resource at once is 100, so use pagination to make sure all the slugs are fetched:
+```js
+export async function getAllPostSlugs() {
+  try {
+    const allPostSlugs = [];
+    let page = 1;
+    let hasMore = true;
+
+    while (hasMore) {
+      const posts = await api.posts.browse({
+        limit: 100,
+        page,
+        fields: "slug", // Only the slug field is needed
+      });
+
+      if (posts && posts.length > 0) {
+        allPostSlugs.push(...posts.map((item) => item.slug));
+        // Use the meta pagination info to determine if there are more pages
+        page = posts.meta.pagination.next;
+        hasMore = page !== null;
+      } else {
+        hasMore = false;
+      }
+    }
+
+    return allPostSlugs;
+  } catch (err) {
+    console.error(err);
+    return [];
+  }
+}
+```
+
+Now  `getSinglePost()` and `getAllPostSlugs()` can be used within the `pages/posts/[slug].js` file like so:
 
 ```js
 // pages/posts/[slug].js
 
-import { getSinglePost, getPosts } from '../lib/posts';
+import { getSinglePost, getAllPostSlugs } from '../../lib/posts';
 
 // PostPage page component
-const PostPage = (props) => {
+export default function PostPage(props) {
   // Render post title and content in the page from props
+  // note the html field only populates for public posts in this example
   return (
     <div>
       <h1>{props.post.title}</h1>
@@ -178,11 +234,11 @@ const PostPage = (props) => {
 }
 
 export async function getStaticPaths() {
-  const posts = await getPosts()
+  const slugs = await getAllPostSlugs()
 
-  // Get the paths we want to create based on posts
-  const paths = posts.map((post) => ({
-    params: { slug: post.slug },
+  // Get the paths we want to create based on slugs
+  const paths = slugs.map((slug) => ({
+    params: { slug: slug },
   }))
 
   // { fallback: false } means posts not found should 404.
@@ -216,17 +272,18 @@ import Link from 'next/link';
 The `Link` component is used like so:
 
 ```js
-const IndexPage = (props) => (
-  <ul>
-    {props.posts.map(post => (
-      <li key={post.id}>
-        <Link href={`/${post.slug}`}>
-          <a>{post.title}</a>
-        </Link>
-      </li>
-    ))}
-  </ul>
-);
+// pages/index.js
+export default function Home(props) {
+  return (
+    <ul>
+      {props.posts.map((post) => (
+        <li key={post.id}>
+          <Link href={`posts/${post.slug}`}>{post.title}</Link>
+        </li>
+      ))}
+    </ul>
+  );
+}
 ```
 
 Pages are linked in this fashion within Next.js applications to make full use of client-side rendering as well as server-side rendering. To read more about how the `Link` component works and it’s use within Next.js apps [check out their documentation](https://nextjs.org/docs/pages/api-reference/components/link).
@@ -237,7 +294,7 @@ The flexibility of the [Ghost Content API](/content-api/javascript/) allows you 
 
 Below are a few examples of how content from Ghost can be passed into a Next.js project.
 
-## Getting pages
+### Getting pages
 
 Pages can be generated in the [same fashion as posts](/jamstack/next/#exposing-content), and can even use the same dynamic route file.
 
@@ -245,7 +302,7 @@ Pages can be generated in the [same fashion as posts](/jamstack/next/#exposing-c
 export async function getPages() {
   return await api.pages
     .browse({
-      limit: 100
+      limit: 15 // default is 15, max is 100
     })
     .catch(err => {
       console.error(err);
@@ -253,7 +310,7 @@ export async function getPages() {
 }
 ```
 
-## Adding post attribute data
+### Adding post attribute data
 
 Using the `include` option within the Ghost Content API means that attribute data, such as tags and authors, will be included in the post object data:
 
@@ -262,7 +319,7 @@ export async function getPosts() {
   return await api.posts
     .browse({
       include: "tags,authors",
-      limit: 100
+      limit: 15 // default is 15, max is 100
     })
     .catch(err => {
       console.error(err);
@@ -286,44 +343,43 @@ export async function getAuthor(authorSlug) {
 }
 ```
 
-A custom author template file can be created at `pages/authors/[name].js`, which will also prevent author URLs colliding with post and page URLs:
+A custom author template file can be created at `pages/authors/[slug].js`, which will also prevent author URLs colliding with post and page URLs:
 
 ```js
-import { getAuthor, getAllAuthors } from '../../api/authors';
+// pages/authors/[slug].js
+import { getSingleAuthor, getAllAuthorSlugs } from "../../lib/authors";
 
-const AuthorPage = (props) => {
+export default function AuthorPage(props) {
   return (
     <div>
       <h1>{props.author.name}</h1>
       <div dangerouslySetInnerHTML={{ __html: props.author.bio }} />
     </div>
-  )
+  );
 }
 
 export async function getStaticPaths() {
-  const authors = await getAllAuthors()
-  const paths = authors.map((author) => ({
-    params: { name: author.name },
-  }))
+  const slugs = await getAllAuthorSlugs();
+  const paths = slugs.map((slug) => ({
+    params: { slug },
+  }));
 
-  return { paths, fallback: false }
+  return { paths, fallback: false };
 }
 
-
 export async function getStaticProps(context) {
-  const author = await getAuthor(context.params.name)
+  const author = await getSingleAuthor(context.params.slug);
 
   if (!author) {
     return {
       notFound: true,
-    }
+    };
   }
 
   return {
-    props: { author }
-  }
+    props: { author },
+  };
 }
-export default AuthorPage;
 ```
 
 ### Formatting post dates
@@ -349,4 +405,4 @@ The date can then be added to the template using `{post.dateFormatted}`.
 
 ## Further reading
 
-Check out the extensive [Next.js documentation](https://nextjs.org/docs) and [learning courses](https://nextjs.org/learn/basics/getting-started) for more information and to get more familiar when working with Next.js.
+Check out the extensive [Next.js documentation](https://nextjs.org/docs/pages) and [learning courses](https://nextjs.org/learn/pages-router) for more information and to get more familiar when working with Next.js.
