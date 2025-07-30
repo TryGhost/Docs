@@ -1,0 +1,8 @@
+/* Increase the contrast of inline code elements */
+.prose :not(pre)>code {
+    background-color: rgb(var(--primary)/.1);
+}
+
+.prose :not(pre)>code:is(.dark *) {
+    background-color: rgb(var(--primary-light)/.1);
+}
