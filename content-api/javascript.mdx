@@ -1,5 +1,6 @@
 ---
 title: "Content API JavaScript Client"
+sidebarTitle: "JavaScript Client"
 description: Ghost provides a flexible promise-based JavaScript library for accessing the Content API. The library can be used in any JavaScript project, client or server side and abstracts away all the pain points of working with API data.
 ---
 
@@ -11,7 +12,7 @@ description: Ghost provides a flexible promise-based JavaScript library for acce
 const api = new GhostContentAPI({
   url: 'https://demo.ghost.io',
   key: '22444f78447824223cefc48062',
-  version: "v5.0"
+  version: "v6.0"
 });
 
 // fetch 5 posts, including related tags and authors
@@ -36,12 +37,12 @@ The version string is optional, and indicates the minimum version of Ghost your 
 The Content API URL and key can be obtained by creating a new `Custom Integration` under the **Integrations** screen in Ghost Admin.
 
 <Frame>
-  <img src="/images/d3673af2-apikey_huc23d3a1fbe859434094a9db94f574d9a_265920_2920x0_resize_q100_h2_box_3.webp" />
+  <img src="/images/custom-integration-settings.webp" />
 </Frame>
 
 * `url` - API domain, must not end in a trailing slash.
 * `key` - hex string copied from the “Integrations” screen in Ghost Admin
-* `version` - should be set to ‘v3’
+* `version` - should be set to ‘v6.0’
 
 See the documentation on [Content API authentication](/content-api/#authentication) for more explanation.
 
@@ -152,7 +153,7 @@ Incorrectly formatted filters will result in a 400 Bad Request Error. Filters th
 const api = new GhostContentAPI({
   host: 'https://demo.ghost.io',
   key: '22444f78447824223cefc48062',
-  version: "v5.0"
+  version: "v6.0"
 });
 
 // fetch 5 posts, including related tags and authors
