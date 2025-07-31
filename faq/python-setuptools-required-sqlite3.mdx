@@ -1,0 +1,48 @@
+---
+title: "Cannot find module 'sqlite3'"
+description: Ghost local missing sqlite module due to Python & setuptools being needed for build
+---
+
+***
+
+### Error
+
+If you see etiher of these errors when using Ghost-CLI:
+
+```
+Python is required for SQLite3
+```
+
+or
+
+```
+Python setuptools is required for SQLite3 when using Python 3.12+
+```
+
+Then either python3 or setuptools are missing from your machine. Follow the instructions above to get them installed.
+
+
+### To fix
+
+Starting with Node.js v22, there are no longer pre-built binaries to download for the sqlite3 module. To successfully build a binary for Node 22 you'll need to have python 3 and setuptools installed.
+
+Ensure these tools are available by following the instructions below for your machine:
+
+ - MacOS users with Brew: `brew install python-setuptools` - will install python3 + setuptools
+ - MacOS users with Python installed locally: `python3 -m pip install setuptools` - will install setuptools
+ - Ubuntu users: `apt install python3-setuptools` - will install python3 + setuptools
+ - Windows users: `winget install Python.Python.3` - will install python3, then `pip install setuptools` will install setuptools
+
+
+### Cannot find module 'sqlite3'
+
+
+You may also see error messages like:
+
+```
+Message: Ghost was able to start, but errored during boot with: Knex: run
+$ npm install sqlite3 --save
+Cannot find module 'sqlite3'
+```
+
+If you're trying to use Ghost with sqlite3 without using Ghost-CLI. The same fixes above apply.
