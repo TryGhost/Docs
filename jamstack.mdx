@@ -89,3 +89,64 @@ When using a headless front-end with Ghost, you’ll want to disable Ghost’s d
 You can also use dynamic redirects, locally or at a DNS level, to forward traffic automatically from the Ghost front-end to your new headless front-end - but this is a more fragile setup. If you use Ghost’s built-in newsletter functionality, unsubscribe links in emails will point to the Ghost origin - and these URLs will break if redirected. Preview URLs and other dynamically generated paths may also behave unexpectedly when blanket redirects are used.
 
 Usually ‘Private Site Mode’ is the better option.
+
+### Pagination for building static sites
+
+Support for `?limit=all` when fetching data was removed in [Ghost 6.0](http://localhost:3000/changes#ghost-6-0), and all endpoints now have a max page size of 100. 
+
+This means any front-end frameworks that relied on `?limit=all` for building static pages, such as with `getStaticPaths()` in Next.js, should take advantage of pagination to fetch all of the needed data.
+
+For example:
+```js
+// api.js
+const api = new GhostContentAPI({
+  url: 'https://demo.ghost.io',
+  key: '22444f78447824223cefc48062',
+  version: "v6.0"
+});
+
+// lib/posts.js
+export async function getAllPostSlugs() {
+  try {
+    const allPostSlugs = [];
+    let page = 1;
+    let hasMore = true;
+
+    while (hasMore) {
+      const posts = await api.posts.browse({
+        limit: 100,
+        page,
+        fields: "slug", // Only the slug field is needed for getStaticPaths()
+      });
+
+      if (posts && posts.length > 0) {
+        allPostSlugs.push(...posts.map((item) => item.slug));
+        // Use the meta pagination info to determine if there are more pages
+        page = posts.meta.pagination.next;
+        hasMore = page !== null;
+      } else {
+        hasMore = false;
+      }
+    }
+
+    return allPostSlugs;
+  } catch (err) {
+    console.error(err);
+    return [];
+  }
+}
+
+// pages/posts/[slug].js
+export async function getStaticPaths() {
+  const slugs = await getAllPostSlugs();
+
+  // Get the paths we want to create based on slugs
+  const paths = slugs.map((slug) => ({
+    params: { slug: slug },
+  }));
+
+  return { paths, fallback: false };
+}
+```
+
+In addition, consider building in small delays so as not to trigger any rate limits or fair usage policies of your hosts.
