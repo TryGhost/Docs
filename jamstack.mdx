@@ -94,7 +94,7 @@ Usually ‘Private Site Mode’ is the better option.
 
 Support for `?limit=all` when fetching data was removed in [Ghost 6.0](/changes#ghost-6-0), and all endpoints now have a max page size of 100. 
 
-This means any front-end frameworks that relied on `?limit=all` for building static pages, such as with `getStaticPaths()` in Next.js, should take advantage of pagination to fetch all of the needed data.
+This means any front-end frameworks that relied on `?limit=all` for building static pages, such as with `getStaticPaths()` in Next.js, should instead use pagination to fetch all of the needed data.
 
 For example:
 ```js
