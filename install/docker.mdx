@@ -220,7 +220,55 @@ git pull && docker compose pull && docker compose up -d
 
 ## Migrating a Ghost-CLI Install
 
-TK
+Using our migration assistant, you can migrate a Ghost-CLI site over to the new docker compose setup in place on the same sever.
+
+The migration assistant performs the following actions:
+- Copies your Ghost content directory to a new folder that is bind mounted into the Ghost Docker container
+- Dump your existing Ghost database and imports it in to a Docker based MySQL container
+- Stops and disables your existing Ghost site
+- Stops your Nginx instance
+- Starts a Caddy webserver which handles TLS termination for you
+- Provides a rollback option if anything goes wrong
+
+### Prerequisites
+- A Ghost-CLI install that you'd like to migrate
+- Docker is installed
+- A domain name with a DNS **A-Record** pointing to the server’s IP address
+- An SMTP email service for transactional mail (See: [email config docs](/config/#mail))
+- (Optional) A [Tinybird](https://www.tinybird.co/) account for web analytics
+
+
+### Get started
+
+To get started, SSH into your server as root.
+
+Next, follow the first 3 sections from "[Install Ghost](/install/docker#edit-the-env-file)" above, stopping before installing and running Ghost with the docker compose commands:
+
+1. [Clone the repo](/install/docker#clone-the-repo)
+2. [Setup your config](/install/docker#setup-your-config)
+3. [Domain setup in Caddy](/install/docker#optional-domain-setup-in-caddy)
+
+
+### Run the migration assistant
+
+Be aware that the migration assistant will ask to stop your existing Nginx install which will take your site offline. If you have other sites running on the same server you will want to answer No to this option.
+
+```bash
+bash scripts/migrate.sh
+```
+
+If at any point you want to stop the migration you can cancel the script by pressing `CTRL+C` and then running `bash recovery_instructions.sh` to restore your original Ghost site. The migration script can be run multiple times if it errors without issue.
+
+The migration script doesn’t delete any data. After you’ve migrated you should remove your existing installation once you’re happy.
+
+
+### Enable additional services
+
+If you want to enable Web Analytics or ActivityPub, you can now follow the relevant sections from above:
+
+- [Enabling Web Analytics](install/docker#enabling-web-analytics)
+- [Enabling Social Web (ActivityPub)](/install/docker#enabling-social-web-activitypub)
+
 
 ---
 
