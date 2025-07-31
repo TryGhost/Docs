@@ -4,7 +4,7 @@ export const LocalInstallLogo = ({ width = 40, height = 40 }) => (
     preserveAspectRatio="xMidYMid meet">
 
     <g transform="translate(0.000000,251.000000) scale(0.100000,-0.100000)"
-      fill="#000000" stroke="none">
+      fill="currentColor" stroke="none">
       <path d="M592 2500 c-35 -8 -67 -32 -85 -65 -9 -15 -13 -312 -17 -1115 l-5
 -1095 -237 -3 -238 -2 0 -63 c0 -60 2 -65 38 -99 20 -20 50 -42 66 -48 20 -7
 611 -9 2060 -4 2217 7 2044 2 2109 62 24 23 27 32 27 94 l0 68 -240 0 -240 0
