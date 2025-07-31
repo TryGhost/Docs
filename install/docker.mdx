@@ -56,6 +56,8 @@ Edit the `.env` file and change:
 4. `DATABASE_PASSWORD` : generate a random password using `openssl rand -hex 32`
 5. SMTP Email section : your chosen SMTP service's configuration (See: [email config docs](/config/#mail))
 
+If you're using www in `DOMAIN`, you'll need to do option 3 in the next section to ensure ActivityPub works correctly.
+
 ### (Optional) Domain setup in Caddy
 
 The Caddyfile is setup for various domain setups. You can get to your desired setup by uncommenting the relevant blocks.
@@ -63,8 +65,10 @@ The Caddyfile is setup for various domain setups. You can get to your desired se
 Edit the `Caddyfile` in `caddy/Caddyfile`:
 
 1. For separate admin domains (recommended), uncomment the "Separate admin domains" block
-2. To redirect the www variant to your root domain, setup DNS for both, ensure that `DOMAIN` in `.env` is set to the root domain and then uncomment the "Redirect www -> root domain" block.
-3. To redirect your root domain to the www variant, setup DNS for both, ensure that `DOMAIN` in `.env` is set to the www domain, and then uncomment the "Redirect root -> www domain" block" and set `CHANGE_ME` to your root domain without the www.
+2. If you're using a root or "naked" domain like mysite.com for `DOMAIN` in `.env`:
+Redirect the www variant to your root domain by setting up DNS for both domains and then uncomment the "Redirect www -> root domain" block.
+3. If you're using a www domain for `DOMAIN` in `.env`:
+Redirect your root domain to the www variant by setting up DNS for both domains, then uncomment the "Redirect root -> www domain" block" and set `CHANGE_ME` to your root domain without the www. This is required for ActivityPub to work correctly with www domains.
 
 You only need to uncomment blocks, and if necessary edit `CHANGE_ME`. All the other variables come from `.env` and should be left as-is.
 
