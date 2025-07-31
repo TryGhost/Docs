@@ -90,7 +90,60 @@ Navigate to the admin panel on `/ghost` to complete your setup 🎉
 
 This section assumes you’ve completed a fresh setup from the section above or have migrated an existing site to Docker.
 
-TK
+### Get Tinybird setup
+
+Make sure you have a [tinybird](https://www.tinybird.co/) account with a workspace. You can choose any cloud and region. Then, making sure you're still inside of `/opt/ghost`, run the following 4 commands:
+
+
+```bash
+docker compose run --rm tinybird-login
+```
+
+Follow the steps to login to your Tinybird account.
+
+```bash
+docker compose run --rm tinybird-sync
+```
+
+Copy the Tinybird schema files from the Ghost container into a shared volume. The service should log "Tinybird files synced into shared volume.", then exit.
+
+```bash
+docker compose run --rm tinybird-deploy
+```
+
+Deploy your tinybird configuration. This will create your Tinybird datasources, pipes and API endpoints. It may take a minute or two to complete the first time. You should see "Deployment #1 is live!" in your terminal before the service exits.
+
+```bash
+docker compose run --rm tinybird-login get-tokens
+```
+
+Get your tinybird tokens
+
+### Edit the .env file
+
+Copy and paste the values from the previous step into the "Tinybird configuration" section.
+
+Add `analytics` to the `COMPOSE_PROFILES` variable at the top. This automatically includes the `analytics` profile when running `docker compose` commands:
+
+```bash
+COMPOSE_PROFILES=analytics,activitypub
+
+# Alternatively if you only want analytics
+COMPOSE_PROFILES=analytics
+```
+
+### Install and run Ghost with Web Analytics
+
+Use docker compose to install new images and run Ghost with Web Analytics:
+
+```bash
+docker compose pull
+docker compose up -d
+```
+
+Verify it's working by visiting your homepage and then checking the visit appears in the "Analytics" section of Ghost admin.
+
+
 
 ## Enabling Social Web (ActivityPub)
 
@@ -101,7 +154,7 @@ If you would like to host the ActivityPub Service yourself, follow these steps:
 
 ### Edit the .env file
 
-Change the `COMPOSE_PROFILES` variable to include activitypub:
+Add `acitvitypub` to the `COMPOSE_PROFILES` variable at the top. This automatically includes the `activitypub` profile when running `docker compose` commands:
 
 ```bash
 COMPOSE_PROFILES=analytics,activitypub
@@ -126,6 +179,8 @@ Use docker compose to install new images and run Ghost with ActivityPub:
 docker compose pull
 docker compose up -d --force-recreate ghost
 ```
+
+Verify it's working by visiting the "Network" section of Ghost Admin.
 
 ### Hosted ActivityPub Usage Limits
 Self-hosters are free to use the hosted ActivityPub service, up to the following limits:
