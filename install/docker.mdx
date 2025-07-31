@@ -3,18 +3,61 @@ title: "How To Install Ghost With Docker (preview)"
 description: Preview our new batteries-included tools for self-hosting Ghost using Docker compose.
 ---
 
+## Overview
+
 With the launch of Ghost 6.0 we are also previewing a new suite of tooling for self-hosters built on Docker with compose.
 We invite you to be one of the first to try hosting Ghost with this new tooling, which comes with full support for self-hosting
-both the Social Web (ActivityPub) and Analytics (Tinybird) features.
+both the Social Web (ActivityPub) and Web Analytics (Tinybird) features.
 
-#### Why docker?
+#### Why Docker?
 
-Our latest and greatest features are full-fat implementations, that made sense to build as completely separate services to Ghost
-itself. Using Docker and Docker compose takes all the pain out of orchestrating these different services and their dependencies.
+So that we can continue adding advanced features to Ghost without creating bloat, we're starting to build some features as separate services.
+Using Docker and Docker compose takes all the pain out of managing different services and their dependencies, meaning we can keep Ghost's architecture simple
+without passing on complexity to our self-hosting community. All services are Open Source and can be self-hosted.
 
 ## New Installs
 
-## Updating
+### Pre-requisites
+- A Linux-based server with Docker installed (we recommend )
+- A domain name with a DNS **A-Record** pointing to the server’s IP address
+- An email service for transactional mail [More info](/config/#mail)
+- (Optional) A [tinybird](https://www.tinybird.co/) account for web analytics
+
+
+### Ghost Install
+
+This section will get you a fresh setup of a working Ghost instance.
+
+TK
+
+### Enabling Web Analytics
+
+This section assumes you’ve completed a fresh setup from the section above or have migrated an existing site to Docker.
+
+TK
+
+### Enabling Social Web (ActivityPub)
+
+By default, all new Ghost installs are configured to use the Ghost(Pro) hosted ActivityPub Service, meaning the Social Web features work out of the box.
+This hosted service is free to use for all self-hosters, with some [usage limits]()
+
+If you would like to host the ActivityPub Service yourself, follow these steps:
+
+TK
+
+
+
+#### Hosted ActivityPub Usage Limits
+Self-hosters are free to use our hosted ActivityPub service, up to the following limits:
+
+* 2000 max. followers
+* 2000 max. following
+* max. 100 interactions per day (interactions include: create a post/note, reply, like, repost)
+
+If your usage exceeds this, you'll need to switch to self-hosting ActivityPub.
+
+
+## Keeping up-to-date
 
 ## Migrating a Ghost-CLI Install
 
