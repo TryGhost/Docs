@@ -95,33 +95,80 @@ This hosted service is free to use for all self-hosters, with some [usage limits
 
 If you would like to host the ActivityPub Service yourself, follow these steps:
 
-TK
+### Edit the .env file
+
+Change the `COMPOSE_PROFILES` variable to include activitypub:
+
+```bash
+COMPOSE_PROFILES=analytics,activitypub
+
+# Alternatively if you only want activitypub
+COMPOSE_PROFILES=activitypub
+```
 
 
+Next, uncomment the `ACTIVITYPUB_TARGET` line to point to your local install. It should look like this:
 
-## Hosted ActivityPub Usage Limits
-Self-hosters are free to use our hosted ActivityPub service, up to the following limits:
+```bash
+ACTIVITYPUB_TARGET=activitypub:8080
+```
+
+
+### Install and run Ghost with ActivityPub
+
+Use docker compose to install new images and run Ghost with ActivityPub:
+
+```bash
+docker compose pull
+docker compose up -d --force-recreate ghost
+```
+
+### Hosted ActivityPub Usage Limits
+Self-hosters are free to use the hosted ActivityPub service, up to the following limits:
 
 * 2000 max. followers
 * 2000 max. following
 * max. 100 interactions per day (interactions include: create a post/note, reply, like, repost)
 
-If your usage exceeds this, you'll need to switch to self-hosting ActivityPub.
+If your usage exceeds this, you'll need to switch to self-hosting ActivityPub as explained above.
 
 ---
 
 ## Future maintenance
 
+Use docker compose to update Ghost regularly:
+
+```bash
+# ensure you're in the directory where you installed ghost and pull the latest configuration
+cd /opt/ghost
+git pull
+
+# pull the latest images and restart to use them
+docker compose pull
+docker compose up -d
+
+# optionally clean up old images
+docker image prune
+```
+
+Or the one-liner, if you're in the directory where you cloned the docker tools:
+
+```bash
+git pull && docker compose pull && docker compose up -d
+```
+
 ---
 
 ## Migrating a Ghost-CLI Install
 
+TK
+
 ## Tinybird Integration
 
-
+TK
 
 ***
 
 ## Resources
 
-TBC
+TK
