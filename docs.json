@@ -59,7 +59,18 @@
             "pages": [
               "themes",
               "themes/structure",
-              "themes/contexts",
+              {
+                "group": "Contexts",
+                "pages": [
+                  "themes/contexts",
+                  "themes/contexts/index-context",
+                  "themes/contexts/page",
+                  "themes/contexts/post",
+                  "themes/contexts/author",
+                  "themes/contexts/tag",
+                  "themes/contexts/error"
+                ]
+              },
               "themes/assets",
               {
                 "group": "Helpers",
