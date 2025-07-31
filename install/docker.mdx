@@ -9,34 +9,86 @@ With the launch of Ghost 6.0 we are also previewing a new suite of tooling for s
 We invite you to be one of the first to try hosting Ghost with this new tooling, which comes with full support for self-hosting
 both the Social Web (ActivityPub) and Web Analytics (Tinybird) features.
 
-#### Why Docker?
+### Why Docker?
 
 So that we can continue adding advanced features to Ghost without creating bloat, we're starting to build some features as separate services.
 Using Docker and Docker compose takes all the pain out of managing different services and their dependencies, meaning we can keep Ghost's architecture simple
 without passing on complexity to our self-hosting community. All services are Open Source and can be self-hosted.
 
-## New Installs
-
-### Pre-requisites
+## Pre-requisites
 - A Linux-based server with Docker installed (we recommend )
 - A domain name with a DNS **A-Record** pointing to the server’s IP address
-- An email service for transactional mail [More info](/config/#mail)
+- An SMTP email service for transactional mail [More info](/config/#mail)
 - (Optional) A [tinybird](https://www.tinybird.co/) account for web analytics
 
 
-### Ghost Install
+---
+
+## Install Ghost
 
 This section will get you a fresh setup of a working Ghost instance.
 
-TK
+It will install the Ghost service, Caddy as a webserver and MySQL for the database.
 
-### Enabling Web Analytics
+
+### Clone the repo
+
+Make a local copy of our docker tooling repository in `/opt/ghost`:
+
+```bash
+git clone https://github.com/TryGhost/ghost-docker.git /opt/ghost && cd /opt/ghost
+```
+
+### Setup your config
+
+Copy the example config files for [Ghost](https://github.com/TryGhost/ghost-docker/blob/main/.env.example) and [Caddy](https://github.com/TryGhost/ghost-docker/blob/main/caddy/Caddyfile.example):
+
+```bash
+cp .env.example .env
+cp caddy/Caddyfile.example caddy/Caddyfile
+```
+
+Edit the `.env` file and change:
+
+1. `DOMAIN` : this is your custom domain for your Ghost site e.g. mysite.com
+2. `ADMIN_DOMAIN` : a separate domain for your Ghost admin e.g. admin.mysite.com (Optional, recommended)
+3. `DATABASE_ROOT_PASSWORD` : generate a random password with `openssl rand -hex 32`
+4. `DATABASE_PASSWORD` : generate a random password using `openssl rand -hex 32`
+5. SMTP Email section : your chosen SMTP service's configuration (See: [email config docs](/config/#mail))
+
+### (Optional) Domain setup in Caddy
+
+The Caddyfile is setup for various domain setups. You can get to your desired setup by uncommenting the relevant blocks.
+
+Edit the `Caddyfile` in `caddy/Caddyfile`:
+
+1. For separate admin domains (recommended), uncomment the "Separate admin domains" block
+2. To redirect the www variant to your root domain, setup DNS for both, ensure that `DOMAIN` in `.env` is set to the root domain and then uncomment the "Redirect www -> root domain" block.
+3. To redirect your root domain to the www variant, setup DNS for both, ensure that `DOMAIN` in `.env` is set to the www domain, and then uncomment the "Redirect root -> www domain" block" and set `CHANGE_ME` to your root domain without the www.
+
+You only need to uncomment blocks, and if necessary edit `CHANGE_ME`. All the other variables come from `.env` and should be left as-is.
+
+### Install and run Ghost
+
+Use docker compose commands to install and run your Ghost site. These commands may each take a little while:
+
+```bash
+docker compose pull
+docker compose up -d
+```
+
+Now your site is running! Open a browser and navigate to your domain to see Ghost in action.
+
+Navigate to the admin panel on `/ghost` to complete your setup 🎉
+
+
+## Enabling Web Analytics
 
 This section assumes you’ve completed a fresh setup from the section above or have migrated an existing site to Docker.
 
 TK
 
-### Enabling Social Web (ActivityPub)
+## Enabling Social Web (ActivityPub)
 
 By default, all new Ghost installs are configured to use the Ghost(Pro) hosted ActivityPub Service, meaning the Social Web features work out of the box.
 This hosted service is free to use for all self-hosters, with some [usage limits]()
@@ -47,7 +99,7 @@ TK
 
 
 
-#### Hosted ActivityPub Usage Limits
+## Hosted ActivityPub Usage Limits
 Self-hosters are free to use our hosted ActivityPub service, up to the following limits:
 
 * 2000 max. followers
@@ -56,13 +108,15 @@ Self-hosters are free to use our hosted ActivityPub service, up to the following
 
 If your usage exceeds this, you'll need to switch to self-hosting ActivityPub.
 
+---
 
-## Keeping up-to-date
+## Future maintenance
+
+---
 
 ## Migrating a Ghost-CLI Install
 
 ## Tinybird Integration
-
 
 
 
