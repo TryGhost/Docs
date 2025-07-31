@@ -16,7 +16,8 @@ Using Docker and Docker compose takes all the pain out of managing different ser
 without passing on complexity to our self-hosting community. All services are Open Source and can be self-hosted.
 
 ## Pre-requisites
-- A Linux-based server with Docker installed (E.g. DigitalOcean 2GB/1CPU droplet)
+- A Linux-based server (E.g. DigitalOcean 2GB/1CPU droplet)
+- Docker 20.10.0 or higher installed (See: [docker install guide](https://docs.docker.com/engine/install/))
 - A domain name with a DNS **A-Record** pointing to the server’s IP address
 - An SMTP email service for transactional mail (See: [email config docs](/config/#mail))
 - (Optional) A [Tinybird](https://www.tinybird.co/) account for web analytics
@@ -232,7 +233,7 @@ The migration assistant performs the following actions:
 
 ### Prerequisites
 - A Ghost-CLI install that you'd like to migrate
-- Docker is installed
+- Docker 20.10.0 or higher installed (See: [docker install guide](https://docs.docker.com/engine/install/))
 - A domain name with a DNS **A-Record** pointing to the server’s IP address
 - An SMTP email service for transactional mail (See: [email config docs](/config/#mail))
 - (Optional) A [Tinybird](https://www.tinybird.co/) account for web analytics
