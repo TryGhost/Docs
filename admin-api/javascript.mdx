@@ -1,5 +1,6 @@
 ---
 title: "Admin API JavaScript Client"
+sidebarTitle: "JavaScript Client"
 description: Admin API keys should remain secret, and therefore this promise-based JavaScript library is designed for server-side usage only. This library handles all the details of generating correctly formed urls and tokens, authenticating and making requests.
 ---
 
@@ -11,7 +12,7 @@ description: Admin API keys should remain secret, and therefore this promise-bas
 const api = new GhostAdminAPI({
   url: 'http://localhost:2368',
   key: 'YOUR_ADMIN_API_KEY',
-  version: "v5.0",
+  version: "v6.0",
 });
 
 api.posts.add({
@@ -31,7 +32,7 @@ The client requires the host address of your Ghost API and an Admin API key in o
 The `url` and `key` values can be obtained by creating a new `Custom Integration` under the Integrations screen in Ghost Admin.
 
 <Frame>
-  <img src="/images/d3673af2-apikey_huc23d3a1fbe859434094a9db94f574d9a_265920_2920x0_resize_q100_h2_box_3.webp" />
+  <img src="/images/custom-integration-settings.webp" />
 </Frame>
 
 See the documentation on [Admin API authentication](/admin-api/#authentication) for more explanation.
@@ -74,7 +75,7 @@ const path = require('path');
 // Your API config
 const api = new GhostAdminAPI({
     url: 'http://localhost:2368',
-    version: "v5.0",
+    version: "v6.0",
     key: 'YOUR_ADMIN_API_KEY'
 });
 

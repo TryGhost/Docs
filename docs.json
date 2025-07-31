@@ -170,7 +170,8 @@
                   "content-api/filtering",
                   "content-api/pagination",
                   "content-api/errors",
-                  "content-api/versioning"
+                  "content-api/versioning",
+                  "content-api/javascript"
                 ]
               },
               {
@@ -261,7 +262,8 @@
                       "admin-api/webhooks/updating-a-webhook",
                       "admin-api/webhooks/deleting-a-webhook"
                     ]
-                  }
+                  },
+                  "admin-api/javascript"
                 ]
               },
               "jamstack",
