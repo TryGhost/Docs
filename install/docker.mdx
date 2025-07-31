@@ -19,7 +19,7 @@ without passing on complexity to our self-hosting community. All services are Op
 - A Linux-based server with Docker installed (we recommend )
 - A domain name with a DNS **A-Record** pointing to the server’s IP address
 - An SMTP email service for transactional mail (See: [email config docs](/config/#mail))
-- (Optional) A [tinybird](https://www.tinybird.co/) account for web analytics
+- (Optional) A [Tinybird](https://www.tinybird.co/) account for web analytics
 
 
 ---
@@ -92,7 +92,7 @@ This section assumes you’ve completed a fresh setup from the section above or 
 
 ### Get Tinybird setup
 
-Make sure you have a [tinybird](https://www.tinybird.co/) account with a workspace. You can choose any cloud and region. Then, making sure you're still inside of `/opt/ghost`, run the following 4 commands:
+Make sure you have a [Tinybird](https://www.tinybird.co/) account with a workspace. You can choose any cloud and region. Then, making sure you're still inside of `/opt/ghost`, run the following 4 commands:
 
 
 ```bash
@@ -222,6 +222,22 @@ git pull && docker compose pull && docker compose up -d
 
 TK
 
+---
+
+## Troubleshooting Docker
+
+If this setup doesn't "just work" out of the box, there's likely a configuration error or server incompatibility issue that needs tracking down.
+
+Use `docker compose logs caddy` to see the webserver logs. Definitely try this first if you get an error like "This site can't be reached".
+
+Use `docker compose logs ghost` to see the Ghost logs as the next step.
+
+If your issue is clearly with a different service, `docker compose logs [service]` will show you more details.
+
+If you get really stuck, post the details on https://forum.ghost.org.
+
+---
+
 ## Tinybird Integration
 
 Note: there are no additional steps required for Tinybird to work, provided you’ve completed the [initial setup steps](https://www.notion.so/Ghost-6-0-Self-Hosting-Guide-20751439c030802aab77e7da43e0eb43?pvs=21) for traffic analytics.
@@ -267,22 +283,3 @@ Here are a few steps you can take to start troubleshooting:
 - Check the logs of the `tinybird-sync` service using `docker compose logs tinybird-sync`. If this service was successful, you should see “Tinybird files synced into shared volume.”
 - Check the logs of the `tinybird-deploy` service using `docker compose logs tinybird-deploy`. This will show the complete logs from the latest attempt to deploy changes to your Tinybird workspace, which should hopefully tip you off to what went wrong.
 - Check the “Deployments” section of your Tinybird UI (Tinybird Worksapce > Deployments on the left side bar). This will show you which Deployment is currently live, and may provide some hints if the latest deployment failed for any reason.
-
-
-## Troubleshooting
-
-If this setup doesn't "just work" out of the box, there's likely a configuration error or server incompatibility issue that needs tracking down.
-
-Use `docker compose logs caddy` to see the webserver logs. Definitely try this first if you get an error like "This site can't be reached".
-
-Use `docker compose logs ghost` to see the Ghost logs as the next step.
-
-If your issue is clearly with a different service, `docker compose logs [service]` will show you more details.
-
-If you get really stuck, post the details on https://forum.ghost.org.
-
-***
-
-## Resources
-
-TK
