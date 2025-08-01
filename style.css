@@ -6,3 +6,7 @@
 .prose :not(pre)>code:is(.dark *) {
     background-color: rgb(var(--primary-light)/.1);
 }
+
+strong {
+  font-weight: bold;
+}
