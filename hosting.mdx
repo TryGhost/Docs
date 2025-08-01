@@ -1,10 +1,10 @@
 ---
 title: "Hosting Ghost"
 sidebarTitle: "Hosting Guide"
-description: A short guide to running Ghost in a production environment and setting up an independent publication to serve traffic at scale.
+description: "A short guide to running Ghost in a production environment and setting up an independent publication to serve traffic at scale."
 ---
 
-***
+---
 
 Ghost is open source software, and can be installed and maintained relatively easily on just about any VPS hosting provider. Additionally, we run an official PaaS for Ghost called [Ghost(Pro)](https://ghost.org/pricing/), where you can have a fully managed instance set up in a couple of clicks. All revenue from Ghost(Pro) goes toward funding the future development of Ghost itself, so by using our official hosting you’ll also be funding developers to continue to improve the core product for you.
 
@@ -12,26 +12,29 @@ Ghost is open source software, and can be installed and maintained relatively ea
 
 A common question we get from developers is whether they should use our official platform, or host the codebase on their own server independently. Deciding which option is best for you comes with some nuance, so below is a breakdown of the differences to help you decide what will fit your needs best.
 
-|                                 | Ghost(Pro)            | Self-Hosting        |
-| ------------------------------- | --------------------- | ------------------- |
-| 🎛 Product features             | Identical             | Identical           |
-| ⚙️ Base hosting cost            | From **\$9**/mo       | From **\$10**/mo    |
-| 🌍 Worldwide Fastly CDN         | Included              | From **\$50**/mo    |
-| 💌 Email newsletter sending     | Included              | From **\$35**/mo    |
-| 📦 Full site backups            | Included              | From **\$5**/mo     |
-| 🖼️ Built-in image editor       | Included              | From **\$12**/mo    |
-| 💵 Payment processing fees      | 0%                    | 0%                  |
-| 🖥 Install & setup              | ✅                     | Manual              |
-| 🔄 Weekly updates               | ✅                     | Manual              |
-| 🚧 Server maintenance & updates | ✅                     | Manual              |
-| 🔒 SSL Certificate              | ✅                     | Manual              |
-| ⚠️ Threat & uptime management   | ✅                     | ❌                   |
-| 🥊 Enterprise-grade security    | ✅                     | ❌                   |
-| 🔀 Custom edge routing policies | ❌                     | ✅                   |
-| 👩💻 Direct SSH & DB access    | ❌                     | ✅                   |
-| 🔨 Ability to modify core       | ❌                     | ✅                   |
-| 🚑 Ghost product support        | Email                 | Forum               |
-| ❤️ Where your money goes        | New features in Ghost | 3rd party companies |
+/
+
+|                                           | Ghost(Pro)       | Self-Hosting     |
+| ----------------------------------------- | ---------------- | ---------------- |
+| Product features                          | Identical        | Identical        |
+| Base hosting cost                         | From **\$15**/mo | From **\$8**/mo  |
+| Global CDN & WAF                          | Included         | From **\$50**/mo |
+| Email newsletter delivery                 | Included         | From **\$15**/mo |
+| Analytics platform                        | Included         | From **\$10**/mo |
+| Full site backups                         | Included         | From **\$5**/mo  |
+| Image editor                              | Included         | From **\$12**/mo |
+| Payment processing fees                   | 0%               | 0%               |
+| Install & setup                           | ✅                | Manual           |
+| Weekly updates                            | ✅                | Manual           |
+| Server maintenance & updates              | ✅                | Manual           |
+| SSL Certificate                           | ✅                | Manual           |
+| 24/7 on-call teams                        | ✅                | ❌                |
+| Enterprise-grade security                 | ✅                | ❌                |
+| Revenue pays for <br />new Ghost features | ✅                | ❌                |
+| Ghost product support                     | Email            | Forum            |
+| Custom edge routing policies              | ❌                | ✅                |
+| Direct SSH & DB access                    | ❌                | ✅                |
+| Ability to modify core                    | ❌                | ✅                |
 
 ### Which option is best for me?
 
@@ -45,35 +48,35 @@ A common question we get from developers is whether they should use our official
 
 **TLDR:** If you want the easiest, cheapest option: Ghost(Pro) is probably your best bet. If you have a technical team and you want maximum control and flexibility, you’ll get more out of self-hosting.
 
-***
+---
 
 ## Self-hosting details & configuration
 
-Ghost has a [small team](/product/), so we optimize the software for a single, narrow, well defined stack which is heavily tested. This is the same stack that we use on Ghost(Pro), so we can generally guarantee that it’s going to work well. Ghost *can* also run successfully with different operating systems, databases and web servers, but these are not officially supported or widely adopted, so your mileage may (will) vary.
+Ghost has a [small team](/product/), so we optimize the software for a single, narrow, well defined stack which is heavily tested. This is the same stack that we use on Ghost(Pro), so we can generally guarantee that it’s going to work well. Ghost _can_ also run successfully with different operating systems, databases and web servers, but these are not officially supported or widely adopted, so your mileage may (will) vary.
 
 Our officially supported and recommended stack is as follows:
 
-* **Ubuntu 16.04**, **18.04**, **20.04** or **22.04**
-* MySQL 8.0
-* NGINX
-* Systemd
-* [Recommended Node version](/faq/node-versions/) installed via NodeSource
-* A server with at least 1GB memory
-* A non-root user for running `ghost` commands
+- **Ubuntu 16.04**, **18.04**, **20.04** or **22.04**
+- MySQL 8.0
+- NGINX
+- Systemd
+- [Recommended Node version](/faq/node-versions/) installed via NodeSource
+- A server with at least 1GB memory
+- A non-root user for running `ghost` commands
 
 [See self-hosting guides & instructions →](/install/)
 
-***
+---
 
 ### Server hardening
 
 After setting up a fresh Ubuntu install in production, it’s worth considering the following steps to make your new environment extra secure and resilient:
 
-* **Use SSL** - Ghost should be configured to run over HTTPS. Ghost admin must be run over HTTPS. You can choose to [load admin on a separate domain](/hosting/#separate-admin-domain) for additional security
-* **Secure MySQL** - We strongly recommend running `mysql_secure_installation` after successful setup to significantly improve the security of your database.
-* **Set up a firewall** - Ubuntu 18.04, 20.04 and 22.04 servers can use the UFW firewall to make sure only connections to certain services are allowed. We recommend setting up UFW rules for `ssh`, `nginx`, `http`, and `https`. If you do use UFW, make sure you don’t use any other firewalls.
-* **Disable SSH Root & password logins** - It’s a very good idea to disable SSH password based login and *only* connect to your server via proper SSH keys. It’s also a good idea to disable the root user.
-* **Separate admin domain** - Configuring a separate [admin URL](/config/#admin-url) can help to guard against [privilege escalation](/security/#privilege-escalation-attacks) and reduces available attack vectors.
+- **Use SSL** - Ghost should be configured to run over HTTPS. Ghost admin must be run over HTTPS. You can choose to [load admin on a separate domain](/hosting/#separate-admin-domain) for additional security
+- **Secure MySQL** - We strongly recommend running `mysql_secure_installation` after successful setup to significantly improve the security of your database.
+- **Set up a firewall** - Ubuntu 18.04, 20.04 and 22.04 servers can use the UFW firewall to make sure only connections to certain services are allowed. We recommend setting up UFW rules for `ssh`, `nginx`, `http`, and `https`. If you do use UFW, make sure you don’t use any other firewalls.
+- **Disable SSH Root & password logins** - It’s a very good idea to disable SSH password based login and _only_ connect to your server via proper SSH keys. It’s also a good idea to disable the root user.
+- **Separate admin domain** - Configuring a separate [admin URL](/config/#admin-url) can help to guard against [privilege escalation](/security/#privilege-escalation-attacks) and reduces available attack vectors.
 
 ### Optimizing for scale
 
