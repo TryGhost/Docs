@@ -7,6 +7,6 @@
     background-color: rgb(var(--primary-light)/.1);
 }
 
-strong {
-  font-weight: bold;
+table strong {
+  font-weight: bold !important;
 }
