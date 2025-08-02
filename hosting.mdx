@@ -37,13 +37,13 @@ A common question we get from developers is whether they should use our official
 ### Which option is best for me?
 
 <Card title="Self-hosting" icon="server" color="#7db319" href="https://docs.ghost.org/install" cta="Self-hosting guide">
-  Best for teams who are comfortable managing servers, and want full control over their environment. There’s more complexity involved, and you'll have to pay for your own email delivery, analytics and CDN — but ultimately there's more flexibility around exactly how the software runs. 
+  Best for teams who are comfortable managing servers, and want full control over their environment. There’s more complexity involved, and you'll have to pay for your own email delivery, analytics and CDN — but ultimately there's more flexibility around exactly how the software runs.
 
   For heavy users of Ghost, self-hosting generally works out to be more expensive vs Ghost(Pro), but for lightweight blogs it can be cheaper.
 </Card>
 
 <Card title="Ghost(Pro)" icon="sparkles" color="#006bc2" href="https://ghost.org/pricing/" cta="See plans & pricing">
-  Best for most people who are focused on using the Ghost software, and don’t want to spend time managing servers. Setting up a new Ghost site takes around 20 seconds. After that, all weekly updates, backups, security and performance are managed for you. 
+  Best for most people who are focused on using the Ghost software, and don’t want to spend time managing servers. Setting up a new Ghost site takes around 20 seconds. After that, all weekly updates, backups, security and performance are managed for you.
 
   If your site ever goes down, our team gets woken up while you sleep peacefully. In most cases Ghost(Pro) ends up being lower cost than self-hosting once you add up the cost of the different service providers.
 </Card>
@@ -54,17 +54,17 @@ A common question we get from developers is whether they should use our official
 
 ## Self-hosting details & configuration
 
-Ghost has a [small team](/product/), so we optimize the software for a single, narrow, well-defined stack which is heavily tested. This is the same stack that we use on Ghost(Pro), so we can generally guarantee that it’s going to work well. 
+Ghost has a [small team](/product/), so we optimize the software for a single, narrow, well-defined stack which is heavily tested. This is the same stack that we use on Ghost(Pro), so we can generally guarantee that it’s going to work well.
 
 Ghost _can_ also run successfully with different operating systems, databases and web servers, but these are not officially supported or widely adopted, so your mileage may (will) vary.
 
 Our officially supported and recommended stack is as follows:
 
-- **Ubuntu 22.04**
+- Ubuntu 24
+- Node.js 22 LTS
 - MySQL 8.0
 - NGINX
 - Systemd
-- [Recommended Node version](/faq/node-versions/)
 - A server with at least 1GB memory
 - A non-root user for running `ghost` commands
 
