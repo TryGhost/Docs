@@ -9,7 +9,8 @@
   },
   "favicon": "/favicon.png",
   "appearance": {
-    "default": "light"
+    "default": "light",
+    "strict": false
   },
   "styling": {
     "eyebrows": "breadcrumbs",
@@ -349,16 +350,6 @@
       "github": "https://github.com/tryghost/ghost",
       "twitter": "https://twitter.com/ghost",
       "reddit": "https://www.reddit.com/r/ghost"
-    }
-  },
-  "fonts": {
-    "heading": {
-      "family": "Inter",
-      "weight": 800
-    },
-    "body": {
-      "family": "Inter",
-      "weight": 400
     }
   }
 }
