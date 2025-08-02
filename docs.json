@@ -349,6 +349,7 @@
     "socials": {
       "github": "https://github.com/tryghost/ghost",
       "twitter": "https://twitter.com/ghost",
+      "bluesky": "https://bsky.app/profile/ghost.org",
       "reddit": "https://www.reddit.com/r/ghost"
     }
   }
