@@ -5,7 +5,7 @@ description: "Learn how to update your self-hosted Ghost install to the latest m
 
 ---
 
-Before updating to a new major version, you must update your site to the latest minor version, e.g if you are on 3.23.0 you need to be on 3.42.9 before updating to v5. You also need to make sure that your setup meets all the latest requirements. This guide will take you through everything step-by-step.
+Before updating to a new major version, you must update your site to the latest minor version, e.g if you are on 4.23.0 you need to be on 4.48.9 before updating to v6. You also need to make sure that your setup meets all the latest requirements. This guide will take you through everything step-by-step.
 
 **Updates are recommended for sites that are:**
 
@@ -48,13 +48,13 @@ You can run `ghost -v` to see what version of Ghost-CLI you have. For Ghost 6.0,
 
 ## Update to the latest minor version
 
-Before updating to a new major version, you must update your site to the latest minor version.
+Before updating to a new major version, you must update your site to the latest minor version and not be more than 2 majors behind.
 
 First, perform a  backup of your site: `ghost backup`
 
 Then, update to the latest minor version:
 
-- On Ghost 3.0 run `ghost update v3`
+- On Ghost 3.0 run `ghost update v3` and then `ghost update v4`
 - On Ghost 4.0 run `ghost update v4`
 - On Ghost 5.0 run `ghost update v5`
 
@@ -92,7 +92,7 @@ This should output `sqlite3` or `mysql`. If it says mysql, run `mysql --version`
 
 If you’re already running MySQL 8, proceed to the next steps. Otherwise, [read more](/faq/supported-databases/) about how to update or migrate your database if you’re using any other version.
 
-## Review breaking changes 
+## Review breaking changes
 
 Major versions often contain [breaking changes](/changes) that impact themes and the API.
 
