@@ -1,20 +1,19 @@
 ---
 title: "Update Ghost To The Latest Major Version"
-description: Learn how to update your self-hosted Ghost install to the latest major version.
+description: "Learn how to update your self-hosted Ghost install to the latest major version."
 ---
 
-***
+---
 
 Before updating to a new major version, you must update your site to the latest minor version, e.g if you are on 3.23.0 you need to be on 3.42.9 before updating to v5. You also need to make sure that your setup meets all the latest requirements. This guide will take you through everything step-by-step.
 
 **Updates are recommended for sites that are:**
 
-* Running Ghost version `3.0.0` or higher and are using MySQL in production
-* Development sites using any database
+- Running Ghost version `3.0.0` or higher and are using MySQL in production
+- Development sites using any database
 
 <Note>
-Make sure you can login to Ghost Admin before starting this process.
-
+  Make sure you can login to Ghost Admin before starting this process.
 </Note>
 
 ## Switch user
@@ -29,8 +28,8 @@ Run `node -v` to check your node version.
 
 If less than 14, update node:
 
-* `curl -fsSL [https://deb.nodesource.com/setup_14.x](https://deb.nodesource.com/setup_14.x) | sudo -E bash -`
-* `sudo apt-get install -y nodejs`
+- `curl -fsSL [https://deb.nodesource.com/setup_14.x](https://deb.nodesource.com/setup_14.x) | sudo -E bash -`
+- `sudo apt-get install -y nodejs`
 
 ## Update Ghost CLI
 
@@ -44,8 +43,9 @@ First, perform a preliminary backup of your site: `ghost backup`
 
 Then, update to the latest minor version:
 
-* On Ghost 3.0 run `ghost update v3`
-* On Ghost 4.0 run `ghost update v4`
+- On Ghost 3.0 run `ghost update v3`
+- On Ghost 4.0 run `ghost update v4` 
+- On Ghost 5.0 run `ghost update v5`
 
 If Ghost is not already running, run `ghost start`, then login to Ghost Admin and check this update has worked before continuing.
 
@@ -59,11 +59,11 @@ Once you’re running the latest minor version, make a full backup using the fol
 
 This creates a backup zip file of everything you need, including:
 
-* Your content in JSON format
-* A full member CSV export
-* All themes that have been installed including your current active theme
-* Images, files, and media (video and audio)
-* A copy of `routes.yaml` and `redirects.yaml` or `redirects.json`
+- Your content in JSON format
+- A full member CSV export
+- All themes that have been installed including your current active theme
+- Images, files, and media (video and audio)
+- A copy of `routes.yaml` and `redirects.yaml` or `redirects.json`
 
 Read more about how to [manually download your site data](/faq/manual-backup/).
 
@@ -81,13 +81,12 @@ If you’re already running MySQL 8, proceed to the next steps. Otherwise, [read
 
 To ensure your publication’s front-end doesn’t break, you may need to make some changes to your theme.
 
-Ghost CLI will output a report with any theme incompatibility errors and recommendations, or you can upload your theme directly to the**[GScan](https://gscan.ghost.org/)**theme testing tool.
+Ghost CLI will output a report with any theme incompatibility errors and recommendations, or you can upload your theme directly to the\*\*[GScan](https://gscan.ghost.org/)\*\*theme testing tool.
 
 ## Update to the latest major version
 
 <Note>
-Before updating to a newmajor version, review[breaking changes](/changes/) that might affect you.
-
+  Before updating to a newmajor version, review [breaking changes](/changes/) that might affect you.
 </Note>
 
 Once you’re running the latest minor version, it’s time to update to the latest major version.
@@ -95,8 +94,6 @@ Once you’re running the latest minor version, it’s time to update to the lat
 Finally, you can now run the update command again to upgrade to the latest major version:
 
 `ghost update`
-
-***
 
 ## Troubleshooting
 
@@ -108,7 +105,7 @@ Run the `ghost ls` command anywhere on your server to find the details of your G
 
 ### Download your backup
 
-If you need to move your backup between machines, run the `scp` command on the machine you want to move the file *to:*
+If you need to move your backup between machines, run the `scp` command on the machine you want to move the file _to:_
 
 `scp user@123.456.789.123:/var/www/ghost/backup-from[...].zip ~/Desktop`
 
@@ -124,7 +121,7 @@ If something goes wrong, you can always revert to the previous stable version of
 
 `ghost update --rollback`
 
-If you’re still having trouble, start by searching the**[Ghost forum](https://forum.ghost.org/)**to see if your issue has come up before.
+If you’re still having trouble, start by searching the\*\*[Ghost forum](https://forum.ghost.org/)\*\*to see if your issue has come up before.
 
 ### Downgrade Node
 
