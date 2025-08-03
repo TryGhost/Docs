@@ -20,31 +20,42 @@ Before updating to a new major version, you must update your site to the latest 
 
 Switch to the user you used to setup your Ghost install for running Ghost commands:
 
-`sudo -i -u <user>`
+```shellscript
+sudo -i -u <user>
+```
 
 ## Update Node
 
 Run `node -v` to check your node version.
 
-If less than 14, update node:
+If less than 22, update node:
 
-- `curl -fsSL [https://deb.nodesource.com/setup_14.x](https://deb.nodesource.com/setup_14.x) | sudo -E bash -`
-- `sudo apt-get install -y nodejs`
+```bash
+curl -fsSL [https://deb.nodesource.com/setup_22.x](https://deb.nodesource.com/setup_22.x) | sudo -E bash -
+
+sudo apt-get install -y nodejs
+```
 
 ## Update Ghost CLI
 
-Ghost-CLI is an npm module that can be updated using npm: `sudo npm install -g ghost-cli@latest`
+Ghost-CLI is an npm module that can be updated using npm:
+
+```shellscript
+sudo npm install -g ghost-cli@latest
+```
+
+You can run `ghost -v` to see what version of Ghost-CLI you have. For Ghost 6.0, it's best to have [v1.28.2](https://github.com/TryGhost/Ghost-CLI/releases/tag/v1.28.2) or higher.
 
 ## Update to the latest minor version
 
 Before updating to a new major version, you must update your site to the latest minor version.
 
-First, perform a preliminary backup of your site: `ghost backup`
+First, perform a  backup of your site: `ghost backup`
 
 Then, update to the latest minor version:
 
 - On Ghost 3.0 run `ghost update v3`
-- On Ghost 4.0 run `ghost update v4` 
+- On Ghost 4.0 run `ghost update v4`
 - On Ghost 5.0 run `ghost update v5`
 
 If Ghost is not already running, run `ghost start`, then login to Ghost Admin and check this update has worked before continuing.
@@ -55,7 +66,9 @@ When performing manual updates it’s a good idea to make frequent backups, so i
 
 Once you’re running the latest minor version, make a full backup using the following command to generate a download of your site’s data:
 
-`ghost backup`
+```shellscript
+ghost backup
+```
 
 This creates a backup zip file of everything you need, including:
 
@@ -71,35 +84,35 @@ Read more about how to [manually download your site data](/faq/manual-backup/).
 
 MySQL 8 is the only supported database in production. Use the following commands to check your database version:
 
-`ghost config database.client`
+```shellscript
+ghost config database.client
+```
 
 This should output `sqlite3` or `mysql`. If it says mysql, run `mysql --version` to find the details of your mysql install.
 
 If you’re already running MySQL 8, proceed to the next steps. Otherwise, [read more](/faq/supported-databases/) about how to update or migrate your database if you’re using any other version.
 
-## Check for theme update requirements
+## Review breaking changes 
 
-To ensure your publication’s front-end doesn’t break, you may need to make some changes to your theme.
+Major versions often contain [breaking changes](/changes) that impact themes and the API.
 
-Ghost CLI will output a report with any theme incompatibility errors and recommendations, or you can upload your theme directly to the\*\*[GScan](https://gscan.ghost.org/)\*\*theme testing tool.
+Ghost CLI will output a report with any theme incompatibility errors and recommendations, or you can upload your theme directly to the [GScan](https://gscan.ghost.org/) theme testing tool.
+
+If you make use of the API e.g. in themes, custom integrations or on a headless site, you should carefully review changes to the API before updating to ensure you don't need to update your custom tooling first. For example in Ghost 6.0 we've removed support for `?limit=all` and many integrations may need to add pagination in order to handle this.
 
 ## Update to the latest major version
 
-<Note>
-  Before updating to a newmajor version, review [breaking changes](/changes/) that might affect you.
-</Note>
-
-Once you’re running the latest minor version, it’s time to update to the latest major version.
-
 Finally, you can now run the update command again to upgrade to the latest major version:
 
-`ghost update`
+```shellscript
+ghost update
+```
 
 ## Troubleshooting
 
 The most common reason for an update failure is running out of memory, so make sure you have enough RAM or swap configured in advance.
 
-## Find your Ghost folder
+### Find your Ghost folder
 
 Run the `ghost ls` command anywhere on your server to find the details of your Ghost install.
 
@@ -107,19 +120,25 @@ Run the `ghost ls` command anywhere on your server to find the details of your G
 
 If you need to move your backup between machines, run the `scp` command on the machine you want to move the file _to:_
 
-`scp user@123.456.789.123:/var/www/ghost/backup-from[...].zip ~/Desktop`
+```shellscript
+scp user@123.456.789.123:/var/www/ghost/backup-from[...].zip ~/Desktop
+```
 
 ### Force update
 
 If an update fails you can start by forcing a retry to attempt the upgrade a second time.
 
-`ghost update --force`
+```shellscript
+ghost update --force
+```
 
 ### Rollback
 
 If something goes wrong, you can always revert to the previous stable version of Ghost.
 
-`ghost update --rollback`
+```shellscript
+ghost update --rollback
+```
 
 If you’re still having trouble, start by searching the\*\*[Ghost forum](https://forum.ghost.org/)\*\*to see if your issue has come up before.
 
@@ -129,6 +148,6 @@ If you need to downgrade Node, these are the steps:
 
 ```bash
 sudo apt-get remove -y nodejs
-curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt-get install -y nodejs
 ```
