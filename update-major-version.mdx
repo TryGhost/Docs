@@ -100,6 +100,46 @@ Ghost CLI will output a report with any theme incompatibility errors and recomme
 
 If you make use of the API e.g. in themes, custom integrations or on a headless site, you should carefully review changes to the API before updating to ensure you don't need to update your custom tooling first. For example in Ghost 6.0 we've removed support for `?limit=all` and many integrations may need to add pagination in order to handle this.
 
+## Get ActivityPub ready
+
+If you'd like to use the social web features, you can use the Ghost(Pro) hosted ActivityPub service. 
+
+This is done by adding two new location blocks to your nginx.conf file as shown [here](https://github.com/TryGhost/Ghost-CLI/blob/main/extensions/nginx/templates/nginx.conf#L13-L31).
+
+
+The file can be found in:
+
+```bash
+path/to/ghost/install/system/files/[your-domain].conf
+```
+
+The two blocks to add are (exactly): 
+
+```shellscript
+ location ~ /.ghost/activitypub/* {
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header Host $http_host;
+    add_header X-Content-Type-Options $header_content_type_options;
+    proxy_ssl_server_name on;
+    proxy_pass https://ap.ghost.org;
+}
+
+location ~ /.well-known/(webfinger|nodeinfo) {
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header Host $http_host;
+    add_header X-Content-Type-Options $header_content_type_options;
+    proxy_ssl_server_name on;
+    proxy_pass https://ap.ghost.org;
+}
+```
+They should be added just before the standard location block.
+
+If you want to fully self-host the ActivityPub service, or self-host the web analytics features, you'll need to try to try out the [docker compose preview](/install/docker).
+
 ## Update to the latest major version
 
 Finally, you can now run the update command again to upgrade to the latest major version:

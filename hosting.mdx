@@ -72,9 +72,19 @@ Ghost _can_ also run successfully with different operating systems, databases an
 
 In Ghost 6.0 we've launched two significant new features. To achieve this whilst keeping Ghost's core architecture maintainable, we've built them as separate services. These services are Open Source and can be self-hosted, however we are moving towards modern docker compose based tooling instead of updating Ghost CLI.
 
-Anyone can use our Ghost(Pro) hosted ActivityPub service, regardless of how you host Ghost. If you want to fully self-host the social web features or you want to self-host Ghost with the web analytics features you'll need to try out the [docker compose](/install/docker) based install method. This method is brand new and so we're calling it a preview.
+Anyone can use our Ghost(Pro) hosted ActivityPub service (up to the limits below), regardless of how you host Ghost. If you want to fully self-host the social web features or you want to self-host Ghost with the web analytics features you'll need to try out the [docker compose](/install/docker) based install method. This method is brand new and so we're calling it a preview.
 
 [See self-hosting guides & instructions →](/install/)
+
+#### Hosted ActivityPub Usage Limits
+
+Self-hosters are free to use the hosted ActivityPub service, up to the following limits:
+
+- 2000 max. followers
+- 2000 max. following
+- max. 100 interactions per day (interactions include: create a post/note, reply, like, repost)
+
+If your usage exceeds this, you'll need to switch to self-hosting ActivityPub using [docker compose](/install/docker).
 
 ### Server hardening
 
