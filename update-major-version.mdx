@@ -138,6 +138,12 @@ location ~ /.well-known/(webfinger|nodeinfo) {
 ```
 They should be added just before the standard location block.
 
+Then reload nginx with your new config
+
+```bash
+sudo nginx -s reload
+```
+
 If you want to fully self-host the ActivityPub service, or self-host the web analytics features, you'll need to try to try out the [docker compose preview](/install/docker).
 
 ## Update to the latest major version
