@@ -178,7 +178,7 @@ Use `docker compose` to install new images and run Ghost with ActivityPub:
 
 ```bash
 docker compose pull
-docker compose up -d --force-recreate ghost
+docker compose up -d --force-recreate ghost caddy
 ```
 
 Verify it's working by visiting the "Network" section of Ghost Admin.
@@ -195,7 +195,9 @@ If your usage exceeds this, you'll need to switch to self-hosting ActivityPub as
 
 ---
 
-## Updates & future maintenance
+## Future maintenance
+
+### Updating Ghost
 
 Use `docker compose` to update Ghost regularly:
 
@@ -217,6 +219,27 @@ Or the one-liner, if you're in the directory where you cloned the docker tools:
 ```bash
 git pull && docker compose pull && docker compose up -d
 ```
+
+### Updating config
+
+When changing your Ghost config in `.env` you'll need to recreate the Ghost container.
+
+```bash
+docker compose up -d --force-recreate ghost
+```
+
+Any time that `DOMAIN`, `ADMIN_DOMAIN` or `ACTIVITYPUB_TARGET` are changed in the `.env` file, the Caddy container also needs recreating:
+
+```bash
+docker compose up -d --force-recreate ghost caddy
+```
+
+When changing any other environment variables in `.env` that are used in the `compose.yml` the service using the variable will also need recreating in the same way. 
+
+The single exception is the `DATABASE_xxx` variables. These should not be changed
+once the database has been initialised, as it will change the config, but not the 
+actual values the database expects, thefore causing connection errors.
+
 
 ---
 
