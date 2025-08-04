@@ -56,9 +56,7 @@ A common question we get from developers is whether they should use our official
 
 Ghost has a [small team](/product/), so we optimize the software for a single, narrow, well-defined stack which is heavily tested. This is the same stack that we use on Ghost(Pro), so we can generally guarantee that it’s going to work well.
 
-Ghost _can_ also run successfully with different operating systems, databases and web servers, but these are not officially supported or widely adopted, so your mileage may (will) vary.
-
-Our officially supported and recommended stack is as follows:
+To date, we've achieved this with our custom [Ghost-CLI](/install/ubuntu) install tool and the following officially supported and recommended stack:
 
 - Ubuntu 24
 - Node.js 22 LTS
@@ -68,17 +66,26 @@ Our officially supported and recommended stack is as follows:
 - A server with at least 1GB memory
 - A non-root user for running `ghost` commands
 
+Ghost _can_ also run successfully with different operating systems, databases and web servers, but these are not officially supported or widely adopted, so your mileage may (will) vary.
+
+### Social Web (ActivityPub) and Web Analytics (Tinybird)
+
+In Ghost 6.0 we've launched two significant new features. To achieve this whilst keeping Ghost's core architecture maintainable, we've built them as separate services. These services are Open Source and can be self-hosted, however we are moving towards modern docker compose based tooling instead of updating Ghost CLI.
+
+Anyone can use our Ghost(Pro) hosted ActivityPub service, regardless of how you host Ghost. If you want to fully self-host the social web features or you want to self-host Ghost with the web analytics features you'll need to try out the [docker compose](/install/docker) based install method. This method is brand new and so we're calling it a preview.
+
 [See self-hosting guides & instructions →](/install/)
 
 ### Server hardening
 
 After setting up a fresh Ubuntu install in production, it’s worth considering the following steps to make your new environment extra secure and resilient:
 
-- **Use SSL** - Ghost should be configured to run over HTTPS. Ghost admin must be run over HTTPS. You can choose to [load admin on a separate domain](/hosting/#separate-admin-domain) for additional security
-- **Secure MySQL** - We strongly recommend running `mysql_secure_installation` after successful setup to significantly improve the security of your database.
-- **Set up a firewall** - Ubuntu 18.04, 20.04 and 22.04 servers can use the UFW firewall to make sure only connections to certain services are allowed. We recommend setting up UFW rules for `ssh`, `nginx`, `http`, and `https`. If you do use UFW, make sure you don’t use any other firewalls.
-- **Disable SSH Root & password logins** - It’s a very good idea to disable SSH password based login and _only_ connect to your server via proper SSH keys. It’s also a good idea to disable the root user.
+- **Use SSL** - Ghost should be configured to run over HTTPS. Ghost admin must be run over HTTPS.
 - **Separate admin domain** - Configuring a separate [admin URL](/config/#admin-url) can help to guard against [privilege escalation](/security/#privilege-escalation-attacks) and reduces available attack vectors.
+- **Secure MySQL** - We strongly recommend running `mysql_secure_installation` after successful setup to significantly improve the security of your database.
+- **Set up a firewall** - Ubuntu servers can use the UFW firewall to make sure only connections to certain services are allowed. We recommend setting up UFW rules for `ssh`, `nginx`, `http`, and `https`. If you do use UFW, make sure you don’t use any other firewalls.
+- **Disable SSH Root & password logins** - It’s a very good idea to disable SSH password based login and _only_ connect to your server via proper SSH keys. It’s also a good idea to disable the root user.
+
 
 ### Optimizing for scale
 
