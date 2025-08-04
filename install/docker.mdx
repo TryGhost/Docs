@@ -236,7 +236,7 @@ docker compose up -d --force-recreate ghost caddy
 
 When changing any other environment variables in `.env` that are used in the `compose.yml` the service using the variable will also need recreating in the same way. 
 
-The single exception is the `DATABASE_xxx` variables. These should not be changed
+The single exception is the `DATABASE_xxx` variables. These must not be changed
 once the database has been initialised, as it will change the config, but not the 
 actual values the database expects, thefore causing connection errors.
 
