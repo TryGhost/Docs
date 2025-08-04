@@ -5,15 +5,43 @@ description: 'Usage: `{{#match @custom.color_scheme "=" "Dark"}} class="dark-mod
 
 ***
 
-### Description
 
 `{{#match}}` allows for simple comparisons, and executing different template blocks depending on the outcome.
 
 Like all block helpers, `{{#match}}` supports adding an `{{else}}` block or using `^` instead of `#` for negation - this means that the `{{#match}}` and `{{else}}` blocks are reversed if you use `{{^match}}` and `{{else}}` instead. In addition, it is possible to do `{{else match ...}}`, to chain together multiple options like a switch statement.
 
-### Operators
 
-#### Equality
+### Example usage
+
+The `match` helper is handy when paired with [custom theme settings](/themes/custom-settings/) using `@custom`:
+
+```handlebars
+{{!-- Adds the 'font-alt' class when the Typography setting is set to 'Elegant serif' --}}
+<body class="{{body_class}} {{#match @custom.typography "Elegant serif"}}font-alt{{/match}}">
+```
+
+Supports various operators and else blocks:
+
+```handlebars
+{{#match @custom.color_scheme "!=" "Dark"}}...{{else}}...{{/match}}
+```
+
+## Operators
+
+Match supports the following operators
+
+* `=` - equals (default when no operator provided)
+* `!=` - not equals
+* `>` - greater than
+* `>=` - greater than or equals
+* `<` - less than
+* `<=` - less than or equals
+* `~` - contains
+* `~^` - starts with
+* `~$` - ends with
+
+
+### Equality
 
 `match` supports comparing values for equality, which is the default behaviour:
 
@@ -30,15 +58,24 @@ The equality test can also be negated:
 {{#match @custom.color_scheme "!=" "Dark"}}...{{else}}...{{/match}}
 ```
 
-#### Numeric comparisons
+### String comparisons
 
-The match handler supports >, \<, >= and \<= operators for numeric comparisons.
+Support for contains `~`, starts with `~^` and ends with `~$`, using the same syntax as [NQL filtering](/content-api/filtering#operators)
+
+```handlebars
+{{!-- slug starts with #episode- --}}
+{{#match slug "~^" "hash-episode-"}}{{/match}}
+```
+
+### Numeric comparisons
+
+The match handler supports `>`, `<`, `>=` and `<=` operators for numeric comparisons.
 
 ```handlebars
 {{#match posts.length ">" 1}}...{{else}}...{{/match}}
 ```
 
-#### Evaluation rules
+### Evaluation rules
 
 Values passed to `match` are tested according to their *value* as well as their *type*. For example:
 
@@ -55,13 +92,4 @@ Values passed to `match` are tested according to their *value* as well as their 
 ```handlebars
 {{!-- Default behaviour is to test if a value is truthy --}}
 {{#match featured}}...{{else}}...{{/match}}
-```
-
-### Example code
-
-The `match` helper is extremely useful when combined with [Custom settings](/themes/custom-settings/) using `@custom`:
-
-```handlebars
-{{!-- Adds the 'font-alt' class when the Typography setting is set to 'Elegant serif' --}}
-<body class="{{body_class}} {{#match @custom.typography "Elegant serif"}}font-alt{{/match}}">
 ```
