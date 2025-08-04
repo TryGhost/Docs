@@ -1,16 +1,16 @@
 ---
 title: "How To Install Ghost With Docker (preview)"
-description: "Preview our new batteries-included tools for self-hosting Ghost using Docker compose."
+description: "Preview our new batteries-included tools for self-hosting Ghost using Docker Compose."
 ---
 
 ## Overview
 
-With the launch of Ghost 6.0 we are also previewing a new suite of tooling for self-hosters built on Docker with compose. We invite you to be one of the first to try hosting Ghost with this new tooling, which comes with full support for self-hosting both the Social Web (ActivityPub) and Web Analytics (Tinybird) features.
+With the launch of Ghost 6.0 we are also previewing a new suite of tooling for self-hosters built on Docker with Compose. We invite you to be one of the first to try hosting Ghost with this new tooling, which comes with full support for self-hosting both the Social Web (ActivityPub) and Web Analytics (Tinybird) features.
 
 ### Why Docker?
 
 So that we can continue adding advanced features to Ghost without creating bloat, we're starting to build some features as separate services.\
-Using Docker and Docker compose takes all the pain out of managing different services and their dependencies, meaning we can keep Ghost's architecture simple\
+Using Docker and Docker Compose takes all the pain out of managing different services and their dependencies, meaning we can keep Ghost's architecture simple\
 without passing on complexity to our self-hosting community. All services are Open Source and can be self-hosted.
 
 ### What's included?
@@ -81,7 +81,7 @@ You only need to uncomment blocks, and if necessary edit `CHANGE_ME`. All the ot
 
 ### Install and run Ghost
 
-Use docker compose commands to install and run your Ghost site. These commands may each take a little while:
+Use Docker Compose commands to install and run your Ghost site. These commands may each take a little while:
 
 ```bash
 docker compose pull
@@ -139,7 +139,7 @@ COMPOSE_PROFILES=analytics
 
 ### Install and run Ghost with Web Analytics
 
-Use docker compose to install new images and run Ghost with Web Analytics:
+Use Docker Compose to install new images and run Ghost with Web Analytics:
 
 ```bash
 docker compose pull
@@ -174,7 +174,7 @@ ACTIVITYPUB_TARGET=activitypub:8080
 
 ### Install and run Ghost with ActivityPub
 
-Use docker compose to install new images and run Ghost with ActivityPub:
+Use `docker compose` to install new images and run Ghost with ActivityPub:
 
 ```bash
 docker compose pull
@@ -197,7 +197,7 @@ If your usage exceeds this, you'll need to switch to self-hosting ActivityPub as
 
 ## Updates & future maintenance
 
-Use docker compose to update Ghost regularly:
+Use `docker compose` to update Ghost regularly:
 
 ```bash
 # ensure you're in the directory where you installed ghost and pull the latest configuration
@@ -222,7 +222,7 @@ git pull && docker compose pull && docker compose up -d
 
 ## Migrating a Ghost-CLI Install
 
-Using our migration assistant, you can migrate a Ghost-CLI site over to the new docker compose setup in place on the same sever.
+Using our migration assistant, you can migrate a Ghost-CLI site over to the new Docker Compose setup in place on the same sever.
 
 The migration assistant performs the following actions:
 
@@ -245,7 +245,7 @@ The migration assistant performs the following actions:
 
 To get started, SSH into your server as root.
 
-Next, follow the first 3 sections from "[Install Ghost](/install/docker#edit-the-env-file)" above, stopping before installing and running Ghost with the docker compose commands:
+Next, follow the first 3 sections from "[Install Ghost](/install/docker#edit-the-env-file)" above, stopping before installing and running Ghost with the Docker Compose commands:
 
 1. [Clone the repo](/install/docker#clone-the-repo)
 2. [Setup your config](/install/docker#setup-your-config)
@@ -292,7 +292,7 @@ Note: there are no additional steps required for Tinybird to work, provided you�
 
 ### Configuration
 
-Since Tinybird is a third party service that is running outside the docker compose network, we need to provide Ghost and the Traffic Analytics service a few pieces of configuration, so they can integrate properly with your Tinybird workspace. The initial setup of these configuration parameters is covered in the [initial setup steps](https://www.notion.so/Ghost-6-0-Self-Hosting-Guide-20751439c030802aab77e7da43e0eb43?pvs=21). The following provides some more information on what each required configuration parameter is, why it’s needed, and where you can find it.
+Since Tinybird is a third party service that is running outside the Docker Compose network, we need to provide Ghost and the Traffic Analytics service a few pieces of configuration, so they can integrate properly with your Tinybird workspace. The initial setup of these configuration parameters is covered in the [initial setup steps](https://www.notion.so/Ghost-6-0-Self-Hosting-Guide-20751439c030802aab77e7da43e0eb43?pvs=21). The following provides some more information on what each required configuration parameter is, why it’s needed, and where you can find it.
 
 - `TINYBIRD_API_URL`: This is the API url for your Tinybird workspace, which Ghost uses to make requests to your Tinybird workspace’s endpoints. The value will vary depending on which cloud / region your workspace is hosted in. You can find this value by running `tb info` from the Tinybird CLI and using the value of the `api` key, or in the Tinybird UI by going to Endpoints, selecting any endpoint, and finding the full URL of the endpoint.
 - `TINYBIRD_ADMIN_TOKEN`: This is a token that is automatically created by Tinybird, which enables any operation in your workspace. You can find it in your Tinybird workspace’s UI under the “Tokens” tab, named “Workspace admin token”. Ghost uses the admin token to sign JWTs, which Ghost and Admin use to authenticate with Tinybird’s API endpoints.
