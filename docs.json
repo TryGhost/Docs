@@ -76,6 +76,7 @@
               {
                 "group": "Helpers",
                 "pages": [
+                  "/themes/helpers",
                   {
                     "group": "Functional",
                     "pages": [
