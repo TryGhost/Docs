@@ -266,7 +266,20 @@
                   "admin-api/javascript"
                 ]
               },
-              "jamstack",
+              {
+                "group": "JAMstack",
+                "pages": [
+                  "jamstack",
+                  "jamstack/next",
+                  "jamstack/gatsby",
+                  "jamstack/hexo",
+                  "jamstack/nuxt",
+                  "jamstack/vuepress",
+                  "jamstack/gridsome",
+                  "jamstack/eleventy",
+                  "jamstack/custom"
+                ]
+              },
               "webhooks"
             ]
           },
