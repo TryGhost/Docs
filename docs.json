@@ -103,7 +103,6 @@
                       "/themes/helpers/data/content",
                       "/themes/helpers/data/date",
                       "/themes/helpers/data/excerpt",
-                      "/themes/helpers/data/facebook",
                       "/themes/helpers/data/social_url",
                       "/themes/helpers/data/img_url",
                       "/themes/helpers/data/link",
@@ -118,7 +117,6 @@
                       "/themes/helpers/data/title",
                       "/themes/helpers/data/total_members",
                       "/themes/helpers/data/total_paid_members",
-                      "/themes/helpers/data/twitter",
                       "/themes/helpers/data/url"
                     ]
                   },
@@ -353,5 +351,15 @@
       "bluesky": "https://bsky.app/profile/ghost.org",
       "reddit": "https://www.reddit.com/r/ghost"
     }
-  }
+  },
+  "redirects": [
+    {
+      "source": "/themes/helpers/data/twitter",
+      "destination": "/themes/helpers/data/social_url"
+    },
+    {
+      "source": "/themes/helpers/data/facebook",
+      "destination": "/themes/helpers/data/social_url"
+    }
+  ]
 }
