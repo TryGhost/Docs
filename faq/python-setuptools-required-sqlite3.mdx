@@ -57,4 +57,4 @@ ERROR: Could not install packages due to an OSError: [Errno 2] No such file or d
 'C:\\Users\\<username>\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python313\\site-packages\\pkg_resources\\tests\\data\\my-test-package_unpacked-egg\\my_test_package-1.0-py3.7.egg\\EGG-INFO\\dependency_links.txt'
 ```
 
-This is because the Windows API maximum length for a path is 260 characters. To overwrite the behaviour, change the https://learn.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation?tabs=powershell#registry-setting-to-enable-long-paths.
+This is because the Windows API maximum length for a path is 260 characters. To overwrite the behaviour, change the [registry setting to enable long paths](https://learn.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation?tabs=powershell#registry-setting-to-enable-long-paths).
