@@ -110,23 +110,19 @@ export async function getAllPostSlugs() {
   try {
     const allPostSlugs = [];
     let page = 1;
-    let hasMore = true;
 
-    while (hasMore) {
+    while (page) {
       const posts = await api.posts.browse({
         limit: 100,
         page,
         fields: "slug", // Only the slug field is needed for getStaticPaths()
       });
 
-      if (posts && posts.length > 0) {
-        allPostSlugs.push(...posts.map((item) => item.slug));
-        // Use the meta pagination info to determine if there are more pages
-        page = posts.meta.pagination.next;
-        hasMore = page !== null;
-      } else {
-        hasMore = false;
-      }
+      if (!posts?.length) break;
+
+      allPostSlugs.push(...posts.map((post) => post.slug));
+      // Use the meta pagination info to determine if there are more pages
+      page = posts.meta.pagination.next || null;
     }
 
     return allPostSlugs;
