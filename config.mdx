@@ -52,6 +52,8 @@ DEBUG=ghost:*,ghost-config node index.js
 ```
 
 #### Running Ghost with config env variables
+> ALL configuration options are overridable with environment variables!
+> Values set through env vars take priority over data in configuration files
 
 Start Ghost using environment variables which match the name and case of each config option:
 
@@ -63,6 +65,12 @@ For nested config options, separate with two underscores:
 
 ```bash
 database__connection__host=mysql node index.js
+```
+
+If you want to set a var of list type:
+
+```bash
+logging__transports='["stdout","file"]' node index.js
 ```
 
 ## Configuration options
