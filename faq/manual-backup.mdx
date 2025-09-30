@@ -5,11 +5,80 @@ description: Learn how to backup your self-hosted Ghost install
 
 ***
 
-When performing manual updates it’s always recommended to make a full backup of your site first, so if anything goes wrong, you’ll still have all your data.
+When performing manual updates it's always recommended to make a full backup of your site first, so if anything goes wrong, you'll still have all your data.
+
+## Using Ghost CLI backup
 
 The fastest way to perform a backup is to use Ghost CLI to automatically generate a zip file containing all of your site data using the `ghost backup` command.
 
-If you need to perform a manual backup of your data, the following guide walks you through all of the steps.
+## Manual backup methods
+
+If you need more control over your backups, or need to back up a Docker installation, the following sections explain how to manually back up different parts of your Ghost site.
+
+<Note>
+**What's included:** JSON exports are great for moving content between sites, but don't include email analytics, member engagement data, or comments. For disaster recovery or exact site replication, back up your database and content folder directly.
+</Note>
+
+### Database backup
+
+**For Docker installations:**
+
+```bash
+# Create a backup directory
+mkdir -p ~/ghost-backups
+
+# List containers to find your MySQL container
+docker ps
+
+# Export the database
+docker exec MYSQL_CONTAINER_NAME mysqldump -u root -p ghost > ~/ghost-backups/ghost_backup.sql
+```
+
+**For standard Ghost CLI installations:**
+
+```bash
+# Create a backup directory
+mkdir -p ~/ghost-backups
+
+# Export the database (credentials are in config.production.json)
+mysqldump -u ghost_user -p ghost_production > ~/ghost-backups/ghost_backup.sql
+```
+
+### Content folder backup
+
+**For Docker installations:**
+
+```bash
+# Find your Ghost volume
+docker volume ls
+
+# Create a backup using a temporary container
+docker run --rm \
+  -v ghost_ghost_data:/ghost_content \
+  -v ~/ghost-backups:/backup \
+  alpine \
+  tar czf /backup/ghost_content_backup.tar.gz -C /ghost_content .
+```
+
+**For standard Ghost CLI installations:**
+
+```bash
+# Create a compressed backup of content
+cd /var/www/ghost
+tar czf ~/ghost-backups/ghost_content_backup.tar.gz content/
+```
+
+### Download to local machine
+
+```bash
+# Using rsync
+rsync -av your_username@your_server:~/ghost-backups/ ./ghost-backups/
+
+# Or using scp
+scp -r your_username@your_server:~/ghost-backups/ ./ghost-backups/
+```
+
+***
 
 ### Export content
 
@@ -57,7 +126,50 @@ Export all members in one CSV file from the Members dashboard in Ghost Admin.
 
 ## Restoring your data from a manual backup
 
-The following steps explain how to restore data from a manual backup.
+### Restoring database and content backups
+
+If you backed up your MySQL database and content folder, follow these steps to restore them:
+
+**For Docker installations:**
+
+```bash
+# Stop Ghost
+docker stop GHOST_CONTAINER_NAME
+
+# Restore the database
+docker exec -i MYSQL_CONTAINER_NAME mysql -u root -p ghost < ~/ghost-backups/ghost_backup.sql
+
+# Restore the content folder
+docker run --rm \
+  -v ghost_ghost_data:/ghost_content \
+  -v ~/ghost-backups:/backup \
+  alpine \
+  tar xzf /backup/ghost_content_backup.tar.gz -C /ghost_content
+
+# Start Ghost
+docker start GHOST_CONTAINER_NAME
+```
+
+**For standard Ghost CLI installations:**
+
+```bash
+# Stop Ghost
+cd /var/www/ghost
+ghost stop
+
+# Restore the database
+mysql -u ghost_user -p ghost_production < ~/ghost-backups/ghost_backup.sql
+
+# Restore the content folder
+cd /var/www/ghost
+tar xzf ~/ghost-backups/ghost_content_backup.tar.gz
+
+# Fix permissions
+sudo chown -R ghost:ghost content
+
+# Restart Ghost
+ghost start
+```
 
 ### Copy images, files and media
 
