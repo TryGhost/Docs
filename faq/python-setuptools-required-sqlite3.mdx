@@ -31,7 +31,8 @@ Ensure these tools are available by following the instructions below for your ma
  - MacOS users with Brew: `brew install python-setuptools` - will install python3 + setuptools
  - MacOS users with Python installed locally: `python3 -m pip install setuptools` - will install setuptools
  - Ubuntu users: `apt install python3-setuptools` - will install python3 + setuptools
- - Windows users: `winget install Python.Python.3` - will install python3, then `pip install setuptools` will install setuptools
+ - Windows users: run `winget search Python.Python.3` to find available versions, then `winget install Python.Python.3.x` (replace x with the minor version, e.g. `Python.Python.3.12`) to install python3; 
+   then `pip install setuptools` will install setuptools
 
 
 ### Cannot find module 'sqlite3'
@@ -46,3 +47,14 @@ Cannot find module 'sqlite3'
 ```
 
 If you're trying to use Ghost with sqlite3 without using Ghost-CLI. The same fixes above apply.
+
+### Cannot install packages setuptools
+
+You may also see error message on Windows while installing setuptools like:
+
+```
+ERROR: Could not install packages due to an OSError: [Errno 2] No such file or directory: 
+'C:\\Users\\<username>\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python313\\site-packages\\pkg_resources\\tests\\data\\my-test-package_unpacked-egg\\my_test_package-1.0-py3.7.egg\\EGG-INFO\\dependency_links.txt'
+```
+
+This is because the Windows API maximum length for a path is 260 characters. To overwrite the behaviour, change the [registry setting to enable long paths](https://learn.microsoft.com/en-us/windows/win32/fileio/maximum-file-path-limitation?tabs=powershell#registry-setting-to-enable-long-paths).
