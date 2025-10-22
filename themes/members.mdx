@@ -1,14 +1,14 @@
 ---
 title: "Members"
-description: The Members feature allows you to turn any site into a membership business with member signup, paid subscriptions and email newsletters.
+description: "The Members feature allows you to turn any site into a membership business with member signup, paid subscriptions and email newsletters."
 ---
 
-***
+---
 
 Members can be activated using any theme by using the Portal feature — an embeddable memberships feature that can be enabled and customised from the Admin UI. Portal screens can also be accessed in your theme via URLs or data attributes.
 
 <Frame>
-  <img src="/images/324b141a-portal-links-admin_hu72ea77dfe2902b5b8f1e717e5c1c751c_474136_2376x0_resize_q100_h2_box_3.webp" />
+  ![](/images/324b141a-portal-links-admin_hu72ea77dfe2902b5b8f1e717e5c1c751c_474136_2376x0_resize_q100_h2_box_3.webp)
 </Frame>
 
 Portal links can use absolute or relative links, for example:
@@ -25,7 +25,7 @@ When using the `data-portal` data attribute to control the Portal UI, additional
 
 Alternatively, it’s possible to build entirely custom membership and signup flows directly into a theme using this guide.
 
-***
+---
 
 ## Signup forms
 
@@ -105,7 +105,7 @@ By using `hidden` inputs in the examples above, newsletter details are hidden fr
 </form>
 ```
 
-Create a dynamic signup form at the theme level by using the [`get` helper](/themes/helpers/functional/get/) to fetch a site’s `newsletters`. Then, loop through the newsletters and add the `name` property to an `input` element. See below for an example implementation:
+Create a dynamic signup form at the theme level by using the [`get helper`](/themes/helpers/functional/get/) to fetch a site’s `newsletters`. Then, loop through the newsletters and add the `name` property to an `input` element. See below for an example implementation:
 
 ```handlebars
 <form data-members-form=>
@@ -122,14 +122,28 @@ Create a dynamic signup form at the theme level by using the [`get` helper](/the
 </form>
 ```
 
+### Apply labels from a form
+
+Labels are useful for managing, segmenting and auditing a members list, and can be applied manually in Ghost Admin, or automatically via a form, an integration or the API.
+
+Apply labels from a specific a signup form using a hidden HTML input element, for example:
+
+```html
+<form data-members-form="subscribe">
+  <input data-members-label type="hidden" value="Early Adopters" />
+  <input data-members-email type="email" required="true"/>
+  <button type="submit">Subscribe</button>
+</form>
+```
+
 ### Extending forms
 
 The `data-members-form` accepts a series of optional values to customise user flows:
 
-* `data-members-form="signin"` – sends a signin email to existing members when a valid email is entered.
-* `data-members-form="signup"` – sends a signup email to new members. Uses “sign up” in email text. If a valid email is present, a signin email is sent instead.
-* `data-members-form="subscribe"` – sends a subscribe email. Uses “subscription” in email text. If a valid email is present, a signin email is sent instead.
-* `data-members-autoredirect="false"` - when set to `false`, the user will be redirected to the publication’s homepage when logging in. When set to `true` (the default), the user will be redirected to the page where they signed up.
+- `data-members-form="signin"` – sends a signin email to existing members when a valid email is entered.
+- `data-members-form="signup"` – sends a signup email to new members. Uses “sign up” in email text. If a valid email is present, a signin email is sent instead.
+- `data-members-form="subscribe"` – sends a subscribe email. Uses “subscription” in email text. If a valid email is present, a signin email is sent instead.
+- `data-members-autoredirect="false"` - when set to `false`, the user will be redirected to the publication’s homepage when logging in. When set to `true` (the default), the user will be redirected to the page where they signed up.
 
 ### Form states
 
@@ -142,6 +156,36 @@ Member forms pass a series of states, which are reflected in the HTML as classes
 
 <form data-members-form class="error">...</form>
 ```
+
+### Error messages
+
+Implement error messages when a form or subscription button causes an error by adding a child element to the `<form>` or `<a>` element with the attribute `data-members-error`.
+
+```html
+<form data-members-form>
+  ...
+  <p data-members-error><!-- error message will appear here --></p>
+</form>
+```
+
+### Sign-in forms
+
+Custom sign-in forms in Ghost support both **magic link** authentication and **one-time codes**.
+
+By default, sign-in forms send a magic link to the member’s email address. To also include a one-time code option, add the following attribute to your form element: `data-members-otc="true"`
+
+**Example**
+
+```html
+<form data-members-form="signin" data-members-otc="true">
+  <input data-members-email type="email" required="true" placeholder="jamie@example.com" />
+  <button type="submit">Sign in</button>
+</form>
+```
+
+When `data-members-otc="true"` is present, successful submission of the form will display a modal via portal, no custom handling necessary, that lets the user enter their one-time code directly.
+
+This allows members to choose whichever sign-in method works best — one-click via email, or by entering a code manually.
 
 ### Signing out
 
@@ -164,32 +208,7 @@ Using the `@member` object in conjunction with a sign out button allows you to s
 {{/if}}
 ```
 
-### Apply labels from a form
-
-Labels are useful for managing, segmenting and auditing a members list, and can be applied manually in Ghost Admin, or automatically via a form, an integration or the API.
-
-Apply labels from a specific a signup form using a hidden HTML input element, for example:
-
-```html
-<form data-members-form="subscribe">
-  <input data-members-label type="hidden" value="Early Adopters" />
-  <input data-members-email type="email" required="true"/>
-  <button type="submit">Subscribe</button>
-</form>
-```
-
-### Error messages
-
-Implement error messages when a form or subscription button causes an error by adding a child element to the `<form>` or `<a>` element with the attribute `data-members-error`.
-
-```html
-<form data-members-form>
-  ...
-  <p data-members-error><!-- error message will appear here --></p>
-</form>
-```
-
-***
+---
 
 ## Content visibility
 
@@ -224,7 +243,7 @@ This setting is applied in the Admin UI as the [post access level](https://ghost
 With the `{{content}}` helper, visitors who don’t have access to a post (determined by the `access` property) will see a default call to action in the content area instead, prompting users to upgrade their subscription. Used in conjunction with a free public preview in post content, the CTA will be displayed after the free preview.
 
 <Frame>
-  <img src="/images/2d462c05-content-cta_hu3d640371aa932b7b360881a3df965f9b_54918_1462x0_resize_q100_h2_box_3.webp" />
+  ![](/images/2d462c05-content-cta_hu3d640371aa932b7b360881a3df965f9b_54918_1462x0_resize_q100_h2_box_3.webp)
 </Frame>
 
 The default CTA can be overridden by providing a `./partials/content-cta.hbs` template file in your theme. The default content CTA [provided by Ghost](https://github.com/TryGhost/Ghost/blob/3d989eba2371235d41468f7699a08e46fc2b1e87/ghost/core/core/frontend/helpers/tpl/content-cta.hbs) may be used as a reference.
@@ -249,7 +268,7 @@ Using `@member.paid` allows you to expose different content to members who have 
 {{/if}}
 ```
 
-`@member.paid` returns `true` for members with active subscriptions in states “active”, “trialing”, “unpaid” and “past\_due”. To revoke access for members with failing payments, update your [Stripe settings](https://dashboard.stripe.com/settings/billing/automatic) to automatically cancel subscriptions after all payment attempts have failed.
+`@member.paid` returns `true` for members with active subscriptions in states “active”, “trialing”, “unpaid” and “past_due”. To revoke access for members with failing payments, update your [Stripe settings](https://dashboard.stripe.com/settings/billing/automatic) to automatically cancel subscriptions after all payment attempts have failed.
 
 These two boolean values can be used together to customise UI and messages within a theme to a particular segment of your audience:
 
@@ -314,7 +333,7 @@ Using the visibility flag with the `#has` helper allows for more unique styling 
 {{/foreach}}
 ```
 
-***
+---
 
 ## Checkout buttons
 
@@ -332,26 +351,26 @@ Once Stripe is properly configured, it’s possible to direct visitors to a Stri
 <a href="javascript:" data-portal="signup/TIER_ID/yearly">Yearly plan</a>
 ```
 
-***
+---
 
 ## Member profile pages
 
 It’s possible to expose information about a member in a Ghost theme to allow members to manage their own subscriptions, or update their details when logged in.
 
 <Frame>
-  <img src="/images/4f101771-theme-account-example_hua1cc91f659d30ed537e78ceeee649a6e_60374_800x0_resize_q100_h2_box_3.webp" />
+  ![](/images/4f101771-theme-account-example_hua1cc91f659d30ed537e78ceeee649a6e_60374_800x0_resize_q100_h2_box_3.webp)
 </Frame>
 
 ### Member attributes
 
 The `@member` object has a series of attributes that expose the information required to create a member profile page:
 
-* `@member` – The member object, evaluates to `true` or `false` if the viewer is a member or not
-* `@member.paid` –The member’s payment status, returns `true` or `false` if the member has an active paid subscription
-* `@member.email` –The member’s email address
-* `@member.name` – The member’s full name
-* `@member.firstname` – The member’s first name (everything before the first whitespace character in the member’s full name)
-* `@member.uuid` – A unique identifier for a member for use with analytics tracking such as Google Tag Manager
+- `@member` – The member object, evaluates to `true` or `false` if the viewer is a member or not
+- `@member.paid` –The member’s payment status, returns `true` or `false` if the member has an active paid subscription
+- `@member.email` –The member’s email address
+- `@member.name` – The member’s full name
+- `@member.firstname` – The member’s first name (everything before the first whitespace character in the member’s full name)
+- `@member.uuid` – A unique identifier for a member for use with analytics tracking such as Google Tag Manager
 
 ### Member subscriptions
 
@@ -375,20 +394,20 @@ Members may have multiple subscriptions, provided as an array. Subscription data
 
 Subscription data comes from Stripe meaning a valid Stripe account connected to Ghost is required. Using subscription data in a local environment requires the [Stripe CLI tool](https://stripe.com/docs/stripe-cli).
 
-* `id` –The Stripe ID of the subscription
-* `avatar_image` — The customers avatar image, pulled in from [Gravatar](https://en.gravatar.com/). If there is not one set for their email a transparent `png` will be returned as a default
-* `customer.id` – The Stripe ID of the customer
-* `customer.name` – The name of the customer in Stripe
-* `customer.email` – The email of the customer in Stripe
-* `plan.id` – The Stripe ID of the plan
-* `plan.nickname` – The Stripe nickname of the plan (currently only “Monthly” or “Yearly”)
-* `plan.interval` – The Stripe plan payment interval (currently only “month” or “year”)
-* `plan.currency` –The currency code of the plan as an ISO currency code
-* `plan.amount` – The amount of the Stripe plan in the smallest currency denomination (e.g. USD \$5 would be “500” cents)
-* `status` – The status of the subscription (can be one of: “active”, “trialing”, “unpaid”, “past\_due”, “canceled”)
-* `start_date` –The date which the subscription was first started, can be used with the `{{date}}` helper
-* `default_payment_card_last4` – The last 4 digits of the card that paid the subscription
-* `current_period_end` – The date which the subscription has been paid up until, can be used with the `{{date}}` helper
+- `id` –The Stripe ID of the subscription
+- `avatar_image` — The customers avatar image, pulled in from [Gravatar](https://en.gravatar.com/). If there is not one set for their email a transparent `png` will be returned as a default
+- `customer.id` – The Stripe ID of the customer
+- `customer.name` – The name of the customer in Stripe
+- `customer.email` – The email of the customer in Stripe
+- `plan.id` – The Stripe ID of the plan
+- `plan.nickname` – The Stripe nickname of the plan (currently only “Monthly” or “Yearly”)
+- `plan.interval` – The Stripe plan payment interval (currently only “month” or “year”)
+- `plan.currency` –The currency code of the plan as an ISO currency code
+- `plan.amount` – The amount of the Stripe plan in the smallest currency denomination (e.g. USD \$5 would be “500” cents)
+- `status` – The status of the subscription (can be one of: “active”, “trialing”, “unpaid”, “past_due”, “canceled”)
+- `start_date` –The date which the subscription was first started, can be used with the `{{date}}` helper
+- `default_payment_card_last4` – The last 4 digits of the card that paid the subscription
+- `current_period_end` – The date which the subscription has been paid up until, can be used with the `{{date}}` helper
 
 ### Member account editing
 
@@ -447,10 +466,10 @@ The HTML markup generated by this code looks like this:
 
 The `{{cancel_link}}` helper accepts a number of optional attributes:
 
-* `class` - defaults to `gh-subscription-cancel`
-* `errorClass` - defaults to `gh-error gh-error-subscription-cancel`
-* `cancelLabel` - defaults to `Cancel subscription`
-* `continueLabel` - defaults to `Continue subscription`
+- `class` - defaults to `gh-subscription-cancel`
+- `errorClass` - defaults to `gh-error gh-error-subscription-cancel`
+- `cancelLabel` - defaults to `Cancel subscription`
+- `continueLabel` - defaults to `Continue subscription`
 
 Here’s an example of how you can use the helper with all of the attributes:
 
