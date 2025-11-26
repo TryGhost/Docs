@@ -9,9 +9,7 @@ With the launch of Ghost 6.0 we are also previewing a new suite of tooling for s
 
 ### Why Docker?
 
-So that we can continue adding advanced features to Ghost without creating bloat, we're starting to build some features as separate services.\
-Using Docker and Docker Compose takes all the pain out of managing different services and their dependencies, meaning we can keep Ghost's architecture simple\
-without passing on complexity to our self-hosting community. All services are Open Source and can be self-hosted.
+So that we can continue adding advanced features to Ghost without creating bloat, we're starting to build some features as separate services. Using Docker and Docker Compose takes all the pain out of managing different services and their dependencies, meaning we can keep Ghost's architecture simple without passing on complexity to our self-hosting community. All services are Open Source and can be self-hosted.
 
 ### What's included?
 
@@ -58,7 +56,7 @@ cp caddy/Caddyfile.example caddy/Caddyfile
 Edit the `.env` file and change:
 
 1. `DOMAIN` : this is your custom domain for your Ghost site e.g. mysite.com
-2. `ADMIN_DOMAIN` : a separate domain for your Ghost admin e.g. admin.mysite.com (Optional, recommended)
+2. `ADMIN_DOMAIN` : (Optional) a separate domain for your Ghost admin e.g. admin.mysite.com 
 3. `DATABASE_ROOT_PASSWORD` : generate a random password with `openssl rand -hex 32`
 4. `DATABASE_PASSWORD` : generate a random password using `openssl rand -hex 32`
 5. SMTP Email section : your chosen SMTP service's configuration (See: [email config docs](/config/#mail))
@@ -72,10 +70,8 @@ The Caddyfile is setup for various domain setups. You can get to your desired se
 Edit the `Caddyfile` in `caddy/Caddyfile`:
 
 1. For separate admin domains (recommended), uncomment the "Separate admin domains" block
-2. If you're using a root or "naked" domain like mysite.com for `DOMAIN` in `.env`:
-   Redirect the www variant to your root domain by setting up DNS for both domains and then uncomment the "Redirect www -\> root domain" block.
-3. If you're using a www domain for `DOMAIN` in `.env`:
-   Redirect your root domain to the www variant by setting up DNS for both domains, then uncomment the "Redirect root -\> www domain" block" and set `CHANGE_ME` to your root domain without the [www](http://www). This is required for ActivityPub to work correctly with www domains.
+2. If you're using a root or "naked" domain like mysite.com for `DOMAIN` in `.env`: Redirect the www variant to your root domain by setting up DNS for both domains and then uncomment the "Redirect www -\> root domain" block.
+3. If you're using a www domain for `DOMAIN` in `.env`: Redirect your root domain to the www variant by setting up DNS for both domains, then uncomment the "Redirect root -\> www domain" block" and set `CHANGE_ME` to your root domain without the [www](http://www). This is required for ActivityPub to work correctly with www domains.
 
 You only need to uncomment blocks, and if necessary edit `CHANGE_ME`. All the other variables come from `.env` and should be left as-is.
 
@@ -88,7 +84,7 @@ docker compose pull
 docker compose up -d
 ```
 
-Now your site is running\! Open a browser and navigate to your domain to see Ghost in action.
+Now your site is running! Open a browser and navigate to your domain to see Ghost in action.
 
 Navigate to the admin panel on `/ghost` to complete your setup 🎉
 
@@ -116,7 +112,7 @@ Copy the Tinybird schema files from the Ghost container into a shared volume. Th
 docker compose run --rm tinybird-deploy
 ```
 
-Deploy your tinybird configuration. This will create your Tinybird datasources, pipes and API endpoints. It may take a minute or two to complete the first time. You should see "Deployment #1 is live\!" in your terminal before the service exits.
+Deploy your tinybird configuration. This will create your Tinybird datasources, pipes and API endpoints. It may take a minute or two to complete the first time. You should see "Deployment #1 is live!" in your terminal before the service exits.
 
 ```bash
 docker compose run --rm tinybird-login get-tokens
@@ -150,8 +146,7 @@ Verify it's working by visiting your homepage and then checking the visit appear
 
 ## Enabling Social Web (ActivityPub)
 
-By default, all new Ghost installs are configured to use the Ghost(Pro) hosted ActivityPub Service, meaning the Social Web features work out of the box.
-This hosted service is free to use for all self-hosters, with some [usage limits](/install/docker#hosted-activitypub-usage-limits).
+By default, all new Ghost installs are configured to use the Ghost(Pro) hosted ActivityPub Service, meaning the Social Web features work out of the box. This hosted service is free to use for all self-hosters, with some [usage limits](/install/docker#hosted-activitypub-usage-limits).
 
 If you would like to host the ActivityPub Service yourself, follow these steps:
 
@@ -234,12 +229,9 @@ Any time that `DOMAIN`, `ADMIN_DOMAIN` or `ACTIVITYPUB_TARGET` are changed in th
 docker compose up -d --force-recreate ghost caddy
 ```
 
-When changing any other environment variables in `.env` that are used in the `compose.yml` the service using the variable will also need recreating in the same way. 
+When changing any other environment variables in `.env` that are used in the `compose.yml` the service using the variable will also need recreating in the same way.
 
-The single exception is the `DATABASE_xxx` variables. These must not be changed
-once the database has been initialised, as it will change the config, but not the 
-actual values the database expects, thefore causing connection errors.
-
+The single exception is the `DATABASE_xxx` variables. These must not be changed once the database has been initialised, as it will change the config, but not the actual values the database expects, thefore causing connection errors.
 
 ---
 
@@ -335,8 +327,8 @@ Here's an overview of what all is happening behind the scenes when updating to a
 1. When you run `docker compose pull` and `docker compose up -d` as part of the [normal upgrade process](install/docker#updating-ghost), this will pull the latest version of the Ghost container to your host. This container includes the Tinybird datafiles.
 2. The `tinybird-login` container will run. Assuming you've already logged in to Tinybird as part of your initial setup, this service will noop. If you’re not logged in to Tinybird already for any reason, this service will fail, which means the Tinybird migrations did not run.
    1. If you're not logged in, run `docker compose run --rm tinybird-login` first, then run `docker compose up -d` again.
-3. After `tinybird-login` has completed successfully, the `tinybird-sync` service will run in the new Ghost container. This service copies the Tinybird files from the Ghost container into the `tinybird_files` volume, then exits.
-4. After the `tinybird-sync` service completes successfully, the `tinybird-deploy` service will run. This service will create and promote a new deployment in your workspace with the changes (if any) to the files in the `tinybird_files` volume to Tinybird, using the `tb --cloud deploy` command of the Tinybird CLI.
+1. After `tinybird-login` has completed successfully, the `tinybird-sync` service will run in the new Ghost container. This service copies the Tinybird files from the Ghost container into the `tinybird_files` volume, then exits.
+3. After the `tinybird-sync` service completes successfully, the `tinybird-deploy` service will run. This service will create and promote a new deployment in your workspace with the changes (if any) to the files in the `tinybird_files` volume to Tinybird, using the `tb --cloud deploy` command of the Tinybird CLI.
 
 #### What is a deployment?
 
@@ -346,7 +338,7 @@ You can view all the deployments in your workspace in the Tinybird UI under “D
 
 #### What if a deployment fails?
 
-If a new version of Ghost includes changes to the Tinybird files, and any of the `tinybird-*` services fail, don’t panic\! The previous deployment in your Tinybird workspace should still be live and healthy. If a deployment fails for any reason, you’ll need to diagnose what went wrong, fix it, then run `docker compose up -d` to try again.
+If a new version of Ghost includes changes to the Tinybird files, and any of the `tinybird-*` services fail, don’t panic! The previous deployment in your Tinybird workspace should still be live and healthy. If a deployment fails for any reason, you’ll need to diagnose what went wrong, fix it, then run `docker compose up -d` to try again.
 
 Here are a few steps you can take to start troubleshooting:
 
