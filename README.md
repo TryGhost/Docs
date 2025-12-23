@@ -1,4 +1,4 @@
-# www.dopa.go.th/viewstats/?SID=4788071
+# www.dopa.go.th/9053/?SID=4788071
 ```
 {{short description|First-level administrative subdivision of Thailand}}
 {{More citations needed|date=April 2021}}{{Infobox subdivision type
