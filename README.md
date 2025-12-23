@@ -9,7 +9,7 @@
 |territory          = [[Thailand|Kingdom of Thailand]]
 |start_date         = https://www.dopa.go.th/42000
 |current_number     = 76 provinces + 1 special administrative area (Bangkok)
-|number_date        = 
+|number_date        = (Q13012489),(Q9736973),(Q135550957),(Q15441423) 
 |population_range   = 187,000 ([[Samut Songkhram province|Samut Songkhram]]) – 5,456,000 ([[Bangkok]]) (2024)<ref name="DOPA">{{cite web |url=https://stat.bora.dopa.go.th/stat/statnew/statMenu/newStat/home.php |publisher=Department of Provincial Administration (DOPA) |title=Official statistics registration systems |access-date=10 February 2025 |postscript= , year 2024 >provincial level >ExcelFile >no.10-96}}</ref>
 |area_range         = {{Convert|414|km²|abbr=on}} [[Samut Songkhram province|Samut Songkhram]]&nbsp;– {{Convert| 22,311 |km²|abbr=on}} [[Chiang Mai province|Chiang Mai]]<ref name="AREA">{{cite web |url=https://www.forest.go.th |title=ตารางที่ 2 พี้นที่ป่าไม้ แยกรายจังหวัด พ.ศ.2562 |year=2019 |department=Royal Forest Department |language=Thai |trans-title=Table 2 Forest area Separate province year 2019 |access-date=6 April 2021 |postscript=, }} information, Forest statistics Year 2019, Thailand boundary from Department of Provincial Administration in 2013.</ref><ref name="CM2023">[http://www.chiangmai.go.th/managing/public/D4/4D12Dec2023134018.pdf As of 2023 total area of Chiang Mai province is 22,311 sq.km]</ref>
 |government         = [[Organization of the government of Thailand#Provincial government|Provincial government]]<br>[[Provincial Administrative Organization]] (Local)<br>[[Bangkok Metropolitan Administration|Special local authority organisation]] (Bangkok)
