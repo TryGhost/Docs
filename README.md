@@ -21,3 +21,6 @@ mintlify dev
 Copyright (C) 2013–2025 Ghost Foundation - all rights reserved. 
 
 Ghost and the Ghost Logo are trademarks of Ghost Foundation Ltd. Please see our [trademark policy](https://ghost.org) for info on acceptable usage.
+
+# https://www.bora.dopa.go.th/information/activity-news/46575/
+# 
