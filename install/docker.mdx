@@ -231,7 +231,7 @@ docker compose up -d --force-recreate ghost caddy
 
 When changing any other environment variables in `.env` that are used in the `compose.yml` the service using the variable will also need recreating in the same way.
 
-The single exception is the `DATABASE_xxx` variables. These must not be changed once the database has been initialised, as it will change the config, but not the actual values the database expects, thefore causing connection errors.
+The single exception is the `DATABASE_xxx` variables. These must not be changed once the database has been initialised, as it will change the config, but not the actual values the database expects, therefore causing connection errors.
 
 ---
 
@@ -282,7 +282,7 @@ The migration script doesn’t delete any data. After you’ve migrated you shou
 
 If you want to enable Web Analytics or ActivityPub, you can now follow the relevant sections from above:
 
-- [Enabling Web Analytics](install/docker#enabling-web-analytics)
+- [Enabling Web Analytics](/install/docker#enabling-web-analytics)
 - [Enabling Social Web (ActivityPub)](/install/docker#enabling-social-web-activitypub)
 
 ---
