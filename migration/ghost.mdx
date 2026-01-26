@@ -24,26 +24,26 @@ The commands in this guide assume you followed our [Ubuntu guide](/install/ubunt
 
 ### Exporting content
 
-Log into Ghost Admin for your self-hosted in production and navigate to the **Labs** view, and click **Export** to download your content. This will be `.json` file, with a name like `my-site.ghost.2020-09-30-14-15-49.json`.
+Log into Ghost Admin for your self-hosted in production and navigate to the **Import/Export** view, and click **Export**, then click the **Content & settings** button to download your content. This will be `.json` file, with a name like `my-site.ghost.2020-09-30-14-15-49.json`.
 
 <Frame>
-  <img src="/images/cf649c9d-ghost-content-import-export_hu272562aa500e83b9baeec6c17282ce1a_25089_1628x0_resize_q100_h2_box_3.webp" />
+  <img src="/images/ghost-migration-tools-export-options.png" />
 </Frame>
 
 ### Routes and redirects
 
-Staying on the **Labs** page, click **Download current redirects** to get your redirects file. This will be called `redirects.yaml` (or `redirects.json` depending on your Ghost version). If you’re using custom routes, click **Download current routes.yaml** to get your `routes.yaml` file.
+From the **Labs** page, click **Download current redirects** to get your redirects file. This will be called `redirects.yaml` (or `redirects.json` depending on your Ghost version). If you’re using custom routes, click **Download current routes.yaml** to get your `routes.yaml` file.
 
 <Frame>
-  <img src="/images/3012acb6-ghost-route-redirects_hu954a63ee77a86db320db7d009e6fb2e9_29801_1628x0_resize_q100_h2_box_3.webp" />
+  <img src="/images/ghost-migration-routes-redirects.png" />
 </Frame>
 
 ### Themes
 
-Navigate to the **Design** view, and click the **Download** button next to the Active label export your current theme. This will be a `.zip` file. Optionally, if you have other themes that you’d like to save, download them and back them up.
+Navigate to the **Themes** view, then go to **Installed** and click the **...** option, next to the Active label, to download your current theme. This will be a `.zip` file. Optionally, if you have other themes that you’d like to save, download them and back them up.
 
 <Frame>
-  <img src="/images/39467d2a-ghost-themes-settings_hu3b859fed207678d52a22902f80176aaf_12909_1628x0_resize_q100_h2_box_3.webp" />
+  <img src="/images/ghost-download-active-theme.png" />
 </Frame>
 
 ### Images
@@ -82,22 +82,22 @@ Once you’ve retrieved all of these exports, you can upload them to Ghost(Pro) 
 
 ### Content
 
-Log into your new Ghost(Pro) site, and head to the **Labs** view. Next to the **Import content** header, select your content `.json` file and click **Import**.
+Log into your new Ghost(Pro) site, and head to the **Import/Export** view. Next, click on to the **Universal Import** button, select your content `.json` file and click **Import**.
 
 <Frame>
-  <img src="/images/64953ab4-ghost-import-successful_huade8b63d13532484da2176e269d2dc02_38287_1628x0_resize_q100_h2_box_3.webp" />
+  <img src="/images/ghost-migration-universal-import.png" />
 </Frame>
 
 ### Routes and Redirects
 
-Staying on the **Labs** view, click **Upload redirects JSON**, then select your `redirects.json` file to upload it. Then click **Upload routes YAML**, select your `routes.yaml` file to upload that.
+Navigate to the **Labs** view, click **Upload redirects JSON**, then select your `redirects.json` file to upload it. Then click **Upload routes YAML**, select your `routes.yaml` file to upload that.
 
 ### Themes
 
-Head over to the **Design** view, and click **Upload a theme**, select your theme `.zip` file, and activate it.
+Head over to the **Themes** view, and click **Upload a theme**, select your theme `.zip` file, and activate it.
 
 <Frame>
-  <img src="/images/775cf633-ghost-theme-upload_huf4a027a768e71e6bd93af4733d14943e_23711_1226x0_resize_q100_h2_box_3.webp" />
+  <img src="/images/ghost-theme-upload-activate.png" />
 </Frame>
 
 ### Images
