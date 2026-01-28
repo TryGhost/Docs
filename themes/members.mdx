@@ -411,20 +411,19 @@ Subscription data comes from Stripe meaning a valid Stripe account connected to 
 
 ### Member account editing
 
-Members may want to update their billing information. Rather than contacting the site owner the member can be linked to a page to update their details with a single button:
+Members may want to update their billing information & view receipts. Rather than contacting the site owner the member can be linked to a page to access the Stripe customer billing portal with a single button:
 
 ```html
-<a href="javascript:" data-members-edit-billing>Edit billing info</a>
+<a href="javascript:" data-members-manage-billing>Manage billing & receipts</a>
 ```
 
-Additional attributes can be used to direct the member to different URLs if they update their billing information or cancel their subscription:
+An additional attribute can be used to direct the member to a different URL when they close the billing portal:
 
 ```html
 <a href="javascript:"
-  data-members-edit-billing
-  data-members-success="/billing-update-success/"
-  data-members-cancel="/billing-update-cancel/"
->Edit billing info</a>
+  data-members-manage-billing
+  data-members-return="/billing-management-closed/"
+>Manage billing & receipts</a>
 ```
 
 ### The `price` helper
