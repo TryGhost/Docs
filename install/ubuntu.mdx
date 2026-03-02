@@ -99,7 +99,16 @@ Next, you’ll need to install MySQL to be used as the production database.
 sudo apt-get install mysql-server
 ```
 
-On newer versions of Ubuntu, the root user created when you install MySQL will by default be configured to use socket-based authentication, meaning that only the root Unix user will be able to authenticate. Ghost does not support this kind of authentication, so you must change the root MySQL user to have a password. Run these commands to make the root user have a password:
+On newer versions of Ubuntu, the root user created when you install MySQL will by default be configured to use socket-based authentication, meaning that only the root Unix user will be able to authenticate. Ghost does not support this kind of authentication, so you must change the root MySQL user to have a password. 
+Also on newer mysql servers 'mysql_native_password' plugin are deprecated you will need to add the following to the mysql config to re-enable this plugin.
+```bash
+#add to /etc/mysql/*/mysql.cnf
+sudo vi /etc/mysql/mysql.conf.d/mysql.cnf
+[mysqld]
+mysql_native_password=ON
+```
+
+Run these commands to make the root user have a password:
 
 ```bash
 # Enter mysql
