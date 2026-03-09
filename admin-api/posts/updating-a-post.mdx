@@ -23,6 +23,25 @@ All writable fields of a post can be updated via the edit endpoint. The `updated
 }
 ```
 </RequestExample>
+
+#### Saving a new revision
+
+If you'd like a new revision of a post saved as part of the update, pass `save_revision=true` in the query string.
+
+<RequestExample>
+```json
+// PUT admin/posts/5b7ada404f87d200b5b1f9c8/?save_revision=true
+{
+    "posts": [
+        {
+            "title": "My new title",
+            "updated_at": "2022-06-05T20:52:37.000Z"
+        }
+    ]
+}
+```
+</RequestExample>
+
 #### Tags and Authors
 
 Tag and author relations will be replaced, not merged. Again, the recommendation is to always fetch the latest version of a post, make any amends to this such as adding another tag to the tags array, and then send the amended data via the edit endpoint.
