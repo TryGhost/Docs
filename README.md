@@ -4,15 +4,17 @@ Official documentation for [Ghost](https://github.com/tryghost/ghost) - located 
 
 ### Development
 
+**Note:** Requires Node.js v20.17.0 or higher.
+
 Install Mintlify CLI to preview docs changes locally:
 
-```
+```bash
 npm i -g mint
 ```
 
 Start dev server with:
 
-```
+```bash
 mint dev
 ```
 

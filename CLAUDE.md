@@ -22,7 +22,7 @@ mint dev --port 3333
 # Validate all reference links
 mint broken-links
 
-# Re-install dependencies if issues occur
+# Clear Mintlify local cache if you encounter local preview errors
 rm -rf ~/.mintlify && mint dev
 ```
 
