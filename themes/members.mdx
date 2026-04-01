@@ -405,9 +405,79 @@ Subscription data comes from Stripe meaning a valid Stripe account connected to 
 - `plan.currency` –The currency code of the plan as an ISO currency code
 - `plan.amount` – The amount of the Stripe plan in the smallest currency denomination (e.g. USD \$5 would be “500” cents)
 - `status` – The status of the subscription (can be one of: “active”, “trialing”, “unpaid”, “past_due”, “canceled”)
-- `start_date` –The date which the subscription was first started, can be used with the `{{date}}` helper
+- `start_date` – The date which the subscription was first started, can be used with the `{{date}}` helper
 - `default_payment_card_last4` – The last 4 digits of the card that paid the subscription
+- `cancel_at_period_end` – `true` if the subscription has been canceled but is still active until the end of the current billing period
 - `current_period_end` – The date which the subscription has been paid up until, can be used with the `{{date}}` helper
+- `tier.name` – The name of the tier (product) this subscription belongs to
+- `tier.description` – The tier's description, or `null` if not set
+- `next_payment` – An object describing the member's next charge, accounting for active discounts. `null` for inactive subscriptions. See [Next payment](#next-payment) below
+- `offer` – Details of the last offer redeemed on this subscription, or `null`
+- `offer_redemptions` – Array of all offers redeemed on this subscription
+
+### Next payment
+
+Each active subscription includes a `next_payment` object that describes what the member will be charged on their next billing date. If a discount from an offer is active, the amount reflects the discounted price.
+
+**Properties:**
+
+- `next_payment.amount` – Amount after discounts, in the smallest currency unit (e.g. USD \$5 would be "500" cents)
+- `next_payment.original_amount` – Original amount before discounts
+- `next_payment.interval` – `"month"` or `"year"`
+- `next_payment.currency` – ISO currency code, e.g. `"USD"`
+- `next_payment.discount` – Active discount details, or `null` when no discount applies
+
+`next_payment` is `null` for inactive subscriptions (canceled, expired, etc.), so always guard access with `{{#if}}`:
+
+```handlebars
+{{#foreach @member.subscriptions}}
+  {{#if next_payment}}
+    <p>Next payment: {{price next_payment}}/{{next_payment.interval}}</p>
+  {{/if}}
+{{/foreach}}
+```
+
+When a discount is active, `next_payment.discount` contains details about it. The `discount.end` property returns a date for both one-time and repeating discounts, and `null` for forever discounts:
+
+```handlebars
+{{#foreach @member.subscriptions}}
+  {{#if next_payment.discount}}
+    <s>{{price plan}}/{{plan.interval}}</s>
+    <p>
+      {{price next_payment}}/{{next_payment.interval}}
+      {{#if next_payment.discount.end}}
+        — Ends {{date next_payment.discount.end format="D MMM YYYY"}}
+      {{else}}
+        — Forever
+      {{/if}}
+    </p>
+  {{else}}
+    <p>{{price plan}}/{{plan.interval}}</p>
+  {{/if}}
+{{/foreach}}
+```
+
+**Discount properties** (when `next_payment.discount` is not null):
+
+- `discount.end` – When the discount ends (date string), or `null` for forever discounts
+- `discount.type` – `"percent"` or `"fixed"`
+- `discount.amount` – The discount value (percentage, or fixed amount in smallest currency unit)
+- `discount.duration` – `"once"`, `"repeating"`, or `"forever"`
+- `discount.duration_in_months` – Number of months for repeating discounts, `null` otherwise
+
+### Offers
+
+Each subscription exposes `offer` (details of the last offer redeemed, or `null`) and `offer_redemptions` (an array of all offers redeemed on the subscription over time).
+
+```handlebars
+{{#foreach @member.subscriptions}}
+  {{#if offer}}
+    <p>Signed up with: {{offer.display_title}}</p>
+  {{/if}}
+{{/foreach}}
+```
+
+Key offer properties include `display_title`, `display_description`, `type` (`"percent"`, `"fixed"`, or `"trial"`), `amount`, `duration`, and `cadence`.
 
 ### Member account editing
 
