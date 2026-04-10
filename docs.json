@@ -189,7 +189,8 @@
                       "admin-api/posts/scheduling-a-post",
                       "admin-api/posts/sending-a-post",
                       "admin-api/posts/email-only-posts",
-                      "admin-api/posts/deleting-a-post"
+                      "admin-api/posts/deleting-a-post",
+                      "admin-api/posts/card-visibility"
                     ]
                   },
                   {

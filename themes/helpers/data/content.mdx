@@ -1,12 +1,25 @@
 ---
 title: "content"
-description: 'Usage: `{{content}}`'
+description: "Usage: `{{content}}`"
 ---
 
-***
+---
 
+`{{content}}` is a very simple helper used for outputting post content, when called within a `{{#post}}{{/post}}` [block expression](https://docs.ghost.org/themes/contexts/post#helpers). It makes sure that your HTML gets output correctly.
 
-`{{content}}` is a very simple helper used for outputting post content. It makes sure that your HTML gets output correctly.
+```
+<!-- post.hbs -->
+
+{{#post}}
+
+<article class="{{post_class}}">
+  <section class="post-content">
+    {{content}}
+  </section>
+</article>
+
+{{/post}}
+```
 
 You can limit the amount of HTML content to output by passing one of the options:
 

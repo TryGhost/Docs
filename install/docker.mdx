@@ -69,7 +69,7 @@ The Caddyfile is setup for various domain setups. You can get to your desired se
 
 Edit the `Caddyfile` in `caddy/Caddyfile`:
 
-1. For separate admin domains (recommended), uncomment the "Separate admin domains" block
+1. For separate admin domains (optional), uncomment the "Separate admin domains" block
 2. If you're using a root or "naked" domain like mysite.com for `DOMAIN` in `.env`: Redirect the www variant to your root domain by setting up DNS for both domains and then uncomment the "Redirect www -\> root domain" block.
 3. If you're using a www domain for `DOMAIN` in `.env`: Redirect your root domain to the www variant by setting up DNS for both domains, then uncomment the "Redirect root -\> www domain" block" and set `CHANGE_ME` to your root domain without the [www](http://www). This is required for ActivityPub to work correctly with www domains.
 
