@@ -343,7 +343,7 @@ Turn your membership site into a business with paid subscriptions via Stripe, to
 
 There are currently two types of plans for each tier in Members: monthly and yearly. [Find out how to connect a Stripe account.](https://ghost.org/help/setup-members/#connect-a-stripe-account/).
 
-Once Stripe is properly configured, it’s possible to direct visitors to a Stripe payment form pre-filled with the selected plan, by adding buttons with the `data-portal` attribute pointing to monthly or yearly price of a tier. The data attribute for monthly/yearly plan of a tier can be fetched from Portal settings in your Admin URL - `/ghost/#/settings/members?showPortalSettings=true`.
+Once Stripe is properly configured, it’s possible to direct visitors to a Stripe payment form pre-filled with the selected plan, by adding buttons with the `data-portal` attribute pointing to monthly or yearly price of a tier. The data attribute for monthly/yearly plan of a tier can be fetched from Portal settings in your Admin URL - `/ghost/#/settings/portal/edit`.
 
 ```html
 <a href="javascript:" data-portal="signup/TIER_ID/monthly">Monthly plan</a>
