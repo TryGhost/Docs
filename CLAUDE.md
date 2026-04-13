@@ -11,22 +11,22 @@ This is a Mintlify documentation site that creates a modern documentation websit
 ### Development Setup
 ```bash
 # Install Mintlify CLI globally (required)
-npm i -g mintlify
+npm i -g mint
 
 # Start development server (default port 3000)
-mintlify dev
+mint dev
 
 # Start on custom port
-mintlify dev --port 3333
+mint dev --port 3333
 
 # Validate all reference links
-mintlify broken-links
+mint broken-links
 
-# Re-install dependencies if issues occur
-mintlify install
+# Clear Mintlify local cache if you encounter local preview errors
+rm -rf ~/.mintlify && mint dev
 ```
 
-**Note:** Requires Node.js version 19 or higher.
+**Note:** Requires Node.js v20.17.0 or higher.
 
 ## Architecture & Structure
 
