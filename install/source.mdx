@@ -10,7 +10,6 @@ sidebarTitle: "This guide is for installing a local development copy of Ghost fr
 Before getting started, you’ll need these global packages to be installed:
 
 * **A [supported version](/faq/node-versions/) of [Node.js](https://nodejs.org)** - Ideally installed via [nvm](https://github.com/creationix/nvm#install-script)
-* **[pnpm](https://pnpm.io/installation)** - to manage all the packages
 * **Docker (ie. [Docker Desktop](https://www.docker.com/products/docker-desktop/))** - to run the MySQL database and other services
 
 ***
@@ -52,7 +51,8 @@ git remote add origin git@github.com:<YourUsername>/Ghost.git
 
 ```bash
 # Only ever run this once
-pnpm setup
+corepack enable pnpm
+pnpm run setup
 ```
 
 The `setup` task will install dependencies, initialise the database, set up git hooks, and initialise submodules.
@@ -122,7 +122,7 @@ pnpm knex-migrator init
 
 From the top-level directory of the monorepo, run
 
-```
+```bash
 pnpm archive
 ```
 
