@@ -10,7 +10,7 @@ sidebarTitle: "This guide is for installing a local development copy of Ghost fr
 Before getting started, you’ll need these global packages to be installed:
 
 * **A [supported version](/faq/node-versions/) of [Node.js](https://nodejs.org)** - Ideally installed via [nvm](https://github.com/creationix/nvm#install-script)
-* **[Yarn](https://yarnpkg.com/en/docs/install#alternatives-tab)** - to manage all the packages
+* **[pnpm](https://pnpm.io/installation)** - to manage all the packages
 * **Docker (ie. [Docker Desktop](https://www.docker.com/products/docker-desktop/))** - to run the MySQL database and other services
 
 ***
@@ -52,7 +52,7 @@ git remote add origin git@github.com:<YourUsername>/Ghost.git
 
 ```bash
 # Only ever run this once
-yarn setup
+pnpm setup
 ```
 
 The `setup` task will install dependencies, initialise the database, set up git hooks, and initialise submodules.
@@ -63,7 +63,7 @@ The `setup` task will install dependencies, initialise the database, set up git 
 
 ```bash
 # Run Ghost in development mode
-yarn dev
+pnpm dev
 ```
 
 **Ghost is now running at** http\://localhost:2368/ - **Ghost Admin** lives at http\://localhost:2368/ghost/
@@ -76,7 +76,7 @@ When your working copies become out of date due to upstream changes, this is the
 
 ```bash
 # Update EVERYTHING
-yarn main
+pnpm main
 ```
 
 That’s it, you’re done with the install! The rest of this guide is about working with your new development copy of Ghost.
@@ -94,16 +94,16 @@ The most commonly used commands for running the core codebase locally
 ```bash
 # Default way of running Ghost in development mode
 # Builds admin files on start & then watches for changes
-yarn dev
+pnpm dev
 
 # Ignores admin changes
-yarn dev:ghost
+pnpm dev:ghost
 
 # Ignores server changes
-yarn dev:admin
+pnpm dev:admin
 
 # Run Ghost, Admin and the Portal dev server
-yarn dev --portal
+pnpm dev --portal
 ```
 
 ### Database tools
@@ -112,10 +112,10 @@ Ghost uses its own tool called `knex-migrator` to manage database migrations.
 
 ```bash
 # Wipe the database
-yarn knex-migrator reset
+pnpm knex-migrator reset
 
 # Populate a fresh database
-yarn knex-migrator init
+pnpm knex-migrator init
 ```
 
 ### Building Ghost from source
@@ -123,7 +123,7 @@ yarn knex-migrator init
 From the top-level directory of the monorepo, run
 
 ```
-yarn archive
+pnpm archive
 ```
 
 This will produce a tarball archive called `ghost-<version>.tgz`, which can be installed with Ghost-CLI’s [`--archive` flag](/ghost-cli/#ghost-install).
@@ -134,30 +134,30 @@ Tests run with SQLite. To use MySQL, prepend commands with `NODE_ENV=testing-mys
 
 ```bash
 # Run unit tests
-yarn test:unit
+pnpm test:unit
 
 # Run acceptance tests
-yarn test:acceptance
+pnpm test:acceptance
 
 # Run regression tests
-yarn test:regression
+pnpm test:regression
 
 # Run a single test
-yarn test:single path/to/test.js
+pnpm test:single path/to/test.js
 
 # Run a folder of tests
-yarn test:single test/unit/helpers
+pnpm test:single test/unit/helpers
 
 # Run all tests
-yarn test:all
+pnpm test:all
 
 # Make sure your code doesn't suck
-yarn lint
+pnpm lint
 ```
 
 ### Client Tests
 
-Client tests should always be run inside the `ghost/admin` directory. Any time you have `yarn dev` running the client tests will be available at `http://localhost:4200/tests`
+Client tests should always be run inside the `ghost/admin` directory. Any time you have `pnpm dev` running the client tests will be available at `http://localhost:4200/tests`
 
 ```bash
 # Run all tests in Chrome + Firefox
@@ -192,27 +192,27 @@ This error means that Ghost is already running, and you need to stop it.
 This error means that the mentioned file doesn’t exist.
 
 **ERROR Error: Cannot find module**\
-Install did not complete. Run `yarn fix`.
+Install did not complete. Run `pnpm fix`.
 
 **Error: Cannot find module ‘./build/default/DTraceProviderBindings’**\
-You switched node versions. Run `yarn fix`.
+You switched node versions. Run `pnpm fix`.
 
 **ENOENT: no such file or directory, stat ‘path/to/favicon.ico’ at Error (native)**\
-Your admin client has not been built. Run `yarn dev`.
+Your admin client has not been built. Run `pnpm dev`.
 
 **TypeError: Cannot read property ’tagName’ of undefined**\
-You can’t run `ember test` at the same time as `yarn dev`. Wait for tests to finish before continuing and wait for the “Build successful” message before loading admin.
+You can’t run `ember test` at the same time as `pnpm dev`. Wait for tests to finish before continuing and wait for the “Build successful” message before loading admin.
 
-**yarn.lock conflicts**\
-When rebasing a feature branch it’s possible you’ll get conflicts on `yarn.lock` because there were dependency changes in both `main` and `<feature-branch>`.
+**pnpm-lock.yaml conflicts**\
+When rebasing a feature branch it’s possible you’ll get conflicts on `pnpm-lock.yaml` because there were dependency changes in both `main` and `<feature-branch>`.
 
 1. Note what dependencies have changed in `package.json`\
    (Eg. `dev-1` was added and dev dep `dev-2` was removed)
-2. `git reset HEAD package.json yarn.lock` - unstages the files
-3. `git checkout -- package.json yarn.lock` - removes local changes
-4. `yarn add dev-1 -D` - re-adds the dependency and updates yarn.lock
-5. `yarn remove dev-2` - removes the dependency and updates yarn.lock
-6. `git add package.json yarn.lock` - re-stage the changes
+2. `git reset HEAD package.json pnpm-lock.yaml` - unstages the files
+3. `git checkout -- package.json pnpm-lock.yaml` - removes local changes
+4. `pnpm add dev-1 -D` - re-adds the dependency and updates pnpm-lock.yaml
+5. `pnpm remove dev-2` - removes the dependency and updates pnpm-lock.yaml
+6. `git add package.json pnpm-lock.yaml` - re-stage the changes
 7. `git rebase --continue` - continue with the rebase
 
-It’s always more reliable to let `yarn` auto-generate the lockfile rather than trying to manually merge potentially incompatible changes.
+It’s always more reliable to let `pnpm` auto-generate the lockfile rather than trying to manually merge potentially incompatible changes.
