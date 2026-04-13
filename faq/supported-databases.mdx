@@ -21,11 +21,7 @@ If database interoperability is something that you are passionate about, conside
 
 ## How to update MySQL 5 to MySQL 8
 
-This will happen automatically if you update your Ubuntu install to [Ubuntu 20](https://www.digitalocean.com/community/tutorials/how-to-upgrade-to-ubuntu-20-04-focal-fossa). Alternatively you can update MySQL using your package manager of choice.
-
-Once your MySQL package is updated, change your Ghost table collations to the new default of`utf8mb4_0900_ai_ci`.
-
-Running the following command will generate a set of `ALTER TABLE` commands needed to correct your database:
+When upgrading from MySQL 5, you'll need to change your Ghost table collations to the new default of `utf8mb4_0900_ai_ci`. Running the following command will generate a set of `ALTER TABLE` commands needed to correct your database:
 
 `mysql <database> -u <username> -p -B --disable-column-names -h localhost -e 'SELECT CONCAT("ALTER TABLE ",TABLE_SCHEMA,".",TABLE_NAME," CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci; ", "ALTER TABLE ",TABLE_SCHEMA,".",TABLE_NAME," CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;") AS alter_sql FROM information_schema.TABLES WHERE TABLE_SCHEMA = database();'`
 
