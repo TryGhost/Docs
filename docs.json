@@ -17,6 +17,20 @@
     "codeblocks": "dark"
   },
   "navigation": {
+    "global": {
+      "anchors": [
+        {
+          "anchor": "Tutorials",
+          "icon": "joystick",
+          "href": "https://ghost.org/tutorials/"
+        },
+        {
+          "anchor": "Developer Forum",
+          "icon": "server",
+          "href": "https://forum.ghost.org/"
+        }
+      ]
+    },
     "tabs": [
       {
         "tab": "Home",
@@ -31,7 +45,7 @@
       },
       {
         "tab": "Documentation",
-        "groups": [
+        "pages": [
           {
             "group": "Getting Started",
             "pages": [
@@ -150,6 +164,7 @@
               },
               "themes/content",
               "themes/search",
+              "themes/share",
               "themes/members",
               "themes/routing",
               "themes/custom-settings",
@@ -328,21 +343,7 @@
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Tutorials",
-          "icon": "joystick",
-          "href": "https://ghost.org/tutorials/"
-        },
-        {
-          "anchor": "Developer Forum",
-          "icon": "server",
-          "href": "https://forum.ghost.org/"
-        }
-      ]
-    }
+    ]
   },
   "logo": {
     "light": "/logo/light.png",
