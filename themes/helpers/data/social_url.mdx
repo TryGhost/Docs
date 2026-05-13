@@ -6,13 +6,11 @@ description: 'Usage: `{{social_url type="platform"}}` (e.g., `{{social_url type=
 ***
 
 
-The `{{social_url}}` helper generates a URL for a specified social media platform based on the provided platform type. It takes a single argument, `type`, which specifies the social media platform (e.g., `facebook`, `mastodon`, etc.). The helper looks for the specified platform in the given context (usually author) and constructs the appropriate URL.
+The `{{social_url}}` helper generates a URL for a specified social media platform based on the provided platform type. It takes a single argument, `type`, which specifies the social media platform (e.g., `facebook`, `mastodon`, etc.).
 
-For facebook and twitter, the helper will fall back to the sitewide values if they’re not set on the local context.
+When called inside an author scope (e.g. `{{#author}}` or `{{#foreach authors}}`), the helper looks up the platform on the current author first, then falls back to the sitewide value from `@site`. Outside an author scope, it reads directly from `@site`. If neither has a value, the helper outputs nothing.
 
-For the remaining platforms the fallback behaviour is to output nothing.
-
-Supported platforms include: `facebook`, `twitter`, `linkedin`, `threads`, `bluesky`, `mastodon`, `tiktok`, `youtube`, `instagram`.
+Supported platforms: `facebook`, `twitter`, `linkedin`, `threads`, `bluesky`, `mastodon`, `tiktok`, `youtube`, `instagram`. All nine are configurable both per-author (Staff > [user]) and sitewide (Settings > General > Social accounts).
 
 ### Examples
 
@@ -24,9 +22,10 @@ Output the author’s Threads URL, using an `author` block:
 {{/author}}
 ```
 
-Globally, Twitter and Facebook are available and can be accessed from anywhere in the theme.
+All platforms can be accessed sitewide via `@site`:
 
 ```handlebars
-{{#if @site.twitter}}<a href="{{social_url type="twitter"}}">Follow us on Twitter</a>{{/if}}
-{{#if @site.facebook}}<a href="{{social_url type="facebook"}}">Follow us on Facebook</a>{{/if}}
+{{#if @site.twitter}}<a href="{{social_url type="twitter"}}">Follow us on X</a>{{/if}}
+{{#if @site.bluesky}}<a href="{{social_url type="bluesky"}}">Follow us on Bluesky</a>{{/if}}
+{{#if @site.linkedin}}<a href="{{social_url type="linkedin"}}">Follow us on LinkedIn</a>{{/if}}
 ```
