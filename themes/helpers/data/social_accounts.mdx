@@ -23,7 +23,7 @@ Render a row of icons for the social accounts configured under Settings > Genera
 
 When inside a `{{#social_accounts}}` block, the following properties are available for each account:
 
-* **type** (string) - the storage key (e.g. `twitter`, `bluesky`)
+* **type** (string) - the platform key (e.g. `x`, `bluesky`)
 * **href** (string) - the full URL to the profile
 * **username** (string) - the raw stored handle or URL fragment
 * **name** (string) - the human-readable platform label (e.g. `X`, `Facebook`)
@@ -74,4 +74,4 @@ Like all block helpers, `{{#social_accounts}}` supports an `{{else}}` block, whi
 
 ## Supported platforms
 
-`twitter`, `facebook`, `linkedin`, `bluesky`, `threads`, `mastodon`, `tiktok`, `youtube`, `instagram`. Platforms without a value set on the source are skipped.
+`x`, `facebook`, `linkedin`, `bluesky`, `threads`, `mastodon`, `tiktok`, `youtube`, `instagram`. Platforms without a value set on the source are skipped.
