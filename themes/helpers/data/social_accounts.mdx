@@ -95,7 +95,7 @@ This needs a **dynamic partial**, and the partial must be invoked using the **bl
 
 The inline form (`{{> (concat "icons/" type)}}`) looks tempting, but it throws a page error if the named partial doesn't exist — for example, when a new platform ships before a theme adds the matching icon. gscan rejects the inline form on purpose for this reason. The block form falls back to the inner content instead, so the page keeps rendering.
 
-The `{{/undefined}}` close tag is currently the only form Handlebars accepts for closing a dynamic partial block — see [the discussion on the forum](https://forum.ghost.org/t/social-accounts-v6-38-0-helper-for-theme-social-rendering/62854) for the parser quirk behind it.
+Note the closing tag must be `{{/undefined}}`. This looks unusual, but it's the only form Handlebars accepts when closing a dynamic partial block.
 
 ## Supported platforms
 
