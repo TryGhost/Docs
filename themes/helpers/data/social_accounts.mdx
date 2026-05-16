@@ -14,10 +14,15 @@ Render a row of icons for the social accounts configured under Settings > Genera
 ```handlebars
 {{#social_accounts @site}}
 <a href="{{href}}" target="_blank" rel="noopener" aria-label="{{name}}">
-  {{> (concat "icons/" type)}}
+  {{#> (concat "icons/" type)}}
+    {{!-- Fallback rendered if the per-platform partial is missing --}}
+    <span class="icon icon-{{type}}">{{name}}</span>
+  {{/undefined}}
 </a>
 {{/social_accounts}}
 ```
+
+The examples use the **block dynamic partial form** (`{{#> (concat …)}}…{{/undefined}}`) rather than the inline `{{> (concat …)}}` form. The block form renders the fallback content if the named partial doesn't exist — for example, if a new social platform ships before the theme adds a matching icon. The inline form throws a page error in that case.
 
 ## Data Variables
 
@@ -47,7 +52,11 @@ When used inside `{{#foreach authors}}`, pass `this` to iterate the current auth
 {{#foreach authors}}
 <h3>{{name}}</h3>
 {{#social_accounts this}}
-  <a href="{{href}}" aria-label="{{name}}">{{> (concat "icons/" type)}}</a>
+  <a href="{{href}}" aria-label="{{name}}">
+    {{#> (concat "icons/" type)}}
+      <span class="icon icon-{{type}}">{{name}}</span>
+    {{/undefined}}
+  </a>
 {{/social_accounts}}
 {{/foreach}}
 ```
@@ -56,7 +65,11 @@ On an author page, the author is named `author`:
 
 ```handlebars
 {{#social_accounts author}}
-<a href="{{href}}" aria-label="{{name}}">{{> (concat "icons/" type)}}</a>
+<a href="{{href}}" aria-label="{{name}}">
+  {{#> (concat "icons/" type)}}
+    <span class="icon icon-{{type}}">{{name}}</span>
+  {{/undefined}}
+</a>
 {{/social_accounts}}
 ```
 
