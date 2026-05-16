@@ -9,20 +9,15 @@ description: 'Usage: `{{#social_accounts @site}}{{/social_accounts}}`'
 
 ### Simple Example
 
-Render a row of icons for the social accounts configured under Settings > General > Social accounts:
+Render a row of links for the social accounts configured under Settings > General > Social accounts:
 
 ```handlebars
 {{#social_accounts @site}}
 <a href="{{href}}" target="_blank" rel="noopener" aria-label="{{name}}">
-  {{#> (concat "icons/" type)}}
-    {{!-- Fallback rendered if the per-platform partial is missing --}}
-    <span class="icon icon-{{type}}">{{name}}</span>
-  {{/undefined}}
+  <span class="icon icon-{{type}}">{{name}}</span>
 </a>
 {{/social_accounts}}
 ```
-
-The examples use the **block dynamic partial form** (`{{#> (concat …)}}…{{/undefined}}`) rather than the inline `{{> (concat …)}}` form. The block form renders the fallback content if the named partial doesn't exist — for example, if a new social platform ships before the theme adds a matching icon. The inline form throws a page error in that case.
 
 ## Data Variables
 
@@ -53,9 +48,7 @@ When used inside `{{#foreach authors}}`, pass `this` to iterate the current auth
 <h3>{{name}}</h3>
 {{#social_accounts this}}
   <a href="{{href}}" aria-label="{{name}}">
-    {{#> (concat "icons/" type)}}
-      <span class="icon icon-{{type}}">{{name}}</span>
-    {{/undefined}}
+    <span class="icon icon-{{type}}">{{name}}</span>
   </a>
 {{/social_accounts}}
 {{/foreach}}
@@ -66,9 +59,7 @@ On an author page, the author is named `author`:
 ```handlebars
 {{#social_accounts author}}
 <a href="{{href}}" aria-label="{{name}}">
-  {{#> (concat "icons/" type)}}
-    <span class="icon icon-{{type}}">{{name}}</span>
-  {{/undefined}}
+  <span class="icon icon-{{type}}">{{name}}</span>
 </a>
 {{/social_accounts}}
 ```
@@ -84,6 +75,27 @@ Like all block helpers, `{{#social_accounts}}` supports an `{{else}}` block, whi
 <p>No social accounts connected yet.</p>
 {{/social_accounts}}
 ```
+
+### Using partials
+
+Most themes ship a separate icon partial per platform — `partials/icons/x.hbs`, `partials/icons/facebook.hbs`, and so on — and want `{{#social_accounts}}` to pull in the right one based on `{{type}}`.
+
+This needs a **dynamic partial**, and the partial must be invoked using the **block form** (`{{#> …}}…{{/undefined}}`):
+
+```handlebars
+{{#social_accounts @site}}
+<a href="{{href}}" target="_blank" rel="noopener" aria-label="{{name}}">
+  {{#> (concat "icons/" type)}}
+    {{!-- Fallback rendered when no per-platform icon partial exists --}}
+    <span class="icon icon-web">{{name}}</span>
+  {{/undefined}}
+</a>
+{{/social_accounts}}
+```
+
+The inline form (`{{> (concat "icons/" type)}}`) looks tempting, but it throws a page error if the named partial doesn't exist — for example, when a new platform ships before a theme adds the matching icon. gscan rejects the inline form on purpose for this reason. The block form falls back to the inner content instead, so the page keeps rendering.
+
+The `{{/undefined}}` close tag is currently the only form Handlebars accepts for closing a dynamic partial block — see [the discussion on the forum](https://forum.ghost.org/t/social-accounts-v6-38-0-helper-for-theme-social-rendering/62854) for the parser quirk behind it.
 
 ## Supported platforms
 
