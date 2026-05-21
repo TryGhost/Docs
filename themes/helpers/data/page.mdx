@@ -5,20 +5,18 @@ description: The `@page` object provides access to page properties, which are av
 
 ***
 
-* `@page.show_title_and_feature_image` - true (default) or false value from Ghost Editor
+* `@page.show_title_and_feature_image` - boolean toggle set on the page settings panel in the editor. Defaults to `true`.
 
-This toggle, only available for pages, lets users hide a page’s title and feature image to create pages that look radically different than posts (for example, full-width headers, CTAs, and landing pages).
+This toggle lets editors hide a page’s title and feature image to create pages that look radically different than posts (for example, full-width headers, CTAs, and landing pages). Themes need to gate the title and feature image markup with `{{#if @page.show_title_and_feature_image}}` for the setting to take effect.
 
-This setting is only available when using the [new Beta editor](https://ghost.org/changelog/editor-beta/). However, since the `@page.show_title_and_feature_image` is always present and defaults to `true`, supporting this feature in your theme won’t break anything for anyone using the old editor.
-
-Using the `@page` object is **not backward-compatible** with earlier versions of Ghost: once implemented the theme will only be compatible with Ghost 5.54.1 or later.
+The `@page` object requires Ghost 5.54.1 or later.
 
 ## Example code
 
 ```handlebars
-{{#match @page.show_title_and_feature_image}}
+{{#if @page.show_title_and_feature_image}}
 ...content...
-{{/match}}
+{{/if}}
 ```
 
 ## Styling tips when hiding the title and feature image
