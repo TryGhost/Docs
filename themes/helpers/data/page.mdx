@@ -5,11 +5,9 @@ description: The `@page` object provides access to page properties, which are av
 
 ***
 
-* `@page.show_title_and_feature_image` - boolean toggle set on the page settings panel in the editor. Defaults to `true`.
+* `@page.show_title_and_feature_image` - `true` (default) or `false` boolean toggle set on the page settings panel in the editor. 
 
 This toggle lets editors hide a page’s title and feature image on a per-page basis, useful for pages that look radically different from posts (full-width headers, CTAs, landing pages). Gate any relevant markup in your page templates for the toggle to take effect.
-
-The `@page` object requires Ghost 5.54.1 or later.
 
 ## Example code
 
@@ -27,4 +25,4 @@ The `@page` object requires Ghost 5.54.1 or later.
 
 As a reminder, cards that have the ability to be set to full width are header cards, signup cards, image cards, and video cards. When an image or video has a caption, it will have the class `.kg-card-hascaption`, and maintaining spacing is desirable in this case.
 
-The implementation of these changes will look different on every theme. Find examples of these recommended changes in Casper [here](https://github.com/TryGhost/Casper/commit/d9c9390e17c1df1322ebfec774886058a56a0891) (1 and 3) and [here](https://github.com/TryGhost/Casper/blob/a60e3e976a341df462ba948d395bc52c37faffa4/assets/css/screen.css#L1345-L1348) (2).
+The implementation of these changes will look different on every theme. Find examples of these recommended changes in Source [here](https://github.com/TryGhost/Source/blob/main/page.hbs#L9) (1 and 3) and [here](https://github.com/TryGhost/Casper/blob/a60e3e976a341df462ba948d395bc52c37faffa4/assets/css/screen.css#L1345-L1348) (2).
