@@ -4,6 +4,8 @@ title: Sending a Post via email
 
 To send a post by email, the `newsletter` query parameter must be passed when publishing or scheduling the post, containing the newsletter’s `slug`.
 
+To find a newsletter’s `slug`, browse the [newsletters endpoint](/admin-api/newsletters/overview).
+
 Optionally, a filter can be provided to send the email to a subset of members subscribed to the newsletter by passing the `email_segment` query parameter containing a valid NQL filter for members. Commonly used values are `status:free` (all free members), `status:-free` (all paid members) and `all`. If `email_segment` is not specified, the default is `all` (no additional filtering applied).
 
 Posts are sent by email if and only if an active newsletter is provided.
