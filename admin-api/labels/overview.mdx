@@ -1,0 +1,90 @@
+---
+title: Overview
+---
+
+Labels allow publishers to organize members into internal segments. Labels can be applied when creating or updating members, and can also be managed directly with the labels resource.
+
+### The label object
+
+Whenever you fetch, create, or edit a label, the API responds with an array of one or more label objects.
+
+```json
+// GET /admin/labels/?limit=100&page=1
+{
+    "labels": [
+        {
+            "id": "6958473e4c66da000199e33e",
+            "name": "VIP",
+            "slug": "vip",
+            "created_at": "2026-01-02T22:31:26.000Z",
+            "updated_at": "2026-01-02T22:31:26.000Z"
+        },
+        {
+            "id": "6958473e4c66da000199e33f",
+            "name": "Trial",
+            "slug": "trial",
+            "created_at": "2026-01-02T22:31:26.000Z",
+            "updated_at": "2026-01-02T22:31:26.000Z"
+        }
+    ],
+    "meta": {
+        "pagination": {
+            "page": 1,
+            "limit": 100,
+            "pages": 1,
+            "total": 2,
+            "next": null,
+            "prev": null
+        }
+    }
+}
+```
+
+| Key             | Description                                      |
+| --------------- | ------------------------------------------------ |
+| **id**          | Unique identifier for the label                  |
+| **name**        | Human-readable label name                        |
+| **slug**        | URL-safe identifier generated from the label name |
+| **created\_at** | Date and time the label was created              |
+| **updated\_at** | Date and time the label was last updated         |
+| **count**       | Related resource counts, included when requested |
+
+### Parameters
+
+When retrieving labels from the Admin API, it’s possible to use the `include`, `filter`, `fields`, `limit`, `page`, and `order` parameters.
+
+Available **include** values:
+
+* `count.members` - include the number of members assigned to each label
+
+For browse requests, it’s also possible to use `limit`, `page`, and `order` parameters as documented in the [Content API](/content-api/#parameters).
+
+### Creating a label
+
+```json
+// POST /admin/labels/
+{
+    "labels": [
+        {
+            "name": "VIP"
+        }
+    ]
+}
+```
+
+### Updating a label
+
+```json
+// PUT /admin/labels/{id}/
+{
+    "labels": [
+        {
+            "name": "Paid members"
+        }
+    ]
+}
+```
+
+### Deleting a label
+
+Use `DELETE /admin/labels/{id}/` to delete a label.

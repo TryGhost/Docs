@@ -252,6 +252,12 @@
                     ]
                   },
                   {
+                    "group": "Labels",
+                    "pages": [
+                      "admin-api/labels/overview"
+                    ]
+                  },
+                  {
                     "group": "Users",
                     "pages": [
                       "admin-api/users/overview",
@@ -273,6 +279,12 @@
                     "pages": [
                       "admin-api/themes/overview",
                       "admin-api/themes/uploading-a-theme"
+                    ]
+                  },
+                  {
+                    "group": "Site",
+                    "pages": [
+                      "admin-api/site/overview"
                     ]
                   },
                   {
