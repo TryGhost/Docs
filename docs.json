@@ -252,6 +252,12 @@
                     ]
                   },
                   {
+                    "group": "Labels",
+                    "pages": [
+                      "admin-api/labels/overview"
+                    ]
+                  },
+                  {
                     "group": "Users",
                     "pages": [
                       "admin-api/users/overview",
