@@ -73,7 +73,8 @@ Can be one of the following
 * `~` - contains
 * `~^` - starts with
 * `~$` - ends with
-* `[` value, value, … `]` - “in” group, can be negated with `-`
+* `[` value, value, … `]` - “in” group (matches **any** of the comma-separated values), can be negated with `-`
+* `[` value + value + … `]` - “all of” group (matches records that have **every** one of the plus-separated values). Only meaningful for fields that can match multiple related values, such as `tag`/`tags` or member `label`. Cannot be negated.
 
 #### Combinations
 
