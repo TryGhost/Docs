@@ -382,13 +382,11 @@ The server host and port are the IP address and port number that Ghost listens o
 
 ### Privacy
 
-All features inside the privacy.md file are enabled by default. It is possible to turn these off in order to protect privacy:
+Ghost includes a few features that connect to external services. They're all enabled by default, but each can be turned off to protect your privacy:
 
-* Update check
-* Gravatar
-* Structured data
-
-For more information about the features, read the [privacy.md page](https://github.com/TryGhost/Ghost/blob/2f09dd888024f143d28a0d81bede1b53a6db9557/PRIVACY.md).
+* **Gravatar** — Ghost checks [Gravatar](https://gravatar.com) to see whether a profile picture is associated with a user's email address.
+* **Structured data** — Ghost outputs Schema.org, Open Graph, and Twitter Card meta tags in `{{ghost_head}}` so your content can be recognised by search engines and social networks.
+* **IndexNow** — When you publish a post, Ghost pings the IndexNow API so participating search engines (such as Bing and Yandex) can discover and index your content more quickly.
 
 To turn off **all** of the features, use:
 
@@ -402,9 +400,9 @@ Alternatively, configure each feature individually:
 
 ```json
 "privacy": {
-    "useUpdateCheck": false,
     "useGravatar": false,
-    "useStructuredData": false
+    "useStructuredData": false,
+    "useIndexNow": false
 }
 ```
 
