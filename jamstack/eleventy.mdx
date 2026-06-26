@@ -10,210 +10,251 @@ description: Build a completely custom front-end for your Ghost site with the fl
   <img src="/images/0ed9faae-admin-api-eleventy-diagram_hu5ba97386724b594b90daeca2cbf04049_20855_1000x0_resize_q100_h2_box_3.webp" />
 </Frame>
 
-## Eleventy Starter Ghost
+## Eleventy and Ghost
 
-Eleventy is a “zero configuration” static site generator, meaning it works without any initial setup. That said, having some boilerplate code can really fast track the development process. **That’s why we’ve created an [Eleventy Starter for Ghost](https://github.com/TryGhost/eleventy-starter-ghost) on GitHub.**
+Eleventy is a good fit for a lightweight Ghost front-end. Ghost remains the CMS: editors write posts, manage pages, upload images, and handle publishing in Ghost Admin. Eleventy reads that content from the [Content API](/content-api/) when the site builds.
 
-### Prerequisites
+For most Eleventy sites, use the official [JavaScript Content API client](/content-api/javascript/). It is maintained as part of the [TryGhost SDK](https://github.com/TryGhost/SDK) and works in Node.js during Eleventy builds.
 
-A Ghost account is needed in order to source the content, a self hosted version or a [Ghost (Pro) Account](https://ghost.org/pricing/).
+Use the [Admin API](/admin-api/) only for private server-side scripts, such as imports or custom publishing tools. Do not put an Admin API key in client-side JavaScript.
 
-### Getting started
+## Prerequisites
 
-To begin, create a new project by either cloning the [Eleventy Starter Ghost repo](https://github.com/TryGhost/eleventy-starter-ghost) or forking the repo and then cloning the fork with the following CLI command:
+This configuration requires basic knowledge of JavaScript and HTML templates. You will also need:
+
+* A running Ghost site, either self-hosted or on [Ghost(Pro)](https://ghost.org/pricing/)
+* A custom integration in Ghost Admin so you can copy the Content API URL and key
+* An Eleventy project
+
+Create the Content API key from **Settings -> Integrations** in Ghost Admin. For more detail, see [Content API authentication](/content-api/#authentication).
+
+## Start from a new Eleventy site
+
+If you already have an Eleventy site, skip to the Content API setup. Otherwise, create a small project and install Eleventy:
 
 ```bash
-git clone git@github.com:TryGhost/eleventy-starter-ghost.git
+mkdir my-eleventy-site
+cd my-eleventy-site
+npm init -y
+npm install @11ty/eleventy @tryghost/content-api dotenv
 ```
 
-Navigate into the newly created project and use the command `yarn` to install the dependencies. Check out the official documentation on how to install [Yarn](https://yarnpkg.com/en/docs/install#mac-stable).
+Eleventy documents the same project setup in the [official Eleventy docs](https://www.11ty.dev/docs/).
 
-To test everything installed correctly, use the following command to run your project:
+## Install the Ghost Content API client
+
+If you started with an existing Eleventy site, install the Ghost Content API client:
 
 ```bash
-yarn start
+npm install @tryghost/content-api dotenv
 ```
 
-Then navigate to `http://localhost:8080/` in a browser and view the newly created Eleventy static site.
+Add your Ghost credentials to environment variables. A local `.env` file is fine if your deployment platform loads it and you keep it out of source control.
 
-<Frame>
-  <img src="/images/c8f5e69c-11ty-demo-screenshot_hu790d07d965c54347e81f228a6b805163_953696_1426x0_resize_q100_h2_box_3.webp" />
-</Frame>
-
-***
-
-### Customisation
-
-The Eleventy Starter for Ghost is configured to source content from [https://eleventy.ghost.io](https://eleventy.ghost.io). This can be changed in the `.env` file that comes with the starter.
-
-```yaml
-GHOST_API_URL=https://eleventy.ghost.io
-GHOST_CONTENT_API_KEY=5a562eebab8528c44e856a3e0a
-SITE_URL=http://localhost:8080
+```bash
+GHOST_API_URL=https://demo.ghost.io
+GHOST_CONTENT_API_KEY=22444f78447824223cefc48062
+GHOST_API_VERSION=v6.0
 ```
 
-Change the `GHOST_API_URL` value to the URL of the site. For Ghost(Pro) customers, this is the Ghost URL ending in .ghost.io, and for people using the self-hosted version of Ghost, it’s the same URL used to view the admin panel.
+For Ghost(Pro), the URL is usually your `.ghost.io` URL. For self-hosted Ghost, use the public URL for your Ghost install.
 
-Change the `GHOST_CONTENT_API_KEY` value to a key associated with the Ghost site. A key can be provided by creating an integration within the Ghost Admin. Navigate to Integrations and click “Add new integration”. Name the integration, something related like “Eleventy”, click create.
+## Fetch Ghost content with a global data file
 
-<Frame>
-  <img src="/images/d3673af2-apikey_huc23d3a1fbe859434094a9db94f574d9a_265920_2920x0_resize_q100_h2_box_3.webp" />
-</Frame>
-
-More information can be found on the [Content API documentation](/content-api/#key).
-
-**Using [Netlify](https://www.netlify.com/) to host your site? If so, the `netlify.toml` file that comes with the starter template provides the deployment configuration straight out of the box.**
-
-***
-
-## Next steps
-
-[The official Eleventy docs](https://www.11ty.io/docs) is a great place to learn more about how Eleventy works and how it can be used to build static sites.
-
-There’s also a guide for setting up a new static site, such as Eleventy, [with the hosting platform Netlify](https://ghost.org/integrations/netlify/) so Netlify can listen for updates on a Ghost site and rebuild the static site.
-
-For community led support about linking and building a Ghost site with Eleventy, [visit the forum](https://forum.ghost.org/c/themes/).
-
-## Examples
-
-*Here are a few common examples of using the Ghost Content API within an Eleventy project.*\*
-
-Retrieving data from the Content API within an Eleventy project is pretty similar to using the API in a JavaScript application. However there are a couple of conventions and techniques that will make the data easier to access when creating template files. The majority of these examples are intended to be placed in the `.eleventy.js` file in the root of the project, to find out more on configuring Eleventy refer to [their official documentation](https://www.11ty.io/docs/config/).
-
-## Initialising the Content API
-
-More information on setting up and using the Content API using the JavaScript Client Library can be found in [our API documentation](/content-api/javascript/)
+Eleventy global data files make API data available to every template. Create `_data/ghost.js`:
 
 ```js
-const ghostContentAPI = require("@tryghost/content-api");
+// _data/ghost.js
+require("dotenv").config();
+const GhostContentAPI = require("@tryghost/content-api");
 
-const api = new ghostContentAPI({
+const api = new GhostContentAPI({
   url: process.env.GHOST_API_URL,
   key: process.env.GHOST_CONTENT_API_KEY,
-  version: "v6.0"
+  version: process.env.GHOST_API_VERSION || "v6.0",
 });
-```
 
-## Retrieving posts
+async function browseAll(resource, options = {}) {
+  const items = [];
+  let page = 1;
 
-This example retrieves posts from the API and adds them as a new [collection to Eleventy](https://www.11ty.io/docs/collections/). The example also performs some sanitisation and extra meta information to each post:
+  while (page) {
+    const response = await resource.browse({
+      ...options,
+      limit: 100,
+      page,
+    });
 
-* Adding tag and author meta information to each post
-* Converting post date to a [JavaScript date object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) for easier manipulation in templates
-* Bring featured posts to the top of the list
-
-The maximum amount of items that can be fetched from a resource at once is 100, so use pagination to make sure all of the items are fetched:
-```js
-config.addCollection("posts", async function(collection) {
-  try {
-    let page = 1;
-    let hasMore = true;
-
-    while (hasMore) {
-      const posts = await api.posts.browse({
-        include: "tags,authors",
-        limit: 100,
-        page,
-      });
-
-      if (posts && posts.length > 0) {
-        collection.push(...posts.map((post) => ({
-          ...post,
-          url: stripDomain(post.url),
-          primary_author: {
-            ...post.primary_author,
-            url: stripDomain(post.primary_author.url)
-          },
-          tags: post.tags.map(tag => ({
-            ...tag,
-            url: stripDomain(tag.url)
-          })),
-          // Convert publish date into a Date object
-          published_at: new Date(post.published_at)
-        })));
-        // Use the meta pagination info to determine if there are more pages
-        page = posts.meta.pagination.next;
-        hasMore = page !== null;
-      } else {
-        hasMore = false;
-      }
-    }
-
-  // Bring featured post to the top of the list
-  collection.sort((post, nextPost) => nextPost.featured - post.featured);
-  
-  return collection
-  } catch (error) {
-    console.error(error);
-    return [];
+    items.push(...response);
+    page = response.meta.pagination.next || null;
   }
-});
-```
 
-This code fetches **all** posts because Eleventy creates the HTML files when the site is built and needs access to all the content at this step.
+  return items;
+}
 
-## Retrieving posts by tag
-
-You’ll often want a page that shows all the posts that are marked with a particular tag. This example creates an [Eleventy collection](https://www.11ty.io/docs/collections/) for the tags within a Ghost site, as well as attaching all the posts that are related to that tag:
-
-```js
-config.addCollection("tags", async function(collection) {
-  collection = await api.tags
-    .browse({
-      include: "count.posts", // Get the number of posts within a tag
-      limit: 100 // default is 15, max is 100 - use pagination for more
-    })
-    .catch(err => {
-      console.error(err);
-    });
-
-  // Get up to 100 posts with their tags attached
-  const posts = await api.posts
-    .browse({
-      include: "tags,authors",
-      limit: 100 // default is 15, max is 100 - use pagination for more
-    })
-    .catch(err => {
-      console.error(err);
-    });
-
-  // Attach posts to their respective tags
-  collection.map(async tag => {
-    const taggedPosts = posts.filter(post => {
-      return post.primary_tag && post.primary_tag.slug === tag.slug;
-    });
-
-    // Only attach the tagged posts if there are any
-    if (taggedPosts.length) tag.posts = taggedPosts;
-    return tag;
-  });
-
-  return collection;
-});
-```
-
-## Retrieving site settings
-
-We used this example within our [Eleventy Starter](https://github.com/TryGhost/eleventy-starter-ghost), but rather than putting this in the main configuration file it’s better to add it to a [Data file](https://www.11ty.io/docs/data/), which partitions it from other code and allows it to be attached to a global variable like `site`.
-
-```js
 module.exports = async function() {
-  const siteData = await api.settings
-    .browse({
-      include: "icon,url" // Get the site icon and site url
-    })
-    .catch(err => {
-      console.error(err);
-    });
+  const [posts, pages, tags, authors, settings] = await Promise.all([
+    browseAll(api.posts, { include: "tags,authors", order: "published_at DESC" }),
+    browseAll(api.pages, { include: "tags,authors" }),
+    browseAll(api.tags, { include: "count.posts" }),
+    browseAll(api.authors, { include: "count.posts" }),
+    api.settings.browse(),
+  ]);
 
-  return siteData;
+  return {
+    posts,
+    pages,
+    tags,
+    authors,
+    settings,
+  };
 };
 ```
 
-## Asynchronous data retrieval
+Ghost 6.0 and later limit each browse request to 100 records, so static builds need pagination. The helper above follows the `meta.pagination.next` value until there are no more pages. See [pagination for building static sites](/jamstack/#pagination-for-building-static-sites) and [Content API pagination](/content-api/pagination) for the underlying API behavior.
 
-All the examples above use asynchronous functions when getting data from the Content API. This is so Eleventy intentionally awaits until the content has come back completely before it starts building out static files.
+## List posts on the home page
+
+Create `index.njk` and read from the `ghost` data object:
+
+```njk
+---
+title: Latest posts
+---
+
+<!doctype html>
+<html lang="{{ ghost.settings.lang or 'en' }}">
+  <head>
+    <meta charset="utf-8">
+    <title>{{ ghost.settings.title }}</title>
+  </head>
+  <body>
+    <h1>{{ ghost.settings.title }}</h1>
+
+    <ul>
+      {% for post in ghost.posts %}
+        <li>
+          <a href="/posts/{{ post.slug }}/">{{ post.title }}</a>
+          {% if post.primary_author %}
+            by {{ post.primary_author.name }}
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
+```
+
+## Create one page per post
+
+Use Eleventy pagination with a page size of `1` to create a static page for every Ghost post.
+
+```njk
+---
+pagination:
+  data: ghost.posts
+  size: 1
+  alias: post
+permalink: "posts/{{ post.slug }}/index.html"
+---
+
+<!doctype html>
+<html lang="{{ ghost.settings.lang or 'en' }}">
+  <head>
+    <meta charset="utf-8">
+    <title>{{ post.title }} - {{ ghost.settings.title }}</title>
+  </head>
+  <body>
+    <article>
+      <h1>{{ post.title }}</h1>
+      {% if post.primary_author %}
+        <p>{{ post.primary_author.name }}</p>
+      {% endif %}
+      {{ post.html | safe }}
+    </article>
+  </body>
+</html>
+```
+
+Ghost returns post HTML from content written in Ghost Admin. Rendering it with the Nunjucks `safe` filter is normal for a trusted CMS source, but do not use it for untrusted user-submitted HTML.
+
+## Create tag and author pages
+
+The same `ghost` data object includes tags and authors. For example, this creates one archive page per tag:
+
+```njk
+---
+pagination:
+  data: ghost.tags
+  size: 1
+  alias: tag
+permalink: "tag/{{ tag.slug }}/index.html"
+---
+
+<!doctype html>
+<html lang="{{ ghost.settings.lang or 'en' }}">
+  <head>
+    <meta charset="utf-8">
+    <title>{{ tag.name }} - {{ ghost.settings.title }}</title>
+  </head>
+  <body>
+    <h1>{{ tag.name }}</h1>
+
+    <ul>
+      {% for post in ghost.posts %}
+        {% if post.primary_tag and post.primary_tag.slug == tag.slug %}
+          <li><a href="/posts/{{ post.slug }}/">{{ post.title }}</a></li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </body>
+</html>
+```
+
+For larger sites, pre-group posts by tag in `_data/ghost.js` so templates do less filtering work.
+
+## Run Eleventy locally
+
+Once the data file and templates are in place, start Eleventy's local development server:
+
+```bash
+npx @11ty/eleventy --serve
+```
+
+Eleventy serves the site at `http://localhost:8080/` by default.
+
+## Use the Admin API from private scripts
+
+The Admin API can create, update, and publish content. It is useful for migrations or custom editorial tooling, but it is not needed to render a public Eleventy front-end.
+
+Install the Admin API client only where the key stays private:
+
+```bash
+npm install @tryghost/admin-api
+```
+
+```js
+// scripts/create-draft.js
+const GhostAdminAPI = require("@tryghost/admin-api");
+
+const admin = new GhostAdminAPI({
+  url: process.env.GHOST_API_URL,
+  key: process.env.GHOST_ADMIN_API_KEY,
+  version: "v6.0",
+});
+
+admin.posts.add(
+  {
+    title: "Draft from a private script",
+    html: "<p>This draft was created through the Admin API.</p>",
+    status: "draft",
+  },
+  { source: "html" }
+);
+```
+
+Run Admin API scripts on your own machine, in CI, or on a server. Never ship `GHOST_ADMIN_API_KEY` to the browser.
 
 ## Next steps
 
-Check out our documentation on the [Content API Client Library](/content-api/javascript/) to see what else is possible, many of the examples there overlap with the examples above. [The official Eleventy docs site](https://www.11ty.io/docs)is very extensive as well if you wish to delve deeper into the API.
+Read the [Content API JavaScript client](/content-api/javascript/) docs for available endpoints and options. Eleventy's [global data files](https://www.11ty.dev/docs/data-global/) and [pagination](https://www.11ty.dev/docs/pagination/) docs explain how API data becomes static pages.
