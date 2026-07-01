@@ -98,7 +98,6 @@ There are a number of configuration options which are explained in detail in thi
 | `imageOptimization` | Optional      | Configure image manipulation and processing                                                                                      |
 | `opensea`           | Optional      | Increase rate limit for fetching NFT embeds from OpenSea.io                                                                      |
 | `klipy`             | Optional      | Enable integration with Klipy for embedding GIFs directly from the editor                                                       |
-| `tenor`             | Optional      | **Deprecated** — Tenor GIF integration (Google shuts down the Tenor API on June 30, 2026)                                        |
 | `twitter`           | Optional      | Add support for rich Twitter embeds in newsletters                                                                               |
 | `portal`            | Optional      | Relocate or remove the scripts for Portal                                                                                        |
 | `sodoSearch`        | Optional      | Relocate or remove the scripts for Sodo search                                                                                   |
@@ -845,20 +844,6 @@ You can [request a Klipy API key](https://partner.klipy.com) for free.
 ```json
 "klipy": {
     "apiKey": "..."
-}
-```
-
-### Tenor
-
-<Warning>
-  Google is shutting down the Tenor API on **June 30, 2026**, and new API key registrations have been frozen since January 2026. We recommend configuring [Klipy](#klipy) instead. Existing Tenor keys keep working until the shutdown date, and GIFs already embedded in your published content will continue to display afterwards.
-</Warning>
-
-If you already have a Tenor API key, GIF search remains available until the shutdown date. Provide your key from Google’s cloud console:
-
-```json
-"tenor": {
-    "googleApiKey": "..."
 }
 ```
 
