@@ -1,0 +1,7 @@
+allowBuilds:
+  '@scarf/scarf': false
+  keytar: false
+  puppeteer: false
+  sharp: false
+
+strictDepBuilds: true

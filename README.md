@@ -6,11 +6,13 @@ This repository contains the official developer documentation for
 
 ## Local development
 
-Local previews require Node.js v20.17.0 or later and the Mintlify CLI:
+Local previews require a Node.js version supported by [`package.json`](./package.json).
+Enable pnpm through Corepack and install the repository dependencies:
 
 ```sh
-npm i -g mint
-mint dev
+corepack enable pnpm
+pnpm install
+pnpm dev
 ```
 
 The preview is available at `http://localhost:3000` by default.
@@ -20,9 +22,8 @@ The preview is available at `http://localhost:3000` by default.
 Run the documentation checks before opening a pull request:
 
 ```sh
-mint validate
-mint broken-links --check-anchors --check-redirects --check-snippets
-mint a11y
+pnpm test
+pnpm a11y
 ```
 
 These checks currently expose known findings on `main`. Compare your results
