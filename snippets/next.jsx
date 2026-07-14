@@ -1,11 +1,11 @@
 export const NextLogo = ({ width = 32, height = 32 }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    height={ height }
-    width={ width }
+    height={height}
+    width={width}
     viewBox="0 0 16 16"
     strokeLinejoin="round"
-    style={ { color: 'currentColor' } }
+    style={{ color: 'currentColor' }}
   >
     <g clipPath="url(#clip0_53_108)">
       <circle

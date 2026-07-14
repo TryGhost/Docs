@@ -33,6 +33,7 @@ The preview is available at `http://localhost:3000` by default.
 Before opening a pull request, run:
 
 ```sh
+pnpm lint
 pnpm test
 pnpm a11y
 ```
