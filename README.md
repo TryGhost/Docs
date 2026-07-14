@@ -1,25 +1,47 @@
 # Ghost Docs
 
-Official documentation for [Ghost](https://github.com/tryghost/ghost) - located at [https://docs.ghost.org](https://docs.ghost.org)
+This repository contains the official developer documentation for
+[Ghost](https://github.com/TryGhost/Ghost), published at
+[docs.ghost.org](https://docs.ghost.org/).
 
-### Development
+## Local development
 
-**Note:** Requires Node.js v20.17.0 or higher.
+Local previews require Node.js v20.17.0 or later and the Mintlify CLI:
 
-Install Mintlify CLI to preview docs changes locally:
-
-```bash
+```sh
 npm i -g mint
-```
-
-Start dev server with:
-
-```bash
 mint dev
 ```
 
+The preview is available at `http://localhost:3000` by default.
+
+## Validation
+
+Run the documentation checks before opening a pull request:
+
+```sh
+mint validate
+mint broken-links --check-anchors --check-redirects --check-snippets
+mint a11y
+```
+
+These checks currently expose known findings on `main`. Compare your results
+with `main` and avoid introducing additional failures.
+
+See the [contribution guide](.github/CONTRIBUTING.md) for the repository
+workflow.
+
+## Deployment
+
+The Mintlify GitHub App creates pull request previews. Merging to `main`
+triggers deployment to [docs.ghost.org](https://docs.ghost.org/); monitor the
+`Mintlify Deployment` check for the result.
+
 ---
 
-Copyright (C) 2013-2026 Ghost Foundation - all rights reserved. 
+## Copyright & License
 
-Ghost and the Ghost Logo are trademarks of Ghost Foundation Ltd. Please see our [trademark policy](https://ghost.org) for info on acceptable usage.
+Copyright (c) 2013-2026 Ghost Foundation. All rights reserved.
+
+This code is considered closed-source and not for distribution. There is no
+open source license associated with this project.
