@@ -18,12 +18,14 @@ The Ghost Foundation acknowledges that, except as explicitly described in this A
 ## Working on the documentation
 
 This repository contains the Mintlify source for
-[docs.ghost.org](https://docs.ghost.org/). Local previews require Node.js
-v20.17.0 or later and the Mintlify CLI:
+[docs.ghost.org](https://docs.ghost.org/). Local previews require a Node.js
+version supported by [`package.json`](../package.json). Enable pnpm through
+Corepack and install the repository dependencies:
 
 ```sh
-npm i -g mint
-mint dev
+corepack enable pnpm
+pnpm install
+pnpm dev
 ```
 
 The preview is available at `http://localhost:3000` by default.
@@ -31,9 +33,8 @@ The preview is available at `http://localhost:3000` by default.
 Before opening a pull request, run:
 
 ```sh
-mint validate
-mint broken-links --check-anchors --check-redirects --check-snippets
-mint a11y
+pnpm test
+pnpm a11y
 ```
 
 These checks currently expose known findings on `main`. Compare your results

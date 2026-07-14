@@ -1,23 +1,10 @@
 {
     "$schema": "https://docs.renovatebot.com/renovate-schema.json",
     extends: ["local>TryGhost/renovate-config"],
-    customManagers: [
-        {
-            customType: "regex",
-            description: "Update the Mint CLI version used by documentation CI",
-            managerFilePatterns: ["/^\\.github\\/workflows\\/ci\\.yml$/"],
-            matchStrings: [
-                "npm install --global mint@(?<currentValue>\\d+\\.\\d+\\.\\d+)",
-            ],
-            depNameTemplate: "mint",
-            datasourceTemplate: "npm",
-            versioningTemplate: "npm",
-        },
-    ],
     packageRules: [
         {
             description: "Require manual review for Mint CLI updates because Mint defines documentation validation behavior",
-            matchManagers: ["custom.regex"],
+            matchManagers: ["npm"],
             matchPackageNames: ["mint"],
             automerge: false,
         },

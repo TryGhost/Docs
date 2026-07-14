@@ -5,26 +5,29 @@ This repository contains Ghost's Mintlify-powered developer documentation. See
 
 ## Tooling
 
-- Use Node.js v20.17.0 or later.
-- Install the CLI with `npm i -g mint`.
-- There is no package manifest or repository-local dependency installation.
+- Use a Node.js version supported by `package.json`.
+- Enable pnpm with `corepack enable pnpm`.
+- Install the repository-local Mintlify CLI with `pnpm install`.
 
 ## Commands
 
 ```sh
+# Bootstrap pnpm
+corepack enable pnpm
+pnpm install
+
 # Preview at http://localhost:3000
-mint dev
+pnpm dev
 
 # Preview on a different port
-mint dev --port 3333
+pnpm dev --port 3333
 
 # Run documentation checks
-mint validate
-mint broken-links --check-anchors --check-redirects --check-snippets
-mint a11y
+pnpm test
+pnpm a11y
 
 # Clear the local cache when preview behavior is stale
-rm -rf ~/.mintlify && mint dev
+rm -rf ~/.mintlify && pnpm dev
 ```
 
 The validation commands currently report known findings on `main`. Compare
