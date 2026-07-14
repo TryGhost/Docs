@@ -16,15 +16,6 @@
     ],
     packageRules: [
         {
-            description: "Keep CI pinned to Node 20.17.0 because it is the documented minimum supported runtime",
-            matchManagers: ["github-actions"],
-            matchDepTypes: ["uses-with"],
-            matchDepNames: ["node"],
-            matchPackageNames: ["actions/node-versions"],
-            matchCurrentValue: "20.17.0",
-            allowedVersions: "20.17.0",
-        },
-        {
             description: "Require manual review for Mint CLI updates because Mint defines documentation validation behavior",
             matchManagers: ["custom.regex"],
             matchPackageNames: ["mint"],
