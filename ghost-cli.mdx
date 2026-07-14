@@ -749,4 +749,4 @@ sudo find /var/www/ghost/* -type d -exec chmod 775 {} \;
 sudo find /var/www/ghost/* -type f -exec chmod 664 {} \;
 ```
 
-The cli doesn’t support directory flags such as `setuid` and `setguid`). If your commands keep failing because of file permissions, ensure your directories have no flags!
+The CLI doesn’t support directory flags such as `setuid` and `setgid`. If your commands keep failing because of file permissions, ensure your directories have no flags!
