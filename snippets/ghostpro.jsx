@@ -1,7 +1,7 @@
 export const GhostProLogo = ({ width = 48, height = 32 }) => (
   <svg
-    width={ width }
-    height={ height }
+    width={width}
+    height={height}
     viewBox="0 0 214 114"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -41,21 +41,9 @@ export const GhostProLogo = ({ width = 48, height = 32 }) => (
         />
         <feOffset dy="2" />
         <feGaussianBlur stdDeviation="2" />
-        <feColorMatrix
-          type="matrix"
-          values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"
-        />
-        <feBlend
-          mode="normal"
-          in2="BackgroundImageFix"
-          result="effect1_dropShadow"
-        />
-        <feBlend
-          mode="normal"
-          in="SourceGraphic"
-          in2="effect1_dropShadow"
-          result="shape"
-        />
+        <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0" />
+        <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow" />
+        <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape" />
       </filter>
       <linearGradient
         id="paint0_linear"
@@ -70,4 +58,4 @@ export const GhostProLogo = ({ width = 48, height = 32 }) => (
       </linearGradient>
     </defs>
   </svg>
-); 
+);

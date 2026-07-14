@@ -1,7 +1,7 @@
 export const UbuntuLogo = ({ width = 32, height = 32 }) => (
   <svg
-    width={ width }
-    height={ height }
+    width={width}
+    height={height}
     viewBox="0 0 285 285"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -15,4 +15,4 @@ export const UbuntuLogo = ({ width = 32, height = 32 }) => (
       fill="white"
     />
   </svg>
-); 
+);

@@ -23,6 +23,7 @@ pnpm dev
 pnpm dev --port 3333
 
 # Run documentation checks
+pnpm lint
 pnpm test
 pnpm a11y
 
