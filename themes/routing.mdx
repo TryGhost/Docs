@@ -171,7 +171,7 @@ collections:
     template: index
 ```
 
-Using an example from the previous section on [custom routes](/themes/routing/#routes), the home `/` route is now pointing at a static template called `home.hbs` — and the main collection has now been moved to load on `site.com/blog/`. Each post URL is also prefixed with `/blog/`.
+Using an example from the previous section on [custom routes](/themes/routing/#custom-routes), the home `/` route is now pointing at a static template called `home.hbs` — and the main collection has now been moved to load on `site.com/blog/`. Each post URL is also prefixed with `/blog/`.
 
 ***
 
@@ -219,7 +219,7 @@ Collections are an incredibly powerful way to organize your content and your sit
 
 #### Loading data into the index
 
-Much like [custom routes](/themes/routing/#routes), collections can also accept a data property in order to pass in the data to the collection’s index. For example, you might have a collection called `portfolio` which lists all of your most recent work. But how do you set the title, description, and metadata for *that* collection index?
+Much like [custom routes](/themes/routing/#custom-routes), collections can also accept a data property in order to pass in the data to the collection’s index. For example, you might have a collection called `portfolio` which lists all of your most recent work. But how do you set the title, description, and metadata for *that* collection index?
 
 ```yaml
 collections:
@@ -278,7 +278,7 @@ Each of these comes with its own automatically generated RSS feeds that are acce
 
 ### Customising taxonomies
 
-The configuration options for taxonomies are a lot more basic than [routes](/themes/routing/#routes) and [collections](/themes/routing/#collections). You can’t define new or custom taxonomies, you can only modify those which are already there and adapt their syntax a small amount.
+The configuration options for taxonomies are a lot more basic than [routes](/themes/routing/#custom-routes) and [collections](/themes/routing/#collections). You can’t define new or custom taxonomies, you can only modify those which are already there and adapt their syntax a small amount.
 
 ```yaml
 taxonomies:
@@ -315,7 +315,7 @@ Unlike [collections](/themes/routing/#collections), channels have no influence o
 
 ### Creating a channel
 
-Channels are defined as a [custom route](/themes/routing/#routes), with a custom `controller` property called `channel`, and a filter to determine which posts to return.
+Channels are defined as a [custom route](/themes/routing/#custom-routes), with a custom `controller` property called `channel`, and a filter to determine which posts to return.
 
 ```yaml
 routes:
@@ -373,7 +373,7 @@ If you’re still not sure which is the best fit for you, drop by the [Ghost For
 | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `template`     | Determines which Handlebars template file will be used for this route. Defaults to `index.hbs` if not specified.                                                                                                                                                                                                                                                                                                                                                             |
 | `permalink`    | The generated URL for any post within a collection. Can contain dynamic variables based on post data:<br/>• `{id}` - unique set of characters, eg. `5982d807bcf38100194efd67`<br/>• `{slug}` - the post slug, eg. `my-post`<br/>• `{year}` - publication year, eg. `2019`<br/>• `{month}` - publication month, eg. `04`<br/>• `{day}` - publication day, eg. `29`<br/>• `{primary_tag}` - slug of first tag listed in the post, eg. `news`<br/>• `{primary_author}` - slug of first author, eg. `cameron` |
-| `filter`       | Extensively filter posts returned in collections and channels using the full power and syntax of the [Ghost Content API](/content-api/#filtering) For example `author:cameron+tag:news` will return all posts published by Cameron, tagged with ‘News’. Mix and match to suit.                                                                                                                                                                                          |
+| `filter`       | Extensively filter posts returned in collections and channels using the full power and syntax of the [Ghost Content API](/content-api/filtering/#syntax-reference) For example `author:cameron+tag:news` will return all posts published by Cameron, tagged with ‘News’. Mix and match to suit.                                                                                                                                                                                          |
 | `order`        | Choose any number of fields and sort orders for your content:<br/>• `published_at desc` - *default*, newest post first<br/>• `published_at asc` - chronological, oldest first<br/>• `featured desc, published_at desc` - featured posts, then normal posts, newest first                                                                                                                                                                                                                  |
 | `data`         | Fetch & associate data from the Ghost API with a specified route. The source route of the data will be redirected to the new custom route.<br/>• `post.slug` - get data with => `{{#post}}`<br/>• `page.slug` - get data with => `{{#page}}`<br/>• `tag.slug` - get data with => `{{#tag}}`<br/>• `author.slug` - get data with => `{{#author}}`                                                                                                                                              |
 | `rss`          | Collections and channels come with automatically generated RSS feeds which can be disabled by setting the `rss` property to `false`                                                                                                                                                                                                                                                                                                                                          |
