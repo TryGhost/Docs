@@ -38,7 +38,7 @@
           {
             "group": " ",
             "pages": [
-              "/"
+              "index"
             ]
           }
         ]
@@ -323,7 +323,7 @@
               "changes",
               "contributing",
               "llm",
-              "license",
+              "license/index",
               "logos",
               "trademark"
             ]
