@@ -53,7 +53,7 @@ Requests with JSON payloads require the `Content-Type: application/json` header.
 
 ### Pagination
 
-All browse endpoints are paginated, returning 15 records by default. You can use the [page](#page) and [limit](#limit) parameters to move through the pages of records. The response object contains a `meta.pagination` key with information on the current location within the records:
+All browse endpoints are paginated, returning 15 records by default. You can use the [page](/content-api/parameters/#page) and [limit](/content-api/parameters/#limit) parameters to move through the pages of records. The response object contains a `meta.pagination` key with information on the current location within the records:
 
 ```json
 "meta": {
@@ -415,7 +415,7 @@ The provided session cookie should be provided with every subsequent API request
 * When using XHR you should set the `withCredentials` property of the xhr to `true`
 * When using cURL you can use the `--cookie` and `--cookie-jar` options to store and send cookies from a text file.
 
-**CSRF Protection**
+#### CSRF Protection
 
 Session-based requests must also include either an Origin (preferred) or a Referer header. The value of these headers is checked against the original session creation requests, in order to prevent Cross-Site Request Forgery (CSRF) in a browser environment. In a browser environment, these headers are handled automatically. For server-side or native apps, the Origin header should be sent with an identifying URL as the value.
 

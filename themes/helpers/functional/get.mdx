@@ -117,7 +117,7 @@ To output different content when there are no results returned from the `{{#get}
 
 ## Attributes
 
-Use `{{#get}}` helper attributes to specify which data is returned. Available attributes are identical to those used with the [Ghost Content API](/content-api/#parameters).
+Use `{{#get}}` helper attributes to specify which data is returned. Available attributes are identical to those used with the [Ghost Content API](/content-api/parameters/).
 
 “Browse” requests (fetching multiple items) accept any or all of these attributes. “Read” requests (fetching a single item by **id** or **slug**) only accept the **include** attribute.
 
@@ -275,7 +275,7 @@ Use `filter` to make complex, logic-based queries on the data to fetch. In its m
 {{/get}}
 ```
 
-Specify multiple rules for the `filter` attribute by using `,` for *or*, `+` for *and*, and `-` for *negation*. It’s possible to check for booleans, match against strings, look for items within a group, and much more. For a full breakdown of the filtering syntax and how to use it, please see the [filter documentation in the API docs](/content-api/#filtering).
+Specify multiple rules for the `filter` attribute by using `,` for *or*, `+` for *and*, and `-` for *negation*. It’s possible to check for booleans, match against strings, look for items within a group, and much more. For a full breakdown of the filtering syntax and how to use it, please see the [filter documentation in the API docs](/content-api/filtering/#syntax-reference).
 
 #### Passing data to `filter`
 

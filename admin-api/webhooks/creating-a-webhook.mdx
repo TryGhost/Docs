@@ -6,9 +6,9 @@ title: Creating a Webhook
 POST /admin/webhooks/
 ```
 
-Required fields: `event`, `target_url` Conditionally required field: `integration_id` - required if request is done using [user authentication](#user-authentication) Optional fields: `name`, `secret`, `api_version`
+Required fields: `event`, `target_url` Conditionally required field: `integration_id` - required if request is done using [user authentication](/admin-api/#user-authentication) Optional fields: `name`, `secret`, `api_version`
 
-Example to create a webhook using [token authenticated](#token-authentication) request.
+Example to create a webhook using [token authenticated](/admin-api/#token-authentication) request.
 <RequestExample>
 ```json
 // POST /admin/webhooks/
@@ -21,7 +21,7 @@ Example to create a webhook using [token authenticated](#token-authentication) r
 ```
 </RequestExample>
 
-When creating a webhook through [user authenticated](#user-authentication) request, minimal payload would look like following:
+When creating a webhook through [user authenticated](/admin-api/#user-authentication) request, minimal payload would look like following:
 
 ```json
 // POST /admin/webhooks/
