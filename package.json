@@ -15,7 +15,7 @@
         "test:links": "mint broken-links --check-anchors --check-redirects --check-snippets --telemetry=false"
     },
     "devDependencies": {
-        "mint": "4.2.694",
+        "mint": "4.2.724",
         "oxfmt": "0.59.0",
         "oxlint": "1.74.0"
     },
