@@ -742,7 +742,12 @@ Configure how Ghost should log, for example:
   "rotation": {
     "enabled": true,
     "count": 15,
-    "period": "1d"
+    "period": "1d",
+    "useLibrary": true,
+    "threshold": "10m",
+    "totalSize": "100m",
+    "gzip": true,
+    "rotateExisting": true
   },
   "transports": ["stdout", "file"]
 }
@@ -755,6 +760,14 @@ The default log level is `info` which prints all info, warning and error logs. S
 #### `rotation`
 
 Tell Ghost to rotate your log files. By default Ghost keeps 10 log files and rotates every day. Rotation is enabled by default in production and disabled in development.
+
+In addition to default time-based rotation, Ghost supports size-based log rotation and compression settings under the `rotation` key:
+
+* **`useLibrary`** (boolean): Set to `true` to enable the advanced file rotation library (using a rotating file stream stream instead of classical time-only Bunyan rotation). Note that configuring any of `threshold`, `gzip`, or `rotateExisting` automatically defaults `useLibrary` to `true`.
+* **`threshold`** (string): Limit the size of a log file before rotating it, e.g., `"10m"` (10 Megabytes) or `"500k"`.
+* **`totalSize`** (string): Limit the total size cap of all rotated log files, e.g., `"100m"` or `"1g"`.
+* **`gzip`** (boolean): Set to `true` to compress rotated log files using gzip.
+* **`rotateExisting`** (boolean): Set to `true` to force a log rotation when Ghost starts up if a log file already exists.
 
 #### `transports`
 
