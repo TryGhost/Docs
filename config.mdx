@@ -512,6 +512,68 @@ The storage block should have 2 items:
 * `media` - storage of media files uploaded through `POST '/media/upload'` and `POST/media/thumbnail/upload` endpoints
 * `files` - storage of generic files uploaded through `POST '/files/upload'` endpoint
 
+#### Ghost's built-in S3-compatible storage adapter
+
+Ghost ships with an `S3Storage` adapter that stores files in Amazon S3 or any S3-compatible provider like MinIO, Google Cloud Storage, or Cloudflare R2. You don't need to install anything extra.
+
+You can set adapters per feature, so media and files can live in S3 while images stay on local storage. There's no need to move everything at once.
+
+Share a single `S3Storage` block and point each feature at its fixed prefix with `staticFileURLPrefix` (see the table below for the values). If your CDN host differs from your site's domain, also set the matching `urls` values:
+
+```json
+"storage": {
+    "active": "S3Storage",
+    "media": {
+        "adapter": "S3Storage",
+        "staticFileURLPrefix": "content/media"
+    },
+    "files": {
+        "adapter": "S3Storage",
+        "staticFileURLPrefix": "content/files"
+    },
+    "S3Storage": {
+        "bucket": "my-ghost-bucket",
+        "region": "us-east-1",
+        "cdnUrl": "https://cdn.example.com",
+        "staticFileURLPrefix": "content/images",
+        "accessKeyId": "AKIA...",
+        "secretAccessKey": "...",
+        "multipartUploadThresholdBytes": 52428800,
+        "multipartChunkSizeBytes": 10485760
+    }
+},
+"urls": {
+    "image": "https://cdn.example.com/content/images",
+    "media": "https://cdn.example.com/content/media",
+    "files": "https://cdn.example.com/content/files"
+}
+```
+
+Set `urls.image`, `urls.media`, and `urls.files` to the public base URL each feature is served from. Without them, Ghost won't treat CDN-hosted assets as its own: it won't generate responsive image sizes, and it stores the full CDN URL in your content instead of the portable `__GHOST_URL__` form, which breaks if the CDN host later changes.
+
+| Option | Required | Description |
+|---|---|---|
+| `bucket` | Yes | Name of the S3 bucket. Stored files must be publicly readable, either directly or through your CDN, since Ghost serves them from `cdnUrl`. |
+| `cdnUrl` | Yes | Public base URL that stored files are served from (your CDN or the bucket's public URL). Ghost builds each file's public URL from this value. |
+| `staticFileURLPrefix` | Yes | Path prefix in the bucket that files are stored under. Use the feature's fixed prefix: `content/images`, `content/media`, or `content/files`. Ghost matches these when building and resolving URLs, so they aren't free-form. Responsive image sizes only work when images use `content/images`. |
+| `multipartUploadThresholdBytes` | Yes | Files at least this size (in bytes) are uploaded using S3 multipart upload. |
+| `multipartChunkSizeBytes` | Yes | Size (in bytes) of each multipart part. Must be at least 5 MiB (`5242880`). |
+| `region` | No | Region of the bucket. Not required by all providers, but Amazon S3 needs it. |
+| `endpoint` | No | Custom endpoint URL. Set this for any S3-compatible provider other than Amazon S3. |
+| `forcePathStyle` | No | Use path-style URLs (`endpoint/bucket/key`) instead of virtual-hosted-style. Required by some S3-compatible providers. |
+| `tenantPrefix` | No | Prefix added to every stored object key, for sharing one bucket across multiple sites. |
+| `accessKeyId` | No | Access key ID. Must be supplied together with `secretAccessKey`. If both are omitted, Ghost falls back to the ambient AWS credential chain (environment variables, instance role, etc.). |
+| `secretAccessKey` | No | Secret access key. Must be supplied together with `accessKeyId`. |
+| `sessionToken` | No | Temporary session token to accompany the access key pair when using short-lived credentials. |
+
+<Warning>
+**Image resizing on a CDN.** Ghost generates responsive image sizes on demand, at paths like `/content/images/size/w600/...`, and expects those URLs to resolve. It can only generate a resized image when the request passes through Ghost itself. If images are served straight from a CDN, those resized paths won't exist in your bucket unless something else creates them. Put a resizing layer in front of the bucket, such as [imgproxy](https://imgproxy.net/) or a CDN that can resize images on the fly. Ghost doesn't manage that layer for you.
+</Warning>
+
+<Note>
+Switching an existing site to S3 doesn't move files that are already stored locally. Copy what's already in `content/images`, `content/media`, and `content/files` into the bucket under the same prefixes first, or previously uploaded assets will 404.
+</Note>
+
 #### Available custom storage adapters
 
 * [local-file-store](https://github.com/TryGhost/Ghost/blob/fa1861aad3ba4e5e1797cec346f775c5931ca856/ghost/core/core/server/adapters/storage/LocalFilesStorage.js) (default) saves images to the local filesystem
