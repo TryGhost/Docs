@@ -1,13 +1,13 @@
 ---
 title: "How To Install Ghost On Ubuntu"
-description: "A full guide for installing, configuring and running Ghost on your Ubuntu **22.04** or **24.04** server, for use in production"
+description: "A full guide for installing, configuring and running Ghost on your Ubuntu **22.04**, **24.04** or **26.04** server, for use in production"
 ---
 
 ---
 
 ## Overview
 
-This the official guide for self-hosting Ghost using our recommended stack of Ubuntu 22.04 or 24.04. If you’re comfortable installing, maintaining and updating your own software, this is the place for you. By the end of this guide you’ll have a fully configured Ghost install running in production using MySQL.
+This the official guide for self-hosting Ghost using our recommended stack of Ubuntu 22.04, 24.04 or 26.04. If you’re comfortable installing, maintaining and updating your own software, this is the place for you. By the end of this guide you’ll have a fully configured Ghost install running in production using MySQL.
 
 This install is **not** suitable for [local use](/install/local/) or [contributing](/install/source/) to core.
 
@@ -21,10 +21,10 @@ To self-host web analytics or fully self-host the ActivityPub service, you will 
 
 The officially recommended production installation requires the following stack:
 
-- Ubuntu 22.04 or Ubuntu 24.04
+- Ubuntu 22.04, Ubuntu 24.04 or Ubuntu 26.04
 - NGINX (minimum of 1.9.5 for SSL)
 - A [supported version](/faq/node-versions/) of [Node.js](https://nodejs.org)
-- MySQL 8
+- MySQL 8.0 or 8.4
 - Systemd
 - A server with at least 1GB memory
 - A registered domain name
@@ -105,7 +105,7 @@ On newer versions of Ubuntu, the root user created when you install MySQL will b
 # Enter mysql
 sudo mysql
 # Update permissions
-ALTER USER 'root'@'localhost' IDENTIFIED WITH 'mysql_native_password' BY '<your-new-root-password>';
+ALTER USER 'root'@'localhost' IDENTIFIED WITH 'caching_sha2_password' BY '<your-new-root-password>';
 # Reread permissions
 FLUSH PRIVILEGES;
 # exit mysql
