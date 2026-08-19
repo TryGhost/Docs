@@ -47,20 +47,11 @@ Members are stored in Ghost with the following attributes:
 * `stripe_customer_id`
 * `status` (free/paid/complimentary)
 * `labels`
-* `tiers`
 * `created_at`
 
 ### Imports
 
 It’s possible to import Members from any other platform. If you have a list of email addresses, this can be ported into Ghost via CSV, Zapier, or the API.
-
-### Importing with tiers
-
-If the `tiers` field is supplied, the subscription in Stripe will be updated so it uses the product that Ghost created when you created tiers. The amount charged will not be changed, and discounts are honoured. This is transparent to the subscriber, and no emails are sent.
-
-For example, if you imported someone who previously paid &dollar;5 per month with a 20% forever discount, and imported them onto a tier called "Premium" which is normally charged at &dollar;8 per month, their subscription will stay at &dollar;5 with a 20% discount, but on that "Premium" tier.
-
-You should create tiers before importing paid subscribers; otherwise, Ghost will not import the member because the tier & product in Stripe will not be found.
 
 ## 2. Subscriptions
 
