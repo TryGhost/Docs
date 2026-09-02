@@ -232,6 +232,10 @@ Ghost uses [Nodemailer](https://github.com/nodemailer/nodemailer/) under the hoo
 
 We recommend ensuring transactional emails are functional before moving on to bulk mail configuration.
 
+<Warning>
+Some hosting providers block outbound SMTP. DigitalOcean blocks ports 25, 465 and 587 on all Droplets by default, and Google Cloud blocks port 25 on Compute Engine instances. If the port your mail config resolves to is one of the blocked ones, transactional email fails with a connection timeout until you switch to a port your provider allows — see [DigitalOcean](/faq/digitalocean-smtp-blocked/) and [Google Cloud](/faq/mail-config-error-google-cloud/).
+</Warning>
+
 #### Configuring with Mailgun
 
 [Mailgun](https://www.mailgun.com/) is a service for sending emails and provides more than adequate resources to send bulk emails at a reasonable price. Find out more about [using Mailgun with Ghost here](/faq/mailgun-newsletters/).
