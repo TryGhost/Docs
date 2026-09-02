@@ -82,7 +82,7 @@ That’s it! You’re done.
 Ghost needs a mail provider configured to send transactional email such as staff invites, password resets and member signup links. Follow the [mail configuration guide](/config/#mail) to add your credentials.
 
 <Warning>
-DigitalOcean [blocks outbound SMTP](https://docs.digitalocean.com/support/why-is-smtp-blocked/) on ports 25, 465 and 587 on all Droplets by default, including Droplets with a Reserved IP. With the default configuration, Ghost fails to send transactional email with `Connection timeout`. Set your mail config to use port 2525 instead — see [Connection timeout when sending email on DigitalOcean](/faq/digitalocean-smtp-blocked/).
+DigitalOcean [blocks outbound SMTP](https://docs.digitalocean.com/support/why-is-smtp-blocked/) on ports 25, 465 and 587 on all Droplets by default, including Droplets with a Reserved IP. The Mailgun configuration in the mail guide resolves to port 465, so Ghost fails to send transactional email with `Connection timeout`. With Mailgun, use port 2525 instead; with any other provider, use whichever alternative port they support — see [Connection timeout when sending email on DigitalOcean](/faq/digitalocean-smtp-blocked/).
 </Warning>
 
 ***

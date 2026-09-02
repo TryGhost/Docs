@@ -15,7 +15,7 @@ Failed to send email. Reason: Connection timeout.
 
 ## Fix
 
-Most mail providers offer an alternative submission port that isn't blocked. Mailgun accepts SMTP on port **2525**, so set the port explicitly in your `config.production.json`:
+Most mail providers offer an alternative submission port that isn't blocked. Mailgun accepts SMTP on port **2525**, so set the host and port explicitly in your `config.production.json`:
 
 ```json
 // config.production.json
@@ -23,10 +23,10 @@ Most mail providers offer an alternative submission port that isn't blocked. Mai
 "mail": {
   "transport": "SMTP",
   "options": {
-    "service": "Mailgun",
     "host": "smtp.mailgun.org",
     "port": 2525,
     "secure": false,
+    "requireTLS": true,
     "auth": {
       "user": "postmaster@example.mailgun.org",
       "pass": "1234567890"
@@ -37,8 +37,12 @@ Most mail providers offer an alternative submission port that isn't blocked. Mai
 
 Run `ghost restart` for the change to take effect, then send a test invite to confirm mail is working.
 
+<Warning>
+Don't add `"service": "Mailgun"` to this config. Ghost uses [Nodemailer](https://nodemailer.com/smtp/well-known-services/) under the hood, and its `service` presets are applied **after** your own options, not before. The `Mailgun` preset sets port `465` with implicit TLS, so it silently overrides an explicit `port` of `2525` and the connection times out again. Omit `service` entirely and set `host` and `port` yourself.
+</Warning>
+
 <Note>
-Port 2525 doesn't support implicit TLS, so `secure` must be `false`. Nodemailer still upgrades the connection with STARTTLS, so credentials and message contents aren't sent in plaintext.
+Port 2525 doesn't support implicit TLS, so `secure` must be `false`. Setting `requireTLS` to `true` makes Nodemailer upgrade the connection with STARTTLS and fail the send if the upgrade doesn't succeed. Without it, Nodemailer only attempts STARTTLS when the server advertises support for it, and otherwise continues unencrypted.
 </Note>
 
 If you use a provider other than Mailgun, check their documentation for a supported alternative port — 2525 is a common choice, but it isn't universal.
