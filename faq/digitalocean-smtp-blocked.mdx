@@ -1,0 +1,48 @@
+---
+title: "Connection timeout when sending email on DigitalOcean"
+description: DigitalOcean blocks outbound SMTP on ports 25, 465 and 587 by default, which causes Ghost to fail with a connection timeout when sending transactional email.
+---
+
+***
+
+If Ghost is installed on a DigitalOcean Droplet and staff invites, password resets or member signup emails fail with:
+
+```
+Failed to send email. Reason: Connection timeout.
+```
+
+...the cause is almost always DigitalOcean's [outbound SMTP block](https://docs.digitalocean.com/support/why-is-smtp-blocked/). DigitalOcean blocks outbound traffic on ports **25**, **465** and **587** on all Droplets by default, including Droplets using a Reserved IP. Ghost's mail config can't reach your mail provider, so the connection hangs until it times out.
+
+## Fix
+
+Most mail providers offer an alternative submission port that isn't blocked. Mailgun accepts SMTP on port **2525**, so set the port explicitly in your `config.production.json`:
+
+```json
+// config.production.json
+
+"mail": {
+  "transport": "SMTP",
+  "options": {
+    "service": "Mailgun",
+    "host": "smtp.mailgun.org",
+    "port": 2525,
+    "secure": false,
+    "auth": {
+      "user": "postmaster@example.mailgun.org",
+      "pass": "1234567890"
+    }
+  }
+},
+```
+
+Run `ghost restart` for the change to take effect, then send a test invite to confirm mail is working.
+
+<Note>
+Port 2525 doesn't support implicit TLS, so `secure` must be `false`. Nodemailer still upgrades the connection with STARTTLS, so credentials and message contents aren't sent in plaintext.
+</Note>
+
+If you use a provider other than Mailgun, check their documentation for a supported alternative port — 2525 is a common choice, but it isn't universal.
+
+## Newsletters are unaffected
+
+This only affects transactional email sent over SMTP. Bulk email for newsletters is sent through the Mailgun API over HTTPS, which DigitalOcean doesn't block — see [why Mailgun is required](/faq/mailgun-newsletters/).

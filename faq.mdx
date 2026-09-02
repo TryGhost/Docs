@@ -13,6 +13,10 @@ Ghost ships with a mature set of APIs. Each API endpoint has a status, which ind
 Ghost doesn’t support load-balanced clustering or multi-server setups of any description, there should only be *one* Ghost instance per site.
 </Card>
 
+<Card title="Connection timeout when sending email on DigitalOcean" href="/faq/digitalocean-smtp-blocked/">
+DigitalOcean blocks outbound SMTP on ports 25, 465 and 587 by default, which causes Ghost to fail with a connection timeout when sending transactional email.
+</Card>
+
 <Card title="Filter property not working in routing" href="/faq/filter-property-routes-yaml/">
 Working with more complex iterations of the filter property in the routes.yaml file can cause conflicts or unexpected behaviour. Here are the most common issues.
 </Card>
