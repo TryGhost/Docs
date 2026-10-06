@@ -7,111 +7,113 @@ description: "Migrate from a self-hosted instance to Ghost(Pro) with this guide"
 If you're a Ghost(Pro) customer, our team may be able to help you migrate your content and subscribers. Learn more about our [Concierge service](https://ghost.org/concierge/).
 </Note>
 
-This guide will walk you through the process of migrating from a self-hosted Ghost instance on your own server to Ghost(Pro).
+This guide walks you through moving from a self-hosted Ghost instance on your own server to Ghost(Pro). The same steps work for moving between any two Ghost sites, or for creating a copy of your site for development.
 
-## Prerequisites
+## Export your data
 
-If your self-hosted site is running an older major version of Ghost, you may need to update. Check the latest [version of Ghost on GitHub](https://github.com/TryGhost/Ghost/releases), and follow this [upgrade guide](/update/).
+Start by downloading a copy of your site data and media files from your self-hosted site.
 
-## Back up your data
+### Export from Ghost Admin
 
-The first step towards moving from your own self-hosted Ghost instance to Ghost(Pro) is to retrieve all of your data from your server to your local machine. It’s best to do this first, to ensure you have a backup in place.
+Log into Ghost Admin on your self-hosted site and go to **Settings → Advanced → Import/Export**. Open the **Export** tab and click **All data**.
+
+<Frame>
+  <img src="/images/ghost-export-all-data.png" alt="The Export tab in Ghost Admin's migration tools, showing the All data and Post analytics buttons" />
+</Frame>
+
+Choose what to include, then click **Export**. Keep the dialog open until the download finishes.
+
+<Frame>
+  <img src="/images/ghost-export-data-modal-self-hosted.png" alt="The Export data dialog on a self-hosted site, with checkboxes for content & settings, members, post analytics, themes, and redirects & routes" />
+</Frame>
+
+Your browser downloads a single `.zip` file containing:
+
+| What you selected | File in the zip |
+| --- | --- |
+| Content & settings | `export.json` |
+| Members | `members.csv` |
+| Post analytics | `post-analytics.csv` |
+| Themes | `themes/{theme-name}.zip` (one per installed theme) |
+| Redirects & routes | `routes.yaml` and `redirects.yaml` |
+
+### Copy your images
+
+Images and other media aren't part of the self-hosted export, so you'll need shell access to your server to copy them. If you're unable to get shell access, ask your web host for a zip of your images directory.
 
 <Note>
-The commands in this guide assume you followed our [Ubuntu guide](/install/ubuntu/) to set up your own instance. If you used another method, you’ll need to adapt the paths in the commands to suit.
-
+The commands below assume you followed the [Ubuntu guide](/install/ubuntu/) to set up your instance. If you used another method, adapt the paths to suit.
 </Note>
 
-### Exporting content
-
-Log into Ghost Admin for your self-hosted in production and navigate to the **Import/Export** view, and click **Export**, then click the **Content & settings** button to download your content. This will be `.json` file, with a name like `my-site.ghost.2020-09-30-14-15-49.json`.
-
-<Frame>
-  <img src="/images/ghost-migration-tools-export-options.png" />
-</Frame>
-
-### Routes and redirects
-
-From the **Labs** page, click **Download current redirects** to get your redirects file. This will be called `redirects.yaml` (or `redirects.json` depending on your Ghost version). If you’re using custom routes, click **Download current routes.yaml** to get your `routes.yaml` file.
-
-<Frame>
-  <img src="/images/ghost-migration-routes-redirects.png" />
-</Frame>
-
-### Themes
-
-Navigate to the **Themes** view, then go to **Installed** and click the **...** option, next to the Active label, to download your current theme. This will be a `.zip` file. Optionally, if you have other themes that you’d like to save, download them and back them up.
-
-<Frame>
-  <img src="/images/ghost-download-active-theme.png" />
-</Frame>
-
-### Images
-
-To download your images, you’ll need shell access to your server. If you’re unable to gain shell access to your current web host, you may need to contact their support team and ask for a zip of your images directory.
-
-Once you’re logged in to your server, `cd` to the `content` directory:
+Once you're logged in to your server, `cd` to the `content` directory and zip the `images` directory with all its contents:
 
 ```bash
 cd /var/www/ghost/content
-```
-
-And then `zip` the `images` directory with all its contents:
-
-```bash
 zip -r images.zip images/*
 ```
 
-Ensure your `images` folder only contains images. Any other file types may cause import errors.
+Make sure your `images` folder only contains images. Other file types may cause import errors.
 
-Now we need to get that zip file from your server onto your local machine:
+Then copy the zip from your server to your local machine:
 
 ```bash
 scp user@123.456.789.123:/var/www/ghost/content/images.zip ~/Desktop/images.zip
 ```
 
-The folder structure should look like this, with `images` being the only top-level folder once unzipped:
+Once unzipped, `images` should be the only top-level folder:
 
 <Frame>
-  <img src="/images/a28febce-images-in-finder_huf248f9006ca4711e6e56a11852458172_99427_1260x0_resize_q100_h2_box.webp" />
+  <img src="/images/a28febce-images-in-finder_huf248f9006ca4711e6e56a11852458172_99427_1260x0_resize_q100_h2_box.webp" alt="Finder window showing an images folder as the only top-level folder" />
 </Frame>
 
-## Uploading to Ghost(Pro)
+## Upload to Ghost(Pro)
 
-Once you’ve retrieved all of these exports, you can upload them to Ghost(Pro) in the same order.
+Unzip your export, then upload each part to your new site in the order below.
 
 ### Content
 
-Log into your new Ghost(Pro) site, and head to the **Import/Export** view. Next, click on to the **Universal Import** button, select your content `.json` file and click **Import**.
+Log into your new Ghost(Pro) site and go to **Settings → Advanced → Import/Export**. On the **Import** tab, click **Universal import**, select `export.json`, and click **Import**.
 
 <Frame>
-  <img src="/images/ghost-migration-universal-import.png" />
+  <img src="/images/ghost-migration-universal-import.png" alt="The Universal import option in Ghost Admin's migration tools" />
 </Frame>
 
-### Routes and Redirects
+### Routes and redirects
 
-Navigate to the **Labs** view, click **Upload redirects JSON**, then select your `redirects.json` file to upload it. Then click **Upload routes YAML**, select your `routes.yaml` file to upload that.
+Go to **Settings → Advanced → Labs**. Under **Migration options**, click **Upload redirects** and select `redirects.yaml`, then click **Upload routes YAML** and select `routes.yaml`.
 
 ### Themes
 
-Head over to the **Themes** view, and click **Upload a theme**, select your theme `.zip` file, and activate it.
+Go to **Settings → Design & branding → Change theme**, click **Upload theme**, select the theme `.zip` from the `themes` folder, and activate it.
 
 <Frame>
-  <img src="/images/ghost-theme-upload-activate.png" />
+  <img src="/images/ghost-theme-upload-activate.png" alt="Uploading and activating a theme in Ghost Admin" />
 </Frame>
 
 ### Images
 
-The final step is to upload your images. The best way to approach this depends on how big your `images.zip` file is. A large file will take longer to upload and process.
+How best to upload your images depends on the size of `images.zip`. A large file takes longer to upload and process.
 
-If your file is less than 500mb, you can upload this zip in the same way you uploaded your content JSON file. If the file is larger, it’s recommended to split it into multiple smaller files, whilst retaining the folder structure.
+If the file is under 500 MB, upload it with **Universal import**, the same way you imported `export.json`. If it's larger, split it into several smaller zips that keep the same folder structure.
 
-If you have a large image directory or encounter any errors, contact support so we can help upload your images.
+If you have a very large image directory or run into errors, contact support and we'll help upload your images.
+
+### Members
+
+*Skip this step if you don't have members.*
+
+If you have paid members, connect your new site to **the same Stripe account** you used before you import. Learn how in the [members guide](https://ghost.org/help/setup-members/#connect-a-stripe-account).
+
+Then go to **Members**, click the settings icon, choose **Import members**, and select `members.csv`. You'll get an email when the import is complete.
+
+<Note>
+`post-analytics.csv` is included in your export for your records. Ghost(Pro) starts collecting analytics fresh from your first post.
+</Note>
 
 ***
 
 ## Summary
 
-Congratulations on moving to Ghost(Pro). All that’s left to do is check over your content to ensure everything works as expected.
+Congratulations on moving to Ghost(Pro). All that's left to do is check over your content to make sure everything works as expected.
 
 By hosting your site with us, you directly fund future product development of Ghost itself and allow us to make the product better for everyone 💘
