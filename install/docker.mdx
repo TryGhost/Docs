@@ -177,13 +177,14 @@ Docker Compose passes the same value to Ghost and Traffic Analytics.
 
 ### Apply the configuration
 
-Recreate the affected containers so Ghost and Traffic Analytics receive matching credentials:
+Pull the latest images, then recreate the affected containers so Ghost and Traffic Analytics are up to date and receive matching credentials:
 
 ```bash
+docker compose --profile=analytics pull
 docker compose --profile=analytics up -d
 ```
 
-Run this command whenever you change the secret. A container restart alone does not apply environment changes.
+Run the `up` command whenever you change the secret. A container restart alone does not apply environment changes.
 
 ## Enabling Social Web (ActivityPub)
 
