@@ -16,7 +16,7 @@ The fastest way to perform a backup is to use Ghost CLI to automatically generat
 If you need more control over your backups, or need to back up a Docker installation, the following sections explain how to manually back up different parts of your Ghost site.
 
 <Note>
-**What's included:** JSON exports are great for moving content between sites, but don't include email analytics, member engagement data, or comments. For disaster recovery or exact site replication, back up your database and content folder directly.
+**What's included:** The export from Ghost Admin is great for moving content between sites, but doesn't include comments, member activity history, or your media files. For disaster recovery or exact site replication, back up your database and content folder directly.
 </Note>
 
 ### Database backup
@@ -80,47 +80,39 @@ scp -r your_username@your_server:~/ghost-backups/ ./ghost-backups/
 
 ***
 
-### Export content
+### Export from Ghost Admin
 
-Log into Ghost Admin, navigate to the**Labs**view, and click**Export**to download all content. This will be a`.json`file, with a name like`my-site.ghost.2020-09-30-14-15-49.json`.
-
-<Frame>
-  <img src="/images/4b376b49-download-content_hua52806e65860e327ac2a06c0b285d95b_21881_1722x0_resize_q100_h2_box_3.webp" />
-</Frame>
-
-### Download routes and redirects
-
-Staying on the**Labs**page, click**Download current redirects**to get your redirects file. This will be called`redirects.yaml`or`redirects.json`depending on your Ghost version. If you’re using custom routes, click**Download current routes.yaml**to get your`routes.yaml`file.
+Log into Ghost Admin and go to **Settings → Advanced → Import/Export**. Open the **Export** tab and click **All data**.
 
 <Frame>
-  <img src="/images/491f0552-download-routes-redirects_hub0b987ca0988930e4cb2d6cb22c57b87_19346_1738x0_resize_q100_h2_box_3.webp" />
+  <img src="/images/ghost-export-all-data.png" alt="The Export tab in Ghost Admin's migration tools, showing the All data and Post analytics buttons" />
 </Frame>
 
-### Download themes
-
-Navigate to **Settings → Site → Theme → Change theme** to download your active theme, and any other themes you want to store. This will be a`.zip`file.
+Choose what to include, then click **Export**. Keep the dialog open until the download finishes.
 
 <Frame>
-  <img src="/images/9daff533-download-themes_hu358079c312968754f2a55fd07e1e0d75_497694_2332x0_resize_q100_h2_box_3.webp" />
+  <img src="/images/ghost-export-data-modal-self-hosted.png" alt="The Export data dialog on a self-hosted site, with checkboxes for content & settings, members, post analytics, themes, and redirects & routes" />
 </Frame>
+
+Your browser downloads a single `.zip` file containing:
+
+| What you selected | File in the zip |
+| --- | --- |
+| Content & settings | `export.json` |
+| Members | `members.csv` |
+| Post analytics | `post-analytics.csv` |
+| Themes | `themes/{theme-name}.zip` (one per installed theme) |
+| Redirects & routes | `routes.yaml` and `redirects.yaml` |
 
 ### Copy images, files and media
 
-To download images and media, you’ll need shell access to your server. If you’re unable to gain shell access to your current web host, you may need to contact their support team.
+To download images and media, you'll need shell access to your server. If you're unable to gain shell access to your current web host, you may need to contact their support team.
 
-When logged in to your server,`cd`to the`content`directory: `cd /var/www/ghost/content`
+When logged in to your server, `cd` to the `content` directory: `cd /var/www/ghost/content`
 
-Then,`zip`the`images`and other file storage directories with their contents `zip -r content-files.zip images/ files/ media/`
+Then, `zip` the `images` and other file storage directories with their contents: `zip -r content-files.zip images/ files/ media/`
 
-Then, to move the zip files from your server onto your local machine. `scp user@123.456.789.123:/var/www/ghost/content/content-files.zip ~/Desktop/content-files.zip`
-
-### Export members
-
-Export all members in one CSV file from the Members dashboard in Ghost Admin.
-
-<Frame>
-  <img src="/images/1539a62b-export-members_hua4d8503095287f368fad3a048eba2785_16838_1018x0_resize_q100_h2_box_3.webp" />
-</Frame>
+Then, to move the zip files from your server onto your local machine: `scp user@123.456.789.123:/var/www/ghost/content/content-files.zip ~/Desktop/content-files.zip`
 
 ***
 
@@ -168,7 +160,7 @@ tar xzf ~/ghost-backups/ghost_content_backup.tar.gz
 sudo chown -R ghost:ghost content
 
 # Restart Ghost
-ghost start
+ghost restart
 ```
 
 ### Copy images, files and media
@@ -181,19 +173,19 @@ Once this is complete, restart Ghost: `ghost restart`
 
 ### Import content
 
-To begin the content migration, head to the**Labs**section of Ghost Admin and import the`ghost.json`backup which you exported earlier.
+Unzip your export. Then go to **Settings → Advanced → Import/Export** in Ghost Admin, click **Universal import** on the **Import** tab, and select `export.json`.
 
 ### Upload routes and redirects
 
-From the Labs page, import the `routes.yaml` and `redirects.yaml` files that you previously downloaded for your backup data.
+Go to **Settings → Advanced → Labs**. Under **Migration options**, upload `redirects.yaml` and `routes.yaml` from your export.
 
 ### Upload theme
 
-Next, upload your theme in **Settings → Site → Theme → Change theme** in Ghost Admin to get your site looking the same way it did before.
+Go to **Settings → Design & branding → Change theme**, click **Upload theme**, and select the theme `.zip` from the `themes` folder in your export to get your site looking the same way it did before.
 
 ### Reconnect Stripe
 
-*Skip this step if you’re not using Stripe for paid subscriptions.*
+*Skip this step if you're not using Stripe for paid subscriptions.*
 
 To import paid members, Ghost needs to be connected to Stripe in Live mode before you import your members.
 
@@ -201,4 +193,4 @@ Make sure to connect Ghost to **the same Stripe account** you were using on your
 
 ### Import members
 
-With Stripe connected, you can now import your members CSV file. You’ll receive an email notification when the import process has completed.
+With Stripe connected, go to **Members**, click the settings icon, choose **Import members**, and select `members.csv` from your export. You'll receive an email notification when the import process has completed.
