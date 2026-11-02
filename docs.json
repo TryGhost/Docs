@@ -392,6 +392,74 @@
     {
       "source": "/themes/helpers/data/facebook",
       "destination": "/themes/helpers/data/social_url"
+    },
+    {
+      "source": "/api/content",
+      "destination": "/content-api"
+    },
+    {
+      "source": "/api/admin",
+      "destination": "/admin-api"
+    },
+    {
+      "source": "/api/gatsby",
+      "destination": "/jamstack/gatsby"
+    },
+    {
+      "source": "/api/ghost-cli",
+      "destination": "/ghost-cli"
+    },
+    {
+      "source": "/api/handlebars-themes/routing/collections",
+      "destination": "/themes/routing"
+    },
+    {
+      "source": "/docs/install",
+      "destination": "/install"
+    },
+    {
+      "source": "/docs/install-local",
+      "destination": "/install/local"
+    },
+    {
+      "source": "/docs/config",
+      "destination": "/config"
+    },
+    {
+      "source": "/docs/upgrade",
+      "destination": "/update"
+    },
+    {
+      "source": "/docs/dynamic-routing",
+      "destination": "/themes/routing"
+    },
+    {
+      "source": "/docs/supported-node-versions",
+      "destination": "/faq/node-versions"
+    },
+    {
+      "source": "/installation",
+      "destination": "/install"
+    },
+    {
+      "source": "/v1/docs/install",
+      "destination": "/install"
+    },
+    {
+      "source": "/v1.0.0/docs/config",
+      "destination": "/config"
+    },
+    {
+      "source": "/v1.0.0/docs/ghost-cli",
+      "destination": "/ghost-cli"
+    },
+    {
+      "source": "/themes/helpers/tags",
+      "destination": "/themes/helpers/data/tags"
+    },
+    {
+      "source": "/themes/helpers/is",
+      "destination": "/themes/helpers/functional/is"
     }
   ]
 }
