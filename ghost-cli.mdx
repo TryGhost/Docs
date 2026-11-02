@@ -5,7 +5,7 @@ description: A fully loaded tool to help you get Ghost installed and configured 
 
 ***
 
-Ghost-CLI is to makes it possible to install or update Ghost with a *single command*. In addition, it performs useful operations to assist with maintaining your environment, such as:
+Ghost-CLI makes it possible to install or update Ghost with a *single command*. In addition, it performs useful operations to assist with maintaining your environment, such as:
 
 * Checking for common environment problems
 * Creating a **logical folder structure**
@@ -30,7 +30,7 @@ Ghost-CLI is an npm module that can be installed via either npm.
 sudo npm install -g ghost-cli@latest
 ```
 
-Locally, you likely don’t need sudo. Using `@latest` means this command with either install or update ghost-cli and you only have to remember the one command for both ✨
+Locally, you likely don’t need sudo. Using `@latest` means this command will either install or update ghost-cli and you only have to remember the one command for both ✨
 
 ## Useful options
 
@@ -358,7 +358,7 @@ ghost start --no-check-mem
 
 #### Debugging
 
-If running `ghost start` gives an error, try use `ghost run` to start Ghost without using the configured process manager. This runs Ghost directly, similar to `node index.js`. All the output from Ghost will be written directly to your terminal, showing up any uncaught errors or other output that might not appear in log files.
+If running `ghost start` gives an error, try using `ghost run` to start Ghost without using the configured process manager. This runs Ghost directly, similar to `node index.js`. All the output from Ghost will be written directly to your terminal, showing up any uncaught errors or other output that might not appear in log files.
 
 ***
 
@@ -415,7 +415,7 @@ If running `ghost restart` gives an error, try using `ghost run` to debug the er
 
 ### Ghost update
 
-Run `ghost update` to upgraded to new versions of Ghost, which are typically released every 1-2 weeks.
+Run `ghost update` to upgrade to new versions of Ghost, which are typically released every 1-2 weeks.
 
 #### Arguments
 
@@ -496,7 +496,7 @@ Running `ghost doctor` will check the system for potential hiccups when installi
 
 This command allows you to use `ghost-cli` as a diagnostic tool to find potential issues for your Ghost install, and provides information about what needs to be resolved if any issues arise.
 
-The CLI automatically runs this command when installing, updating, starting or setting up ghost - and you can use is manually with `ghost doctor`.
+The CLI automatically runs this command when installing, updating, starting or setting up ghost - and you can use it manually with `ghost doctor`.
 
 #### Arguments
 
@@ -564,7 +564,7 @@ Ghost’s default log config creates log files in the `content/logs` directory, 
 1. An **access log** that contains all log levels, named e.g. `[site_descriptor].log`
 2. An **error log** that contains error-level logs *only*, named e.g. `[site_descriptor].error.log`
 
-The site descriptor follows the pattern `[proto]__[url]__[env]` e.g. `http__localhost_2368__development` or `https__mysite_com__production`. The files are be rotated, therefore you may see many numbered files in the `content/logs` directory.
+The site descriptor follows the pattern `[proto]__[url]__[env]` e.g. `http__localhost_2368__development` or `https__mysite_com__production`. The files are rotated, therefore you may see many numbered files in the `content/logs` directory.
 
 #### Arguments
 
@@ -727,7 +727,7 @@ Ghost uses [acme.sh](https://github.com/Neilpang/acme.sh) for provisioning and r
 
 Ghost-CLI will create a new system user and user-group called `ghost` during the installation process. The `ghost` user will be used to run your Ghost process in `systemd`.
 
-This means that Ghost will run with a user that has no system-wide permissions or a shell that can be used (similar to other services such as NGINX). Sudo is required to modify files in the The `<install-directory>/content/`.
+This means that Ghost will run with a user that has no system-wide permissions or a shell that can be used (similar to other services such as NGINX). Sudo is required to modify files in the `<install-directory>/content/`.
 
 To prevent accidental permissions changes, it’s advisable to execute tasks such as image upload or theme upload using Ghost admin.
 

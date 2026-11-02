@@ -77,7 +77,7 @@ Optional custom templates that can be selected in the admin interface on a per-p
 
 #### tag.hbs
 
-An optional template for tag archive pages. If not specifed the `index.hbs` template is used. Custom templates for individual tags can be created using `tag-:slug`.
+An optional template for tag archive pages. If not specified the `index.hbs` template is used. Custom templates for individual tags can be created using `tag-:slug`.
 
 #### author.hbs
 
@@ -119,7 +119,7 @@ Each page in a Ghost theme belongs to a [context](/themes/contexts/) which is de
 
 ## Styling
 
-When building themes it is important to consider the scope of classes and IDs to avoid clashes between your main styling and your post styling. IDs are automatically generated for headings and used inside a post, so it’s best practice to scope things to a particular part of the page. For example: `#themename-my-id` is preferrable to `#my-id`.
+When building themes it is important to consider the scope of classes and IDs to avoid clashes between your main styling and your post styling. IDs are automatically generated for headings and used inside a post, so it’s best practice to scope things to a particular part of the page. For example: `#themename-my-id` is preferable to `#my-id`.
 
 ## Development mode
 

@@ -71,7 +71,7 @@ Edit the `Caddyfile` in `caddy/Caddyfile`:
 
 1. For separate admin domains (optional), uncomment the "Separate admin domains" block
 2. If you're using a root or "naked" domain like mysite.com for `DOMAIN` in `.env`: Redirect the www variant to your root domain by setting up DNS for both domains and then uncomment the "Redirect www -\> root domain" block.
-3. If you're using a www domain for `DOMAIN` in `.env`: Redirect your root domain to the www variant by setting up DNS for both domains, then uncomment the "Redirect root -\> www domain" block" and set `CHANGE_ME` to your root domain without the [www](http://www). This is required for ActivityPub to work correctly with www domains.
+3. If you're using a www domain for `DOMAIN` in `.env`: Redirect your root domain to the www variant by setting up DNS for both domains, then uncomment the "Redirect root -\> www domain" block and set `CHANGE_ME` to your root domain without the www. This is required for ActivityPub to work correctly with www domains.
 
 You only need to uncomment blocks, and if necessary edit `CHANGE_ME`. All the other variables come from `.env` and should be left as-is.
 
@@ -279,7 +279,7 @@ The single exception is the `DATABASE_xxx` variables. These must not be changed 
 
 ## Migrating a Ghost-CLI Install
 
-Using our migration assistant, you can migrate a Ghost-CLI site over to the new Docker Compose setup in place on the same sever.
+Using our migration assistant, you can migrate a Ghost-CLI site over to the new Docker Compose setup in place on the same server.
 
 The migration assistant performs the following actions:
 
@@ -367,7 +367,7 @@ The `ghost-docker` repo includes handling for these “[migrations](/install/doc
 
 Here's an overview of what all is happening behind the scenes when updating to a new version of Ghost with changes to the Tinybird datafiles:
 
-1. When you run `docker compose pull` and `docker compose up -d` as part of the [normal upgrade process](install/docker#updating-ghost), this will pull the latest version of the Ghost container to your host. This container includes the Tinybird datafiles.
+1. When you run `docker compose pull` and `docker compose up -d` as part of the [normal upgrade process](/install/docker#updating-ghost), this will pull the latest version of the Ghost container to your host. This container includes the Tinybird datafiles.
 2. The `tinybird-login` container will run. Assuming you've already logged in to Tinybird as part of your initial setup, this service will noop. If you’re not logged in to Tinybird already for any reason, this service will fail, which means the Tinybird migrations did not run.
    1. If you're not logged in, run `docker compose run --rm tinybird-login` first, then run `docker compose up -d` again.
 1. After `tinybird-login` has completed successfully, the `tinybird-sync` service will run in the new Ghost container. This service copies the Tinybird files from the Ghost container into the `tinybird_files` volume, then exits.
@@ -388,4 +388,4 @@ Here are a few steps you can take to start troubleshooting:
 - Check the logs of the `tinybird-login` service using `docker compose logs tinybird-login`. If this service was successful, you should see “Tinybird already logged in” in the logs. If this service failed for any reason, try authenticating with Tinybird again using `docker compose run --rm tinybird-login`.
 - Check the logs of the `tinybird-sync` service using `docker compose logs tinybird-sync`. If this service was successful, you should see “Tinybird files synced into shared volume.”
 - Check the logs of the `tinybird-deploy` service using `docker compose logs tinybird-deploy`. This will show the complete logs from the latest attempt to deploy changes to your Tinybird workspace, which should hopefully tip you off to what went wrong.
-- Check the “Deployments” section of your Tinybird UI (Tinybird Worksapce \> Deployments on the left side bar). This will show you which Deployment is currently live, and may provide some hints if the latest deployment failed for any reason.
+- Check the “Deployments” section of your Tinybird UI (Tinybird Workspace \> Deployments on the left side bar). This will show you which Deployment is currently live, and may provide some hints if the latest deployment failed for any reason.
