@@ -102,6 +102,7 @@ There are a number of configuration options which are explained in detail in thi
 | `portal`            | Optional      | Relocate or remove the scripts for Portal                                                                                        |
 | `sodoSearch`        | Optional      | Relocate or remove the scripts for Sodo search                                                                                   |
 | `comments`          | Optional      | Relocate or remove the scripts for comments                                                                                      |
+| `members`           | Optional      | Change the maximum number of member custom fields                                                                                |
 
 ### URL
 
@@ -983,3 +984,17 @@ The script and stylesheet can be relocated by changing the URLs, or disabled ent
     "styles": "https://cdn.jsdelivr.net/npm/@tryghost/comments-ui@~{version}/umd/main.css"
 }
 ```
+
+### Members
+
+By default, a site can have up to 100 member [custom fields](/admin-api/custom-fields/overview), archived fields included. The limit can be changed with `maxDefinitions`:
+
+```json
+"members": {
+    "metafields": {
+        "maxDefinitions": 200
+    }
+}
+```
+
+Setting it to `0` stops new custom fields from being created. A limit lower than the number of fields a site already has keeps the existing fields, but no more can be added until enough are deleted. If the value isn’t a whole number of 0 or more, Ghost uses the default.

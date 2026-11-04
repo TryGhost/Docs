@@ -51,6 +51,8 @@ Currently Ghost has support for below events on which webhook can be setup:
 | `member.edited`         | Triggered whenever a member is edited in Ghost                       |
 | `member.deleted`        | Triggered whenever a member is deleted from Ghost                    |
 
+Member events include the member’s [custom field](/admin-api/members/custom-field-values) values in `metafields`, in the same format as the Admin API. For `member.added` and `member.edited`, they’re in `current`. When an edit changes them, the values from before the edit are in `previous.metafields`. For `member.deleted`, the member’s values are in `previous.metafields`.
+
 ## Stripe webhooks
 
 Webhooks allow Ghost to communicate with Stripe. In order to use Stripe with a local version of Ghost you’ll need to do some additional setup to allow webhook events happen between Stripe and Ghost.
