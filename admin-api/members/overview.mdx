@@ -7,7 +7,7 @@ The members resource provides an endpoint for fetching, creating, and updating m
 Fetch members (by default, the 15 newest members are returned):
 
 ```json
-// GET /admin/members/?include=newsletters%2Clabels
+// GET /admin/members/?include=newsletters%2Clabels%2Cmetafields
 {
     "members": [
         {
@@ -55,7 +55,12 @@ Fetch members (by default, the 15 newest members are returned):
                     "description": null,
                     "status": "active"
                 }
-            ]
+            ],
+            "metafields": {
+                "custom": {
+                    "company": "Ghost"
+                }
+            }
         }
     ]
 }
@@ -85,6 +90,7 @@ Fetch members (by default, the 15 newest members are returned):
 | **email\_suppression**      | `{suppressed, info}` - whether the member's email is on the suppression list (bounces/complaints) and the reason                                                                     |
 | **attribution**             | Source attribution for the member's signup: `{id, type, url, title, referrer_source, referrer_medium, referrer_url}`. Only returned by the single-member read endpoint              |
 | **email\_recipients**       | Per-email delivery records for this member. Only returned when `?include=email_recipients` is requested                                                                              |
+| **metafields**              | The member's [custom field](/admin-api/members/custom-field-values) values, as `{custom: {<key>: <value>}}`. Included when `?include=metafields` is requested, and by default when reading, creating, or updating a single member. Left out when the member has no values |
 
 ### Subscription object
 

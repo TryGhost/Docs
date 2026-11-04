@@ -248,7 +248,14 @@
                     "pages": [
                       "admin-api/members/overview",
                       "admin-api/members/creating-a-member",
-                      "admin-api/members/updating-a-member"
+                      "admin-api/members/updating-a-member",
+                      "admin-api/members/custom-field-values"
+                    ]
+                  },
+                  {
+                    "group": "Custom fields",
+                    "pages": [
+                      "admin-api/custom-fields/overview"
                     ]
                   },
                   {

@@ -1,0 +1,78 @@
+---
+title: Custom field values
+---
+
+Custom fields allow publishers to keep extra information about their members, such as a company name, a list of interests, or a shipping address. Each member’s values are read and written with the members resource. The fields themselves, with their keys, types, and options, are managed with the [custom fields resource](/admin-api/custom-fields/overview).
+
+### Values on a member
+
+A member’s custom field values are returned in its `metafields` object, under `custom`, keyed by each field’s `key`:
+
+```json
+// GET /admin/members/{id}/
+{
+    "members": [
+        {
+            "id": "623199bfe8bc4d3097caefe0",
+            "email": "jamie@example.com",
+            "name": "Jamie",
+            "metafields": {
+                "custom": {
+                    "company": "Ghost",
+                    "interests": ["Design", "Travel"],
+                    "shipping_address": {
+                        "line1": "62 Ghost Lane",
+                        "city": "Dublin",
+                        "country": "IE"
+                    }
+                }
+            }
+        }
+    ]
+}
+```
+
+By default, `metafields` is returned when reading, creating, or updating a single member. When browsing members, it’s returned when `?include=metafields` is requested. It’s left out for members with no custom field values, and values of [archived fields](/admin-api/custom-fields/overview#archiving-a-custom-field) are left out until the field is restored.
+
+Metafields are grouped by namespace, and `custom` is the namespace for the fields a site defines. It’s the only namespace today. More may be added in future, so it’s recommended to read the namespaces you know and ignore any others.
+
+### Setting values
+
+Values are set by including `metafields` when [creating](/admin-api/members/creating-a-member) or [updating](/admin-api/members/updating-a-member) a member. When updating, values are merged, not replaced. Only the fields included in `metafields.custom` are changed, and for an address, only the parts included. A request without `metafields` leaves all values unchanged.
+
+To clear a value, set it to `null`. Setting a part of an address to `null` clears just that part. An empty string or an empty list is refused rather than clearing the value.
+
+```json
+// PUT /admin/members/{id}/
+{
+    "members": [
+        {
+            "metafields": {
+                "custom": {
+                    "company": "Ghost Foundation",
+                    "interests": null,
+                    "shipping_address": {
+                        "city": "Cork",
+                        "line2": null
+                    }
+                }
+            }
+        }
+    ]
+}
+```
+
+### Field types
+
+The shape of a value depends on the [type](/admin-api/custom-fields/overview#the-custom-field-object) of its field:
+
+| Type             | Value                                                                       | Rules                                                                                                                                          |
+| ---------------- | --------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| **short\_text**  | String                                                                      | Up to 255 characters                                                                                                                           |
+| **long\_text**   | String                                                                      | Up to 65,535 bytes                                                                                                                             |
+| **list**         | Array of the options the member picked                                      | At least one option, each one of the field’s `settings.options`. One option at most when `settings.multiple` is `false`                        |
+| **address**      | Object with any of `line1`, `line2`, `city`, `state`, `postal_code`, and `country` | At least one part. `country` is a two-letter ISO 3166-1 code, stored in upper case. `postal_code` up to 32 characters, other parts up to 255 |
+
+Text is trimmed before it’s checked, and text left empty is refused. A list value keeps the options a member picked, even if the publisher later removes one of them from the field.
+
+Values are checked against their field when a member is created or updated. Values for a field that doesn’t exist or is archived are refused. If any value is invalid, nothing in the request is saved, and the API returns a `422` error whose `property` names the value, for example `metafields.custom.company`, or `metafields.custom.shipping_address.country` for one part of an address.
