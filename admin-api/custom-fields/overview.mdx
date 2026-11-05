@@ -1,0 +1,207 @@
+---
+title: Overview
+---
+
+Custom fields allow publishers to keep extra information about their members, such as a company name, a list of interests, or a shipping address. The custom fields resource manages the fields themselves: their names, types, options, and order. Each member's values are read and written with the members resource, as documented in [Custom field values](/admin-api/members/custom-field-values).
+
+Publishers can also manage custom fields in Ghost Admin under **Settings > Membership > Custom fields**.
+
+Custom fields are member metafields in the `custom` namespace, so their endpoints live under `/admin/members/metafields/custom/`. Any staff user or integration can read custom fields. Only Administrators and custom integrations can create, update, reorder, or delete them.
+
+### The custom field object
+
+Whenever you fetch, create, or edit a custom field, the API responds with an array of one or more custom field objects under `members_metafields`.
+
+```json
+// GET /admin/members/metafields/custom/
+{
+    "members_metafields": [
+        {
+            "namespace": "custom",
+            "key": "company",
+            "name": "Company",
+            "type": "short_text",
+            "status": "active",
+            "access": {
+                "member": "none"
+            },
+            "created_at": "2026-11-02T10:15:00.000Z",
+            "updated_at": null
+        },
+        {
+            "namespace": "custom",
+            "key": "interests",
+            "name": "Interests",
+            "type": "list",
+            "settings": {
+                "options": ["Design", "Travel", "Food"],
+                "multiple": true
+            },
+            "status": "active",
+            "access": {
+                "member": "write"
+            },
+            "created_at": "2026-11-02T10:16:00.000Z",
+            "updated_at": "2026-11-03T09:00:00.000Z"
+        },
+        {
+            "namespace": "custom",
+            "key": "shipping_address",
+            "name": "Shipping address",
+            "type": "address",
+            "status": "active",
+            "access": {
+                "member": "read"
+            },
+            "created_at": "2026-11-02T10:17:00.000Z",
+            "updated_at": null
+        }
+    ]
+}
+```
+
+| Key             | Description                                                                                                                                                  |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **namespace**   | Always `custom` for custom fields                                                                                                                            |
+| **key**         | Reference to the field in a member's `metafields.custom`. Generated from the name when the field is created, using lowercase letters, numbers, and underscores. Never changes, even when the field is renamed |
+| **name**        | Name of the field, as shown in Ghost Admin                                                                                                                   |
+| **type**        | `short_text`, `long_text`, `list`, or `address` - the kind of value the field holds. See [Field types](/admin-api/members/custom-field-values#field-types)    |
+| **settings**    | `list` fields only - `{options, multiple}`, the options in display order and whether a member can pick more than one                                         |
+| **status**      | `active` or `archived` - denotes if the field is active or archived. See [Archiving a custom field](#archiving-a-custom-field)                                |
+| **access**      | `{member}` - what members can do with the field in their account: `none`, `read`, or `write`                                                                |
+| **created\_at** | Date and time the field was created                                                                                                                          |
+| **updated\_at** | Date and time the field was last updated, or `null`                                                                                                          |
+
+### Parameters
+
+When retrieving custom fields from the Admin API, it’s possible to use the `filter` parameter.
+
+Available **filter** values:
+
+* `status:archived` - for retrieving archived fields only
+* `status:[active,archived]` - for retrieving active and archived fields
+
+By default, only active fields are returned, in the order they’re shown in Ghost Admin.
+
+### Retrieving a custom field
+
+```js
+GET /admin/members/metafields/custom/{key}/
+```
+
+Returns a single field by its key, whether it’s active or archived.
+
+### Creating custom fields
+
+```js
+POST /admin/members/metafields/custom/
+```
+
+Required fields: `name`, `type`
+
+* `name` - name of the field, up to 191 characters. Must be unique among the site’s custom fields, ignoring case, archived fields included
+* `type` - `short_text`, `long_text`, `list`, or `address`. Can’t be changed later
+* `settings` - required for `list` fields only. `options` is a list of 2 to 100 unique options, each up to 255 characters and without a `|`. `multiple` is `true` if a member can pick more than one
+* `access` - `{member}` set to `none`, `read`, or `write`. Defaults to `none`
+
+Up to 100 fields can be created in one request:
+
+```json
+// POST /admin/members/metafields/custom/
+{
+    "members_metafields": [
+        {
+            "name": "Company",
+            "type": "short_text"
+        },
+        {
+            "name": "Interests",
+            "type": "list",
+            "settings": {
+                "options": ["Design", "Travel", "Food"],
+                "multiple": true
+            },
+            "access": {
+                "member": "write"
+            }
+        }
+    ]
+}
+```
+
+A successful request returns a `201` response with the new fields, which are added to the end of the order.
+
+Each field’s key is generated from its name, so `Shipping address` becomes `shipping_address`. If that key is already taken, a number is added, as in `shipping_address_2`.
+
+If any field in the request is invalid, none are created. The `422` error’s `property` names the problem, and for a request with several fields, its `context` may name the field, for example `Custom field 2 of 3.`
+
+### Updating a custom field
+
+```js
+PUT /admin/members/metafields/custom/{key}/
+```
+
+The `name`, `settings`, `access`, and `status` of a field can be updated. Fields left out of the request are unchanged. New `settings` replace both `options` and `multiple`, and changing the options doesn’t change the options members have already picked. The `key` and `type` of a field can’t be changed.
+
+```json
+// PUT /admin/members/metafields/custom/{key}/
+{
+    "members_metafields": [
+        {
+            "name": "Topics",
+            "settings": {
+                "options": ["Design", "Travel", "Food", "Music"],
+                "multiple": true
+            }
+        }
+    ]
+}
+```
+
+### Archiving a custom field
+
+A field the site no longer uses can be archived by updating its `status`:
+
+```json
+// PUT /admin/members/metafields/custom/{key}/
+{
+    "members_metafields": [
+        {
+            "status": "archived"
+        }
+    ]
+}
+```
+
+Archived fields are left out of the list of fields, their values are left out of member responses, and new values for them are refused. Their values are kept, and the field keeps its name and key. Setting `status` back to `active` restores the field and its values.
+
+### Reordering custom fields
+
+```js
+PUT /admin/members/metafields/custom/
+```
+
+The request lists every field’s key in the new order, archived fields included. A request that leaves out a field, names a field twice, or names a field that doesn’t exist is refused. The response contains every field, archived fields included, in the new order.
+
+```json
+// PUT /admin/members/metafields/custom/
+{
+    "members_metafields": [
+        { "key": "interests" },
+        { "key": "company" },
+        { "key": "shipping_address" }
+    ]
+}
+```
+
+### Deleting a custom field
+
+```js
+DELETE /admin/members/metafields/custom/{key}/
+```
+
+Only archived fields can be deleted. Deleting a field permanently removes every member’s value for it, and frees its name and key. Delete requests have no payload in the request or response. Successful deletes return an empty `204` response.
+
+### Limits
+
+By default, a site can have up to 100 custom fields, archived fields included. The limit can be changed with the [`maxDefinitions`](/config#members) config option. Requests that would go over the limit are refused with a `403` error whose message states the limit, and nothing is created. Deleting an archived field makes room for another.
