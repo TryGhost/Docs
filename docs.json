@@ -460,6 +460,230 @@
     {
       "source": "/themes/helpers/is",
       "destination": "/themes/helpers/functional/is"
+    },
+    {
+      "source": "/concepts/config",
+      "destination": "/config"
+    },
+    {
+      "source": "/docs/mail-config",
+      "destination": "/config#mail"
+    },
+    {
+      "source": "/v1/docs/mail-config",
+      "destination": "/config#mail"
+    },
+    {
+      "source": "/v1/docs/config",
+      "destination": "/config"
+    },
+    {
+      "source": "/docs/configuring-ghost",
+      "destination": "/config"
+    },
+    {
+      "source": "/usage/configuration",
+      "destination": "/config"
+    },
+    {
+      "source": "/docs/using-a-custom-storage-module",
+      "destination": "/config#storage-adapters"
+    },
+    {
+      "source": "/storage-adapters",
+      "destination": "/config#storage-adapters"
+    },
+    {
+      "source": "/concepts/storage-adapters",
+      "destination": "/config#storage-adapters"
+    },
+    {
+      "source": "/themes/helpers/get",
+      "destination": "/themes/helpers/functional/get"
+    },
+    {
+      "source": "/themes/helpers/foreach",
+      "destination": "/themes/helpers/functional/foreach"
+    },
+    {
+      "source": "/themes/helpers/has",
+      "destination": "/themes/helpers/functional/has"
+    },
+    {
+      "source": "/themes/helpers/translate",
+      "destination": "/themes/helpers/utility/translate"
+    },
+    {
+      "source": "/themes/helpers/pagination",
+      "destination": "/themes/helpers/utility/pagination"
+    },
+    {
+      "source": "/themes/helpers/ghost-head",
+      "destination": "/themes/helpers/utility/ghost_head_foot"
+    },
+    {
+      "source": "/themes/helpers/ghost_head",
+      "destination": "/themes/helpers/utility/ghost_head_foot"
+    },
+    {
+      "source": "/themes/helpers/post",
+      "destination": "/themes/helpers/data/post"
+    },
+    {
+      "source": "/themes/helpers/navigation",
+      "destination": "/themes/helpers/data/navigation"
+    },
+    {
+      "source": "/themes/helpers/url",
+      "destination": "/themes/helpers/data/url"
+    },
+    {
+      "source": "/api/helpers",
+      "destination": "/themes/helpers"
+    },
+    {
+      "source": "/api/handlebars-themes",
+      "destination": "/themes"
+    },
+    {
+      "source": "/api/handlebars-themes/helpers/get",
+      "destination": "/themes/helpers/functional/get"
+    },
+    {
+      "source": "/api/handlebars-themes/helpers/has",
+      "destination": "/themes/helpers/functional/has"
+    },
+    {
+      "source": "/api/handlebars-themes/helpers/foreach",
+      "destination": "/themes/helpers/functional/foreach"
+    },
+    {
+      "source": "/themes/context",
+      "destination": "/themes/contexts"
+    },
+    {
+      "source": "/content-api/handlebars-themes/context/page",
+      "destination": "/themes/contexts/page"
+    },
+    {
+      "source": "/content-api/handlebars-themes/context/index",
+      "destination": "/themes/contexts/index-context"
+    },
+    {
+      "source": "/content-api/handlebars-themes/context/author",
+      "destination": "/themes/contexts/author"
+    },
+    {
+      "source": "/content-api/handlebars-themes/routing/channels",
+      "destination": "/themes/routing#channels"
+    },
+    {
+      "source": "/concepts/routing",
+      "destination": "/themes/routing"
+    },
+    {
+      "source": "/api/javascript/content",
+      "destination": "/content-api/javascript"
+    },
+    {
+      "source": "/content-api/javascript/content",
+      "destination": "/content-api/javascript"
+    },
+    {
+      "source": "/content-api/javascript/admin",
+      "destination": "/admin-api/javascript"
+    },
+    {
+      "source": "/api/content/posts",
+      "destination": "/content-api/posts"
+    },
+    {
+      "source": "/api/migration",
+      "destination": "/migration"
+    },
+    {
+      "source": "/api/webhooks",
+      "destination": "/webhooks"
+    },
+    {
+      "source": "/api/ghost-cli/config",
+      "destination": "/ghost-cli#ghost-config"
+    },
+    {
+      "source": "/docs/ghost-cli",
+      "destination": "/ghost-cli"
+    },
+    {
+      "source": "/v1/docs/ghost-cli",
+      "destination": "/ghost-cli"
+    },
+    {
+      "source": "/docs/cli-install",
+      "destination": "/ghost-cli#ghost-install"
+    },
+    {
+      "source": "/v1.0.0/docs/cli-install",
+      "destination": "/ghost-cli#ghost-install"
+    },
+    {
+      "source": "/docs/cli-update",
+      "destination": "/ghost-cli#ghost-update"
+    },
+    {
+      "source": "/docs/cli-setup",
+      "destination": "/ghost-cli#ghost-setup"
+    },
+    {
+      "source": "/v1.0.0/docs/cli-setup",
+      "destination": "/ghost-cli#ghost-setup"
+    },
+    {
+      "source": "/docs/cli-knowledge-base",
+      "destination": "/ghost-cli#knowledgebase"
+    },
+    {
+      "source": "/installation/upgrading",
+      "destination": "/update"
+    },
+    {
+      "source": "/install/install/docker",
+      "destination": "/install/docker"
+    },
+    {
+      "source": "/v1.0.0/docs/install",
+      "destination": "/install"
+    },
+    {
+      "source": "/v1.0.0/docs/install-local",
+      "destination": "/install/local"
+    },
+    {
+      "source": "/v1/docs/install-local",
+      "destination": "/install/local"
+    },
+    {
+      "source": "/docs/hosting",
+      "destination": "/hosting"
+    },
+    {
+      "source": "/concepts/hosting",
+      "destination": "/hosting"
+    },
+    {
+      "source": "/v1/docs/hosting",
+      "destination": "/hosting"
+    },
+    {
+      "source": "/docs/contributing",
+      "destination": "/contributing"
+    },
+    {
+      "source": "/v1/docs/contributing",
+      "destination": "/contributing"
+    },
+    {
+      "source": "/v1/docs/supported-node-versions",
+      "destination": "/faq/node-versions"
     }
   ]
 }
