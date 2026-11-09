@@ -8,5 +8,12 @@
             matchPackageNames: ["mint"],
             automerge: false,
         },
+        {
+            description: "Keep .nvmrc and engines on the newest Node.js LTS release Mintlify supports. CI checks that this limit matches the Mint CLI README",
+            matchDatasources: ["node-version"],
+            allowedVersions: "<25",
+            groupName: "Node.js",
+            automerge: true,
+        },
     ],
 }

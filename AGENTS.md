@@ -5,7 +5,10 @@ This repository contains Ghost's Mintlify-powered developer documentation. See
 
 ## Tooling
 
-- Use a Node.js version supported by `package.json`.
+- Use the Node.js version in `.nvmrc`: the newest LTS release Mintlify
+  supports. Renovate keeps `.nvmrc` and `engines` in `package.json` below the
+  limit in its Node.js rule in `renovate.json5`. When CI reports that
+  Mintlify's limit changed, update that rule.
 - Enable pnpm with `corepack enable pnpm`.
 - Install the repository-local Mintlify CLI with `pnpm install`.
 

@@ -26,10 +26,28 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
-          node-version: 26.13.0
+          node-version-file: .nvmrc
           cache: pnpm
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --frozen-lockfile --config.engine-strict=true
+      - name: Check Node.js matches Mintlify
+        # The Mint CLI README states which Node.js versions Mintlify supports,
+        # such as "Node 25+ is not supported". Renovate keeps .nvmrc and
+        # package.json engines on the newest LTS release below the limit in
+        # renovate.json5, so that limit must follow Mintlify's.
+        run: |
+          limit=$(grep -oP 'Node \K[0-9]+(?=\+ is not supported)' node_modules/mint/README.md) || {
+            echo "::error::Mintlify changed how the Mint CLI README states its supported Node.js versions. Check it, then update .nvmrc, package.json engines, the Node.js rule in renovate.json5, and this check."
+            exit 1
+          }
+          if ! grep -q "allowedVersions: \"<$limit\"" renovate.json5; then
+            echo "::error::Mintlify now says Node.js $limit+ is not supported. Set allowedVersions in the Node.js rule in renovate.json5 to \"<$limit\"; Renovate then moves .nvmrc and package.json engines to the newest Node.js LTS release below $limit."
+            exit 1
+          fi
+          if (( $(cut -d. -f1 .nvmrc) >= limit )); then
+            echo "::error::.nvmrc pins Node.js $(<.nvmrc), but Mintlify does not support Node.js $limit+."
+            exit 1
+          fi
       - name: Validate documentation
         run: pnpm test:validate
       - name: Check links
@@ -47,10 +65,10 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
-          node-version: 26.13.0
+          node-version-file: .nvmrc
           cache: pnpm
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --frozen-lockfile --config.engine-strict=true
       - name: Lint
         run: pnpm lint
 

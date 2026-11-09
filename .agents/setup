@@ -13,6 +13,38 @@ timed() {
 	echo "    $label took $((SECONDS - start))s"
 }
 
+# Mintlify supports only some Node.js releases, so the orb runs the version
+# pinned in .nvmrc instead of the one that comes with the orb image. It replaces
+# the image's Node.js in /usr/local so every shell and service finds it.
+install_node() {
+	local version arch tarball tmp
+	version=$(<.nvmrc)
+	if [[ "$(node --version 2>/dev/null)" == "v$version" ]]; then
+		echo "    Node.js v$version is already installed"
+		return
+	fi
+	case "$(uname -m)" in
+	x86_64) arch=x64 ;;
+	aarch64) arch=arm64 ;;
+	*)
+		echo "unsupported architecture: $(uname -m)" >&2
+		return 1
+		;;
+	esac
+	tarball="node-v$version-linux-$arch.tar.gz"
+	tmp=$(mktemp -d)
+	curl -fsSL -o "$tmp/$tarball" "https://nodejs.org/dist/v$version/$tarball"
+	curl -fsSL "https://nodejs.org/dist/v$version/SHASUMS256.txt" | grep " $tarball\$" | (cd "$tmp" && sha256sum --check --quiet -)
+	sudo rm -rf /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/corepack /usr/local/include/node
+	sudo tar -xzf "$tmp/$tarball" -C /usr/local --strip-components=1 --no-same-owner \
+		"node-v$version-linux-$arch/"{bin,include,lib,share}
+	rm -rf "$tmp"
+	if [[ "$(node --version)" != "v$version" ]]; then
+		echo "another Node.js comes first on PATH: $(command -v node)" >&2
+		return 1
+	fi
+}
+
 # Mintlify commands need a ~250 MB preview client in ~/.mintlify. `mint validate`
 # downloads it to the shared location that `mint dev` copies from, so the first
 # preview or check in an orb skips the download. Validation findings in the docs
@@ -27,8 +59,10 @@ warm_mintlify_client() {
 	[[ "$versions" == *"client version "[0-9]* ]]
 }
 
-# Node.js and pnpm come with the orb image. pnpm switches to the version pinned
-# in package.json's packageManager field on its own.
+timed "Install Node.js $(<.nvmrc)" install_node
+
+# pnpm comes with the orb image and switches to the version pinned in
+# package.json's packageManager field on its own.
 echo "Node.js $(node --version), pnpm $(pnpm --version)"
 
 timed "Install dependencies" pnpm install --frozen-lockfile
