@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# Prepares an Amp orb for this repository. Amp runs it for fresh orbs and again
+# on top of older project snapshots, so every step must be safe to repeat.
+set -euo pipefail
+
+cd "$(dirname "${BASH_SOURCE[0]}")/.."
+
+timed() {
+	local label=$1 start=$SECONDS
+	shift
+	echo "==> $label"
+	"$@"
+	echo "    $label took $((SECONDS - start))s"
+}
+
+# Mintlify commands need a ~250 MB preview client in ~/.mintlify. `mint validate`
+# downloads it to the shared location that `mint dev` copies from, so the first
+# preview or check in an orb skips the download. Validation findings in the docs
+# must not fail setup; a CLI that cannot start or a missing client must.
+warm_mintlify_client() {
+	local versions
+	if ! CI=1 pnpm exec mint validate --telemetry=false; then
+		echo "    mint validate reported problems; continuing because setup only needs the client"
+	fi
+	versions=$(CI=1 pnpm exec mint version --telemetry=false)
+	echo "$versions"
+	[[ "$versions" == *"client version "[0-9]* ]]
+}
+
+# Node.js and pnpm come with the orb image. pnpm switches to the version pinned
+# in package.json's packageManager field on its own.
+echo "Node.js $(node --version), pnpm $(pnpm --version)"
+
+timed "Install dependencies" pnpm install --frozen-lockfile
+timed "Download Mintlify preview client" warm_mintlify_client

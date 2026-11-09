@@ -42,3 +42,6 @@ Thumbs.db
 # Logs
 logs/
 *.log
+
+# Amp orb portal links, generated per orb
+.amp/portals/*
