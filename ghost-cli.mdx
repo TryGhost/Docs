@@ -490,6 +490,66 @@ Read more about how to [manually download your site data](/faq/manual-backup/).
 
 ***
 
+### Ghost migrate-export
+
+Run `ghost migrate-export` to export a Ghost install as a migration bundle that you can import into a new Ghost setup, such as a Docker install.
+
+<Warning>
+This command is in beta. Make sure you have a backup before you run it.
+</Warning>
+
+#### How it works
+
+The command requires Ghost 6.61.0 or a later 6.x release. If your site runs an older version, run `ghost update` first, check that the site works, then export. The command also refuses to export a version whose Ghost Docker image isn't published on Docker Hub yet.
+
+Ghost-CLI stops Ghost while it copies your data. After the export, Ghost-CLI restarts Ghost if it was running before. The command never modifies or deletes the source install.
+
+The bundle includes:
+
+* Your database, as MySQL data
+* Your images, files, media, settings and themes
+* `redirects.yaml` or `redirects.json`
+* Your site config, converted to environment variables, without the database, server, URL, paths, logging and process settings
+
+The bundle config can contain secrets such as mail passwords. Ghost-CLI warns you when it finds them. Treat the bundle as sensitive, and delete it once the import is done.
+
+Exports work for MySQL installs and for local SQLite installs. A SQLite database is exported as MySQL data by default.
+
+If you exported a local install as MySQL data, the command prints the command to run next to import the bundle into a new Docker setup.
+
+#### Arguments
+
+```bash
+# Export the Ghost instance in the current directory
+ghost migrate-export
+
+# Export a specific Ghost instance (use ghost ls to find the name)
+ghost migrate-export [name]
+```
+
+#### Options
+
+```bash
+# Path of the bundle to create, outside the Ghost install (default: ghost-migration-<name>-<timestamp>)
+ghost migrate-export --output /path/to/bundle
+
+# Compress the bundle into a single tgz or zip archive
+ghost migrate-export --archive tgz
+
+# Choose how a SQLite database is exported: mysql-data (default) or portable (content JSON export and members CSV)
+ghost migrate-export --sqlite-format portable
+
+# Leave Ghost stopped after the export, so no new content is written before you switch to the new site
+ghost migrate-export --leave-stopped
+
+# Skip the beta confirmation prompt (required with --no-prompt)
+ghost migrate-export --force
+```
+
+If you used `--leave-stopped` and want to keep using the original site, run `ghost start` in its directory.
+
+***
+
 ### Ghost doctor
 
 Running `ghost doctor` will check the system for potential hiccups when installing or updating Ghost.
