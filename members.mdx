@@ -43,11 +43,13 @@ Members are stored in Ghost with the following attributes:
 * `email` (required)
 * `name`
 * `note`
-* `subscribed_to_emails`
+* `newsletters`
 * `stripe_customer_id`
-* `status` (free/paid/complimentary)
+* `status` (free/paid/comped/gift)
+* `tiers`
 * `labels`
 * `created_at`
+* `metafields` (values for the site’s [custom fields](/admin-api/members/custom-field-values))
 
 ### Imports
 
@@ -83,7 +85,7 @@ Ghost takes **0%** of your revenue. Whatever you generate from a paid blog, news
 
 All membership, customer and business data is controlled by you. Your members list can be exported any time and since subscriptions and billing takes place inside your own Stripe account, you retain full ownership of it.
 
-If you’re migrating an existing membership business from another platform, check our our [migration docs](/migration/).
+If you’re migrating an existing membership business from another platform, check our [migration docs](/migration/).
 
 ### Alternative payment gateways
 

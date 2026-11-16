@@ -1,7 +1,13 @@
 allowBuilds:
   '@scarf/scarf': false
+  esbuild: false
   keytar: false
   puppeteer: false
   sharp: false
+
+minimumReleaseAgeExclude:
+  - '@mintlify/cli@4.1.8'
+  - '@mintlify/package-builder@0.0.141'
+  - mint@4.3.8
 
 strictDepBuilds: true

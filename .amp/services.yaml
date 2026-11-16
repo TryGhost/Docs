@@ -1,0 +1,5 @@
+services:
+  docs:
+    command: pnpm dev --port "$PORT" --no-open
+    portal:
+      title: Docs preview
