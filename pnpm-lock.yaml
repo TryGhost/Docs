@@ -176,8 +176,8 @@ importers:
   .:
     devDependencies:
       mint:
-        specifier: 4.3.23
-        version: 4.3.23
+        specifier: 4.3.33
+        version: 4.3.33
       oxfmt:
         specifier: 0.78.0
         version: 0.78.0
@@ -463,13 +463,13 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@mintlify/cli@4.1.23':
-    resolution: {integrity: sha512-dhC7AiTjeLtQuGVv5zdFCZusVH9C7iXmr/JV+g62H7u/D8rVXYqU9tXFUle3KnZqWcpYI8mmpQm4h4MUoqcQTw==}
+  '@mintlify/cli@4.1.33':
+    resolution: {integrity: sha512-QohqHkX9SWYWLHkj2K/edHwlOZ/uMEHHaHrd+Wm0Ljp3pHQVIZMXKhG+/8pgG3am2R1gTxzpLs6Aj5HsM8l2+g==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
-  '@mintlify/package-builder@0.0.150':
-    resolution: {integrity: sha512-dnSH06XaYj41ZzN2JKEnRTUmG6VpZ7coogdnm42+RFUhNigiZJd86d/f5WVWo2ixq3tMu8RFcBsg+0/ldmKI0g==}
+  '@mintlify/package-builder@0.0.157':
+    resolution: {integrity: sha512-0VqI5w6RHC8YFvqYgqqJr6u4Remvw8n85pEmRP8YG6+NNKLPc3W6erO4n89pQRLrWnDXMfUAfjG6PzTjd4z4oQ==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -811,8 +811,8 @@ packages:
   minimist@1.2.8:
     resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
 
-  mint@4.3.23:
-    resolution: {integrity: sha512-OEYvrA/WY1f2Zj2tNwXXcji6KASy/fVdJJN1k+2HpoU7H3pHpw2GlW2hJ+/NHxDBJRaM0BE22TJJXMzJe7Fxdg==}
+  mint@4.3.33:
+    resolution: {integrity: sha512-5O0DcN2o3qJOPY/sNkBAcyDNHiG+0J4UPt0/pJGkj88RYr1uLkJPEseNcTAdynET/Ew45Udv5ipBz+Ui/Rk40Q==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -1094,15 +1094,15 @@ snapshots:
   '@img/sharp-win32-x64@0.33.5':
     optional: true
 
-  '@mintlify/cli@4.1.23':
+  '@mintlify/cli@4.1.33':
     dependencies:
       sharp: 0.33.5
     optionalDependencies:
-      '@mintlify/package-builder': 0.0.150
+      '@mintlify/package-builder': 0.0.157
       fsevents: 2.3.3
       keytar: 7.9.0
 
-  '@mintlify/package-builder@0.0.150':
+  '@mintlify/package-builder@0.0.157':
     dependencies:
       entities: 7.0.1
       esbuild: 0.25.12
@@ -1350,9 +1350,9 @@ snapshots:
   minimist@1.2.8:
     optional: true
 
-  mint@4.3.23:
+  mint@4.3.33:
     dependencies:
-      '@mintlify/cli': 4.1.23
+      '@mintlify/cli': 4.1.33
 
   mkdirp-classic@0.5.3:
     optional: true
