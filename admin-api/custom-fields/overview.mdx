@@ -2,7 +2,7 @@
 title: Overview
 ---
 
-Custom fields allow publishers to keep extra information about their members, such as a company name, a list of interests, or a shipping address. The custom fields resource manages the fields themselves: their names, types, options, and order. Each member's values are read and written with the members resource, as documented in [Custom field values](/admin-api/members/custom-field-values).
+Custom fields allow publishers to keep extra information about their members, such as a company name, a list of interests, a shipping address, or a phone number. The custom fields resource manages the fields themselves: their names, types, options, and order. Each member's values are read and written with the members resource, as documented in [Custom field values](/admin-api/members/custom-field-values).
 
 Publishers can also manage custom fields in Ghost Admin under **Settings > Membership > Custom fields**.
 
@@ -65,7 +65,7 @@ Whenever you fetch, create, or edit a custom field, the API responds with an arr
 | **namespace**   | Always `custom` for custom fields                                                                                                                            |
 | **key**         | Reference to the field in a member's `metafields.custom`. Generated from the name when the field is created, using lowercase letters, numbers, and underscores. Never changes, even when the field is renamed |
 | **name**        | Name of the field, as shown in Ghost Admin                                                                                                                   |
-| **type**        | `short_text`, `long_text`, `list`, or `address` - the kind of value the field holds. See [Field types](/admin-api/members/custom-field-values#field-types)    |
+| **type**        | `short_text`, `long_text`, `list`, `address`, or `phone` - the kind of value the field holds. See [Field types](/admin-api/members/custom-field-values#field-types) |
 | **settings**    | `list` fields only - `{options, multiple}`, the options in display order and whether a member can pick more than one                                         |
 | **status**      | `active` or `archived` - denotes if the field is active or archived. See [Archiving a custom field](#archiving-a-custom-field)                                |
 | **access**      | `{member}` - what members can do with the field in their account: `none`, `read`, or `write`                                                                |
@@ -100,7 +100,7 @@ POST /admin/members/metafields/custom/
 Required fields: `name`, `type`
 
 * `name` - name of the field, up to 191 characters. Must be unique among the site’s custom fields, ignoring case, archived fields included
-* `type` - `short_text`, `long_text`, `list`, or `address`. Can’t be changed later
+* `type` - `short_text`, `long_text`, `list`, `address`, or `phone`. Can’t be changed later
 * `settings` - required for `list` fields only. `options` is a list of 2 to 100 unique options, each up to 255 characters and without a `|`. `multiple` is `true` if a member can pick more than one
 * `access` - `{member}` set to `none`, `read`, or `write`. Defaults to `none`
 

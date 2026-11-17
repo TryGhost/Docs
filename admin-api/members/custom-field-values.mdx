@@ -2,7 +2,7 @@
 title: Custom field values
 ---
 
-Custom fields allow publishers to keep extra information about their members, such as a company name, a list of interests, or a shipping address. Each member’s values are read and written with the members resource. The fields themselves, with their keys, types, and options, are managed with the [custom fields resource](/admin-api/custom-fields/overview).
+Custom fields allow publishers to keep extra information about their members, such as a company name, a list of interests, a shipping address, or a phone number. Each member’s values are read and written with the members resource. The fields themselves, with their keys, types, and options, are managed with the [custom fields resource](/admin-api/custom-fields/overview).
 
 ### Values on a member
 
@@ -24,7 +24,8 @@ A member’s custom field values are returned in its `metafields` object, under 
                         "line1": "62 Ghost Lane",
                         "city": "Dublin",
                         "country": "IE"
-                    }
+                    },
+                    "phone": "+35315550123"
                 }
             }
         }
@@ -72,6 +73,7 @@ The shape of a value depends on the [type](/admin-api/custom-fields/overview#the
 | **long\_text**   | String                                                                      | Up to 65,535 bytes                                                                                                                             |
 | **list**         | Array of the options the member picked                                      | At least one option, each one of the field’s `settings.options`. One option at most when `settings.multiple` is `false`                        |
 | **address**      | Object with any of `line1`, `line2`, `city`, `state`, `postal_code`, and `country` | At least one part. `country` is a two-letter ISO 3166-1 code, stored in upper case. `postal_code` up to 32 characters, other parts up to 255 |
+| **phone**        | String, in E.164 format, such as `+442079460000`                            | Starts with `+` or `00` and the country code. Formatting such as spaces, dots, brackets, and dashes is ignored. Refused with an extension, or when it isn’t a valid number for its country |
 
 Text is trimmed before it’s checked, and text left empty is refused. A list value keeps the options a member picked, even if the publisher later removes one of them from the field.
 
