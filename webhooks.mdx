@@ -53,6 +53,168 @@ Currently Ghost has support for below events on which webhook can be setup:
 
 Member events include the member’s [custom field](/admin-api/members/custom-field-values) values in `metafields`, in the same format as the Admin API. For `member.added` and `member.edited`, they’re in `current`. When an edit changes them, the values from before the edit are in `previous.metafields`. For `member.deleted`, the member’s values are in `previous.metafields`.
 
+## Securing webhooks
+
+Ghost will send the `X-Ghost-Signature` header if you configure a webhook secret in Ghost Admin, which can be used to verify that a request came from your site:
+
+```
+X-Ghost-Signature: sha256={signature}, t={timestamp}
+```
+
+The `signature` is a hex-encoded HMAC-SHA256 hash of the raw request body followed by the `timestamp`, using the webhook secret as the key. The `timestamp` is a unix timestamp in milliseconds.
+
+To verify a request, you'll need to:
+
+1. Split the header into the `signature` and `timestamp` values
+2. Check the `timestamp`, and reject the request if it is more than a few minutes old
+3. Generate a hash from the raw request body and the `timestamp`, using your webhook secret as the key
+4. Compare the generated hash with the `signature`, and reject the request if they do not match
+
+Note that the hash must be generated from the raw request body, exactly as it was received. Parsing the JSON and serialising it again can change the content, and the hashes will not match.
+
+These examples show how to verify a request in JavaScript and PHP.
+
+<CodeGroup>
+
+~~~js JavaScript
+const crypto = require('crypto');
+
+function verifySignature(rawBody, header, secret) {
+    // Reject invalid input
+    if (typeof secret !== 'string' || secret.length === 0) {
+        return false;
+    }
+
+    if (typeof rawBody !== 'string' && !Buffer.isBuffer(rawBody)) {
+        return false;
+    }
+
+    if (typeof header !== 'string' || header.length > 1024) {
+        return false;
+    }
+
+    // Split the header into key=value parts
+    const parts = header.split(', ');
+    let signature = null;
+    let timestamp = null;
+
+    for (let i = 0; i < parts.length; i++) {
+        const index = parts[i].indexOf('=');
+
+        if (index < 1) {
+            return false;
+        }
+
+        const key = parts[i].slice(0, index);
+        const value = parts[i].slice(index + 1);
+
+        if (key === 'sha256') {
+            if (signature !== null) {
+                return false;
+            }
+            signature = value;
+        } else if (key === 't') {
+            if (timestamp !== null) {
+                return false;
+            }
+            timestamp = value;
+        }
+    }
+
+    // Reject a header without a valid signature and timestamp
+    if (signature === null || timestamp === null) {
+        return false;
+    }
+
+    if (!/^[0-9a-f]{64}$/.test(signature) || !/^\d{1,16}$/.test(timestamp)) {
+        return false;
+    }
+
+    // Reject requests with a time deviation greater than 5 minutes
+    if (Math.abs(Date.now() - Number(timestamp)) > 5 * 60 * 1000) {
+        return false;
+    }
+
+    // Generate the hash from the raw body and timestamp
+    const expected = crypto
+        .createHmac('sha256', secret)
+        .update(rawBody)
+        .update(timestamp)
+        .digest();
+
+    // Compare the hashes
+    return crypto.timingSafeEqual(expected, Buffer.from(signature, 'hex'));
+}
+~~~
+
+~~~php PHP
+<?php
+function verify_signature($raw_body, $header, $secret) {
+    // Reject invalid input
+    if (!is_string($secret) || $secret === '') {
+        return false;
+    }
+
+    if (!is_string($raw_body)) {
+        return false;
+    }
+
+    if (!is_string($header) || strlen($header) > 1024) {
+        return false;
+    }
+
+    // Split the header into key=value parts
+    $parts = explode(', ', $header);
+    $signature = null;
+    $timestamp = null;
+
+    foreach ($parts as $part) {
+        $index = strpos($part, '=');
+
+        if ($index === false || $index < 1) {
+            return false;
+        }
+
+        $key = substr($part, 0, $index);
+        $value = (string) substr($part, $index + 1);
+
+        if ($key === 'sha256') {
+            if ($signature !== null) {
+                return false;
+            }
+            $signature = $value;
+        } elseif ($key === 't') {
+            if ($timestamp !== null) {
+                return false;
+            }
+            $timestamp = $value;
+        }
+    }
+
+    // Reject a header without a valid signature and timestamp
+    if ($signature === null || $timestamp === null) {
+        return false;
+    }
+
+    if (!preg_match('/^[0-9a-f]{64}$/D', $signature) || !preg_match('/^\d{1,16}$/D', $timestamp)) {
+        return false;
+    }
+
+    // Reject requests with a time deviation greater than 5 minutes
+    if (abs((microtime(true) * 1000) - (float) $timestamp) > 5 * 60 * 1000) {
+        return false;
+    }
+
+    // Generate the hash from the raw body and timestamp
+    $expected = hash_hmac('sha256', $raw_body . $timestamp, $secret);
+
+    // Compare the hashes
+    return hash_equals($expected, $signature);
+}
+~~~
+
+</CodeGroup>
+
 ## Stripe webhooks
 
 Webhooks allow Ghost to communicate with Stripe. In order to use Stripe with a local version of Ghost you’ll need to do some additional setup to allow webhook events happen between Stripe and Ghost.
