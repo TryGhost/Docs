@@ -80,6 +80,7 @@ Can be one of the following
 * `+` - represents and
 * `,` - represents or
 * `(` filter expression `)` - overrides operator precedence
+* `-(` filter expression `)` - negates a group, matching every resource the group doesn't match. For example, `-(tag:news+featured:true)` returns every post that isn't a featured news post.
 
 #### Strings vs Literals
 
